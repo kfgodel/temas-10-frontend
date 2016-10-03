@@ -1,0 +1,39 @@
+{{navigation-bar}}
+
+<div class="row">
+  <div class="col s12">
+
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Nuevo proyecto</span>
+
+        <div class="row">
+          {{selector-de-estado elegido=proyecto.estado col="s2" }}
+          {{selector-de-elemento elegido=proyecto.elemento col="s2" }}
+          {{tenpines/input-text label='Nombre descriptivo' value=proyecto.nombreDescriptivo col="s8" }}
+        </div>
+
+      </div>
+      <div class="card-action">
+        {{tenpines/material-button label='Crear' action='crearProyecto' }}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  {{#tenpines/object-table col="s12" titulos='Creado, Id, Clave, Descriptivo, Estado, Acciones'}}
+    {{#each proyectos as |proyecto|}}
+      <tr>
+        <td>{{proyecto.creation}}</td>
+        <td>{{proyecto.id}}</td>
+        <td>{{proyecto.elemento.nombre}}</td>
+        <td>{{proyecto.nombreDescriptivo}}</td>
+        <td>{{proyecto.estado.nombre}}</td>
+        <td><span {{action 'borrarProyecto' proyecto}}>{{materialize/icon-component value='delete'}}</span></td>
+      </tr>
+    {{/each}}
+  {{/tenpines/object-table}}
+</div>
+
