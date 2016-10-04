@@ -1,3 +1,5 @@
+@import 'tenpines-material-components';
+
 .container {
   max-width: none;
 }
@@ -6,4 +8,8 @@
   .container {
     width: 80%;
   }
+}
+
+.titulo-de-tema {
+  font-size: x-large;
 }

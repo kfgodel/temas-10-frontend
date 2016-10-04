@@ -11,6 +11,8 @@ Router.map(function () {
   this.route('login');
   this.route('engaging-session');
 
+  this.route('proxima-roots');
+
   this.route('users', function () {
     this.route('edit', {path: "edit/:user_id"});
   });
