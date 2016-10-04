@@ -15,8 +15,8 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Npd-10p Frontend</name>
-  <description>Ember frontend para el proyecto de nombres de proyectos</description>
+  <name>Temas-10p Frontend</name>
+  <description>Ember frontend para el proyecto de temas de roots</description>
 
   <scm>
     <connection>scm:git:ssh://github.com/kfgodel/temas-10p-frontend.git</connection>

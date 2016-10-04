@@ -1,5 +1,5 @@
 import Ember from "ember";
 
 export default Ember.Object.extend({
-  displayName: 'NdP 10P',
+  displayName: 'Temas-10P',
 });

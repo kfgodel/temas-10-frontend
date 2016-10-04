@@ -16,5 +16,7 @@
 npm-debug.log
 testem.log
 
+target
+
 *.iml
 .idea

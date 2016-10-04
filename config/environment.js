@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   var ENV = {
-    modulePrefix: 'ndp-10p-frontend',
+    modulePrefix: 'temas-10p-frontend',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
