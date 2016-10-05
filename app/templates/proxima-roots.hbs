@@ -6,32 +6,19 @@
   </div>
 
   {{#tenpines/object-table bordered=true highlight=true titulos='Tema, Votos'}}
-    <tr>
-      <td>
-        {{tenpines/colored-label value='autor1' bgColor='green'}}
-        <span class="titulo-de-tema">Tema 1 </span>
-        <p>Este es el tema 1 como habiamos dicho</p>
-      </td>
-      <td>{{materialize/icon-helper 'thumb_down'}} [ 4 votos (2) ] {{materialize/icon-helper 'thumb_up'}}</td>
-    </tr>
-    <tr>
-      <td>
-        {{tenpines/colored-label value='autor2' bgColor='green'}}
-        <span class="titulo-de-tema">Tema 2 </span>
-        <p>Este es el tema 2 como habiamos dicho. dadeasd as dasde ajkashjk h kash jkhjkhajksdghjkagsjh
-          ahsdkjasjkdghashd asjkgasj dgash ajghsdah sjd gajsh jhagsdh a
-          hajsdhjkahsdj askjghjfguik nmkbmnbbcjkaghl hiouwehofij baldgfalueg ajsdfhlkahdfjkahuifgasd </p>
-      </td>
-      <td>- [ 3 votos ] +</td>
-    </tr>
-    <tr>
-      <td>
-        {{tenpines/colored-label value='autor3' bgColor='green'}}
-        <span class="titulo-de-tema">Tema 3 </span>
-        <p>Este es el tema 1 como habiamos dicho</p>
-      </td>
-      <td>{{materialize/icon-helper 'thumb_down'}} [ 18 votos (1) ] {{materialize/icon-helper 'thumb_up'}}</td>
-    </tr>
+    {{#each temasPropuestos as |tema|}}
+      <tr>
+        <td {{action 'sumarVoto' tema}}>
+          {{tenpines/colored-label value=tema.autor bgColor='green'}}
+          <span class="titulo-de-tema">{{tema.titulo}}</span>
+          <p>{{tema.descripcion}}</p>
+        </td>
+        <td>
+          {{tema.cantidadVotosTotales}} votos
+          {{#repetir-pedazo veces=tema.cantidadVotosPropios click=(action 'restarVoto' tema)}} {{materialize/icon-helper 'thumb_up' }} {{/repetir-pedazo}}
+        </td>
+      </tr>
+    {{/each}}
   {{/tenpines/object-table}}
 
 </div>
