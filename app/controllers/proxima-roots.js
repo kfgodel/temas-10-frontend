@@ -41,6 +41,15 @@ export default Ember.Controller.extend({
     restarVoto(tema){
       tema.decrementProperty('cantidadVotosTotales');
       tema.decrementProperty('cantidadVotosPropios');
+    },
+    mostrarFormulario(){
+      this.set('mostrandoFormulario', true);
+      this.set('nuevoTema', Ember.Object.create());
+    },
+    agregarTema(){
+      var temaAgregado = this.get('nuevoTema');
+      this.get('temasPropuestos').pushObject(temaAgregado);
+      this.set('mostrandoFormulario', false);
     }
   }
 

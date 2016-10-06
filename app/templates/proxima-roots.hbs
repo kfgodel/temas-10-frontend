@@ -5,7 +5,7 @@
     <h4>Proxima Roots: 23/10/2016</h4>
   </div>
 
-  {{#tenpines/object-table bordered=true highlight=true titulos='Tema, Votos'}}
+  {{#tenpines/object-table bordered=true highlight=true titulos='Tema, Votos' col='s12'}}
     {{#each temasPropuestos as |tema|}}
       <tr>
         <td {{action 'sumarVoto' tema}}>
@@ -20,5 +20,12 @@
       </tr>
     {{/each}}
   {{/tenpines/object-table}}
+
+  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormulario'}}><i
+    class="material-icons">add</i></a>
+
+  {{#if mostrandoFormulario}}
+    {{editor-de-tema tema=nuevoTema alGuardar=(action 'agregarTema') classNames='col s11'}}
+  {{/if}}
 
 </div>
