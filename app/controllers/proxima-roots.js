@@ -2,6 +2,16 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
 
+  proximaRoots: Ember.Object.create({fecha: '1981-10-20'}),
+
+  mostrandoFecha: Ember.computed('editandoFecha', function () {
+    return !this.get('editandoFecha');
+  }),
+
+  fechaObserver: Ember.observer('proximaRoots.fecha', function () {
+    this.set('editandoFecha', false);
+  }),
+
   temasPropuestos: Ember.A([
     Ember.Object.create({
       autor: 'autor 1',
@@ -50,6 +60,9 @@ export default Ember.Controller.extend({
       var temaAgregado = this.get('nuevoTema');
       this.get('temasPropuestos').pushObject(temaAgregado);
       this.set('mostrandoFormulario', false);
+    },
+    editarFecha(){
+      this.set('editandoFecha', true);
     }
   }
 

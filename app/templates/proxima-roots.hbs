@@ -1,8 +1,15 @@
 {{navigation-bar}}
 
 <div class="row">
-  <div class="col s12">
-    <h4>Proxima Roots: 23/10/2016</h4>
+  <div class="col s2">
+    <h4>Proxima Roots:</h4>
+  </div>
+  <div class="col s2">
+    {{#if editandoFecha}}
+      {{tenpines/input-date label='Fecha' value=proximaRoots.fecha}}
+    {{else}}
+      <h4 {{action "editarFecha" }}>{{proximaRoots.fecha}}</h4>
+    {{/if}}
   </div>
 
   {{#tenpines/object-table bordered=true highlight=true titulos='Tema, Votos' col='s12'}}
