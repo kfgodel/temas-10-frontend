@@ -5,26 +5,35 @@ import EmberizedResourceCreatorInjected from "ateam-ember-resource/mixins/emberi
  */
 export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
 
-  getAllReuniones: function () {
-    return this._proyectoResource().getAll();
+  getProximaReunion(){
+    return this._proximaReunionResource().getAll();
   },
-  createReunion: function (proyecto) {
-    return this._proyectoResource().create(proyecto);
+
+  getAllReuniones() {
+    return this._reunionResource().getAll();
   },
-  getReunion: function (userId) {
-    return this._proyectoResource().getSingle(userId);
+  createReunion(proyecto) {
+    return this._reunionResource().create(proyecto);
   },
-  updateReunion: function (proyecto) {
-    return this._proyectoResource().update(proyecto);
+  getReunion(userId) {
+    return this._reunionResource().getSingle(userId);
   },
-  removeReunion: function (user) {
-    return this._proyectoResource().remove(user);
+  updateReunion(proyecto) {
+    return this._reunionResource().update(proyecto);
+  },
+  removeReunion(user) {
+    return this._reunionResource().remove(user);
   },
 
   // PRIVATE
-  _proyectoResource: function () {
+  _reunionResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('reuniones');
+    return resource;
+  },
+  _proximaReunionResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('reuniones/proxima');
     return resource;
   },
 

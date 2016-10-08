@@ -6,23 +6,23 @@ import EmberizedResourceCreatorInjected from "ateam-ember-resource/mixins/emberi
 export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
 
   getAllTemas: function () {
-    return this._proyectoResource().getAll();
+    return this._temaResource().getAll();
   },
   createTema: function (proyecto) {
-    return this._proyectoResource().create(proyecto);
+    return this._temaResource().create(proyecto);
   },
   getTema: function (userId) {
-    return this._proyectoResource().getSingle(userId);
+    return this._temaResource().getSingle(userId);
   },
   updateTema: function (proyecto) {
-    return this._proyectoResource().update(proyecto);
+    return this._temaResource().update(proyecto);
   },
   removeTema: function (user) {
-    return this._proyectoResource().remove(user);
+    return this._temaResource().remove(user);
   },
 
   // PRIVATE
-  _proyectoResource: function () {
+  _temaResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('temas');
     return resource;

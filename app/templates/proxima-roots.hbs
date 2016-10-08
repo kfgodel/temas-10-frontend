@@ -13,7 +13,7 @@
   </div>
 
   {{#tenpines/object-table bordered=true highlight=true titulos='Tema, Votos' col='s12'}}
-    {{#each temasPropuestos as |tema|}}
+    {{#each proximaRoots.temasPropuestos as |tema|}}
       <tr>
         <td {{action 'sumarVoto' tema}}>
           {{tenpines/colored-label value=tema.autor bgColor='green'}}
