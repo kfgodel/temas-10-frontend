@@ -30,8 +30,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       this._votarPorTema(tema);
     },
     restarVoto(tema){
-      tema.decrementProperty('cantidadVotosTotales');
-      tema.decrementProperty('cantidadVotosPropios');
+      this._quitarVotoDeTema(tema);
     },
     mostrarFormulario(){
       this.set('mostrandoFormulario', true);
@@ -92,6 +91,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   _votarPorTema(tema){
     tema.agregarInteresado(this._idDeUsuarioActual());
+    this.temaService().updateTema(tema).then(()=> {
+      this._recargarReunion();
+    });
+  },
+
+  _quitarVotoDeTema(tema){
+    tema.quitarInteresado(this._idDeUsuarioActual());
     this.temaService().updateTema(tema).then(()=> {
       this._recargarReunion();
     });

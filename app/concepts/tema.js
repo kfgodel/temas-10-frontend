@@ -17,5 +17,13 @@ export default Ember.Object.extend({
 
   agregarInteresado(idDeInteresado){
     this.get('idsDeInteresados').pushObject(idDeInteresado);
+  },
+
+  quitarInteresado(idDeInteresado){
+    var interesados = this.get('idsDeInteresados');
+    var indice = interesados.indexOf(idDeInteresado);
+    if (indice >= 0) {
+      interesados.removeAt(indice);
+    }
   }
 });
