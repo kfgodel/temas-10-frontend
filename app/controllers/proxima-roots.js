@@ -24,10 +24,20 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     }
   }),
 
+  votosRestantes: Ember.computed('proximaRoots.temasPropuestos.@each.cantidadVotosPropios', function () {
+    var temas = this.get('proximaRoots.temasPropuestos');
+    var votosUsados = temas.reduce(function (previousValue, item) {
+      return previousValue + item.get('cantidadVotosPropios');
+    }, 0);
+    return 3 - votosUsados;
+  }),
+
 
   actions: {
     sumarVoto(tema){
-      this._votarPorTema(tema);
+      if (this.get('votosRestantes')) {
+        this._votarPorTema(tema);
+      }
     },
     restarVoto(tema){
       this._quitarVotoDeTema(tema);
