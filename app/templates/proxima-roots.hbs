@@ -12,21 +12,41 @@
     {{/if}}
   </div>
 
-  {{#tenpines/object-table bordered=true highlight=true titulos='Tema, Votos' col='s12'}}
-    {{#each proximaRoots.temasPropuestos as |tema|}}
+
+  <table class="bordered highlight">
+    <thead>
       <tr>
-        <td {{action 'sumarVoto' tema}}>
+        <th class="col s9">
+          Tema
+        </th>
+        <th class="col s2">
+          Votos
+        </th>
+        <th class="right-align col s1">
+          -
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {{#each proximaRoots.temasPropuestos as |tema|}}
+      <tr class="valign-wrapper">
+        <td {{action 'sumarVoto' tema}} class="col s9">
           {{tenpines/colored-label value=tema.autor bgColor='green'}}
           <span class="titulo-de-tema">{{tema.titulo}}</span>
           <p>{{tema.descripcion}}</p>
         </td>
-        <td>
+        <td class="col s2">
           {{tema.cantidadVotosTotales}} votos
           {{#repetir-pedazo veces=tema.cantidadVotosPropios click=(action 'restarVoto' tema)}} {{materialize/icon-helper 'thumb_up' }} {{/repetir-pedazo}}
         </td>
+        <td class="right-align col s1">
+          <span {{action 'quitarTema' tema}}>{{materialize/icon-helper 'delete'}}</span>
+        </td>
       </tr>
     {{/each}}
-  {{/tenpines/object-table}}
+    </tbody>
+  </table>
 
   <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormulario'}}><i
     class="material-icons">add</i></a>

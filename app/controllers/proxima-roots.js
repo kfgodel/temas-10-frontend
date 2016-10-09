@@ -34,15 +34,10 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       this.set('nuevoTema', Ember.Object.create());
     },
     agregarTema(){
-      var tema = this.get('nuevoTema');
-      this.temaService().createTema(tema)
-        .then((creado)=> {
-          var temasDeLaReunion = this.get('proximaRoots.temasPropuestos');
-          temasDeLaReunion.pushObject(creado);
-          this._guardarCambios().then(()=> {
-            this.set('mostrandoFormulario', false);
-          });
-        });
+      this._guardarTemaYAgregar();
+    },
+    quitarTema(tema){
+      this._quitarTemaYBorrar(tema);
     },
     editarFecha(){
       this.set('editandoFecha', true);
@@ -55,6 +50,34 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       .then((reunionGuardada)=> {
         this.set('proximaRoots', reunionGuardada)
       });
+  },
+
+  _guardarTemaYAgregar: function () {
+    var tema = this.get('nuevoTema');
+    this.temaService().createTema(tema)
+      .then((creado)=> {
+        this._agregarCreado(creado);
+      });
+  },
+  _agregarCreado: function (creado) {
+    var temasDeLaReunion = this.get('proximaRoots.temasPropuestos');
+    temasDeLaReunion.pushObject(creado);
+    this._guardarCambios().then(()=> {
+      this.set('mostrandoFormulario', false);
+    });
+  },
+
+  _quitarTemaYBorrar(tema){
+    var temasDeLaReunion = this.get('proximaRoots.temasPropuestos');
+    temasDeLaReunion.removeObject(tema);
+    this._guardarCambios().then(()=> {
+      this._borrarTema(tema);
+    });
+  },
+
+  _borrarTema(tema){
+    this.temaService().removeTema(tema);
   }
+
 
 });
