@@ -1,7 +1,8 @@
 import Ember from "ember";
 import ReunionServiceInjected from "../mixins/reunion-service-injected";
+import TemaServiceInjected from "../mixins/tema-service-injected";
 
-export default Ember.Controller.extend(ReunionServiceInjected, {
+export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, {
 
   proximaRoots: Ember.computed('model', function () {
     return this.get('model');
@@ -33,9 +34,15 @@ export default Ember.Controller.extend(ReunionServiceInjected, {
       this.set('nuevoTema', Ember.Object.create());
     },
     agregarTema(){
-      var temaAgregado = this.get('nuevoTema');
-      this.get('temasPropuestos').pushObject(temaAgregado);
-      this.set('mostrandoFormulario', false);
+      var tema = this.get('nuevoTema');
+      this.temaService().createTema(tema)
+        .then((creado)=> {
+          var temasDeLaReunion = this.get('proximaRoots.temasPropuestos');
+          temasDeLaReunion.pushObject(creado);
+          this._guardarCambios().then(()=> {
+            this.set('mostrandoFormulario', false);
+          });
+        });
     },
     editarFecha(){
       this.set('editandoFecha', true);

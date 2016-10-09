@@ -8,17 +8,17 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   getAllTemas: function () {
     return this._temaResource().getAll();
   },
-  createTema: function (proyecto) {
-    return this._temaResource().create(proyecto);
+  createTema: function (tema) {
+    return this._temaResource().create(tema);
   },
   getTema: function (userId) {
     return this._temaResource().getSingle(userId);
   },
-  updateTema: function (proyecto) {
-    return this._temaResource().update(proyecto);
+  updateTema: function (tema) {
+    return this._temaResource().update(tema);
   },
-  removeTema: function (user) {
-    return this._temaResource().remove(user);
+  removeTema: function (tema) {
+    return this._temaResource().remove(tema);
   },
 
   // PRIVATE
