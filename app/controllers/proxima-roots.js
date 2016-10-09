@@ -31,13 +31,16 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     mostrarFormulario(){
       this.set('mostrandoFormulario', true);
-      this.set('nuevoTema', Ember.Object.create());
+      this.set('nuevoTema', Ember.Object.create({
+          idDeReunion: this._idDeReunion()
+        })
+      );
     },
     agregarTema(){
-      this._guardarTemaYAgregar();
+      this._guardarTemaYRecargar();
     },
     quitarTema(tema){
-      this._quitarTemaYBorrar(tema);
+      this._borrarTemaYRecargar(tema);
     },
     editarFecha(){
       this.set('editandoFecha', true);
@@ -48,36 +51,32 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     var reunion = this.get('proximaRoots');
     return this.reunionService().updateReunion(reunion)
       .then((reunionGuardada)=> {
-        this.set('proximaRoots', reunionGuardada)
+        this.set('proximaRoots', reunionGuardada);
       });
   },
 
-  _guardarTemaYAgregar: function () {
+  _recargarReunion(){
+    this.reunionService().getReunion(this._idDeReunion()).then((reunion)=> {
+      this.set('proximaRoots', reunion);
+    });
+  },
+
+
+  _guardarTemaYRecargar: function () {
     var tema = this.get('nuevoTema');
-    this.temaService().createTema(tema)
-      .then((creado)=> {
-        this._agregarCreado(creado);
-      });
+    this.temaService().createTema(tema).then(()=> {
+      this._recargarReunion();
+    });
   },
-  _agregarCreado: function (creado) {
-    var temasDeLaReunion = this.get('proximaRoots.temasPropuestos');
-    temasDeLaReunion.pushObject(creado);
-    this._guardarCambios().then(()=> {
-      this.set('mostrandoFormulario', false);
+  _borrarTemaYRecargar(tema){
+    this.temaService().removeTema(tema).then(()=> {
+      this._recargarReunion();
     });
   },
 
-  _quitarTemaYBorrar(tema){
-    var temasDeLaReunion = this.get('proximaRoots.temasPropuestos');
-    temasDeLaReunion.removeObject(tema);
-    this._guardarCambios().then(()=> {
-      this._borrarTema(tema);
-    });
+  _idDeReunion: function () {
+    return this.get('proximaRoots.id');
   },
-
-  _borrarTema(tema){
-    this.temaService().removeTema(tema);
-  }
 
 
 });
