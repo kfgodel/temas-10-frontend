@@ -1,6 +1,7 @@
 import Ember from "ember";
+import ReunionServiceInjected from "../mixins/reunion-service-injected";
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(ReunionServiceInjected, {
 
   proximaRoots: Ember.computed('model', function () {
     return this.get('model');
@@ -11,7 +12,10 @@ export default Ember.Controller.extend({
   }),
 
   fechaObserver: Ember.observer('proximaRoots.fecha', function () {
-    this.set('editandoFecha', false);
+    if (this.get('editandoFecha')) {
+      this.set('editandoFecha', false);
+      this._guardarCambios();
+    }
   }),
 
 
@@ -36,7 +40,14 @@ export default Ember.Controller.extend({
     editarFecha(){
       this.set('editandoFecha', true);
     }
-  }
+  },
 
+  _guardarCambios(){
+    var reunion = this.get('proximaRoots');
+    return this.reunionService().updateReunion(reunion)
+      .then((reunionGuardada)=> {
+        this.set('proximaRoots', reunionGuardada)
+      });
+  }
 
 });
