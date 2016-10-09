@@ -1,6 +1,7 @@
 import Ember from "ember";
 import ReunionServiceInjected from "../mixins/reunion-service-injected";
 import TemaServiceInjected from "../mixins/tema-service-injected";
+import Tema from "../concepts/tema";
 
 export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, {
 
@@ -26,8 +27,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   actions: {
     sumarVoto(tema){
-      tema.incrementProperty('cantidadVotosTotales');
-      tema.incrementProperty('cantidadVotosPropios');
+      this._votarPorTema(tema);
     },
     restarVoto(tema){
       tema.decrementProperty('cantidadVotosTotales');
@@ -35,9 +35,10 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     mostrarFormulario(){
       this.set('mostrandoFormulario', true);
-      this.set('nuevoTema', Ember.Object.create({
+      this.set('nuevoTema', Tema.create({
         idDeReunion: this._idDeReunion(),
-        idDeAutor: this._idDeAutor()
+        idDeAutor: this._idDeUsuarioActual(),
+        usuarioActual: this.get('model.usuarioActual')
         })
       );
     },
@@ -62,6 +63,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   _recargarReunion(){
     this.reunionService().getReunion(this._idDeReunion()).then((reunion)=> {
+      this._usarInstanciasDeTemas(reunion, this.get('usuarioActual'));
       this.set('proximaRoots', reunion);
     });
   },
@@ -84,9 +86,25 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     return this.get('proximaRoots.id');
   },
 
-  _idDeAutor(){
+  _idDeUsuarioActual(){
     return this.get('usuarioActual.id');
-  }
+  },
 
+  _votarPorTema(tema){
+    tema.agregarInteresado(this._idDeUsuarioActual());
+    this.temaService().updateTema(tema).then(()=> {
+      this._recargarReunion();
+    });
+  },
+
+  _usarInstanciasDeTemas(reunion, usuarioActual){
+    var temasPropuestos = reunion.get('temasPropuestos');
+    for (var i = 0; i < temasPropuestos.length; i++) {
+      var objetoEmber = temasPropuestos[i];
+      objetoEmber.set('usuarioActual', usuarioActual);
+      var tema = Tema.create(objetoEmber);
+      temasPropuestos[i] = tema;
+    }
+  }
 
 });
