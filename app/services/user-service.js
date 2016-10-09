@@ -5,6 +5,10 @@ import EmberizedResourceCreatorInjected from "ateam-ember-resource/mixins/emberi
  */
 export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
 
+  getCurrentUser(){
+    return this._currentUserResource().getAll();
+  },
+
   getAllUsers: function () {
     return this._userResource().getAll();
   },
@@ -24,6 +28,11 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   _userResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('users');
+    return resource;
+  },
+  _currentUserResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('users/current');
     return resource;
   },
 

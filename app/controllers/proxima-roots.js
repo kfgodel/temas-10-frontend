@@ -5,7 +5,11 @@ import TemaServiceInjected from "../mixins/tema-service-injected";
 export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, {
 
   proximaRoots: Ember.computed('model', function () {
-    return this.get('model');
+    return this.get('model.proximaRoots');
+  }),
+
+  usuarioActual: Ember.computed('model', function () {
+    return this.get('model.usuarioActual');
   }),
 
   mostrandoFecha: Ember.computed('editandoFecha', function () {
@@ -32,7 +36,8 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     mostrarFormulario(){
       this.set('mostrandoFormulario', true);
       this.set('nuevoTema', Ember.Object.create({
-          idDeReunion: this._idDeReunion()
+        idDeReunion: this._idDeReunion(),
+        idDeAutor: this._idDeAutor()
         })
       );
     },
@@ -75,9 +80,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     });
   },
 
-  _idDeReunion: function () {
+  _idDeReunion() {
     return this.get('proximaRoots.id');
   },
+
+  _idDeAutor(){
+    return this.get('usuarioActual.id');
+  }
 
 
 });
