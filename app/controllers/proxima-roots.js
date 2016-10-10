@@ -59,6 +59,9 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     editarFecha(){
       this.set('editandoFecha', true);
+    },
+    cerrarVotacion(){
+      this._cerrarReunion();
     }
   },
 
@@ -121,6 +124,15 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       var tema = Tema.create(objetoEmber);
       temasPropuestos[i] = tema;
     }
+  },
+
+  _cerrarReunion(){
+    var reunion = this.get('proximaRoots');
+    this.reunionService().cerrarReunion(reunion)
+      .then((cerrada)=> {
+        this._usarInstanciasDeTemas(cerrada, this.get('usuarioActual'));
+        this.set('proximaRoots', cerrada);
+      });
   }
 
 });

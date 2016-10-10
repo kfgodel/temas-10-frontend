@@ -8,6 +8,10 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   getProximaReunion(){
     return this._proximaReunionResource().getAll();
   },
+  cerrarReunion(reunion){
+    var idDeReunion = reunion.get('id');
+    return this._cerrarReunionResource().getSingle(idDeReunion);
+  },
 
   getAllReuniones() {
     return this._reunionResource().getAll();
@@ -34,6 +38,11 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   _proximaReunionResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('reuniones/proxima');
+    return resource;
+  },
+  _cerrarReunionResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('reuniones/cerrar');
     return resource;
   },
 
