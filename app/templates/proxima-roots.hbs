@@ -14,9 +14,14 @@
   </div>
   {{#unless estaCerrada}}
     <div class="col s2 offset-s5">
-      {{tenpines/material-button label='Cerrar votacion' click=(action 'cerrarVotacion')}}
+      {{tenpines/material-button label='Cerrar votacion' click=(action 'cerrarVotacion') bgColor='red'}}
     </div>
   {{/unless}}
+  {{#if estaCerrada}}
+    <div class="col s2 offset-s5">
+      {{tenpines/material-button label='Reabrir votacion' click=(action 'reabrirVotacion') flat=true}}
+    </div>
+  {{/if}}
 
 </div>
 

@@ -12,6 +12,10 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
     var idDeReunion = reunion.get('id');
     return this._cerrarReunionResource().getSingle(idDeReunion);
   },
+  reabrirReunion(reunion){
+    var idDeReunion = reunion.get('id');
+    return this._reabrirReunionResource().getSingle(idDeReunion);
+  },
 
   getAllReuniones() {
     return this._reunionResource().getAll();
@@ -43,6 +47,11 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   _cerrarReunionResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('reuniones/cerrar');
+    return resource;
+  },
+  _reabrirReunionResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('reuniones/reabrir');
     return resource;
   },
 

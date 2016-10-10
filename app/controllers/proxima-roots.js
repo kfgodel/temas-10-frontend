@@ -76,6 +76,9 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     cerrarVotacion(){
       this._cerrarReunion();
+    },
+    reabrirVotacion(){
+      this._reabrirReunion();
     }
   },
 
@@ -144,6 +147,14 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     this.reunionService().cerrarReunion(reunion)
       .then((cerrada)=> {
         this._actualizarProximaRootsCon(cerrada);
+      });
+  },
+
+  _reabrirReunion(){
+    var reunion = this.get('proximaRoots');
+    this.reunionService().reabrirReunion(reunion)
+      .then((abierta)=> {
+        this._actualizarProximaRootsCon(abierta);
       });
   },
 
