@@ -5,11 +5,15 @@ import Tema from "../concepts/tema";
 
 export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, {
 
-  proximaRoots: Ember.computed('model', function () {
+  proximaRoots: Ember.computed('model.proximaRoots', function () {
     return this.get('model.proximaRoots');
   }),
 
-  usuarioActual: Ember.computed('model', function () {
+  estaCerrada: Ember.computed('model.proximaRoots.status', function () {
+    return this.get('model.proximaRoots.status') === 'CERRADA';
+  }),
+
+  usuarioActual: Ember.computed('model.usuarioActual', function () {
     return this.get('model.usuarioActual');
   }),
 
@@ -35,30 +39,40 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   actions: {
     sumarVoto(tema){
-      if (this.get('votosRestantes')) {
-        this._votarPorTema(tema);
-      }
+      this._siNoEstaCerrada(function () {
+        if (this.get('votosRestantes')) {
+          this._votarPorTema(tema);
+        }
+      });
     },
     restarVoto(tema){
-      this._quitarVotoDeTema(tema);
+      this._siNoEstaCerrada(function () {
+        this._quitarVotoDeTema(tema);
+      })
     },
     mostrarFormulario(){
-      this.set('mostrandoFormulario', true);
-      this.set('nuevoTema', Tema.create({
-        idDeReunion: this._idDeReunion(),
-        idDeAutor: this._idDeUsuarioActual(),
-        usuarioActual: this.get('model.usuarioActual')
-        })
-      );
+      this._siNoEstaCerrada(function () {
+        this.set('mostrandoFormulario', true);
+        this.set('nuevoTema', Tema.create({
+            idDeReunion: this._idDeReunion(),
+            idDeAutor: this._idDeUsuarioActual(),
+            usuarioActual: this.get('model.usuarioActual')
+          })
+        );
+      });
     },
     agregarTema(){
       this._guardarTemaYRecargar();
     },
     quitarTema(tema){
-      this._borrarTemaYRecargar(tema);
+      this._siNoEstaCerrada(function () {
+        this._borrarTemaYRecargar(tema);
+      });
     },
     editarFecha(){
-      this.set('editandoFecha', true);
+      this._siNoEstaCerrada(function () {
+        this.set('editandoFecha', true);
+      });
     },
     cerrarVotacion(){
       this._cerrarReunion();
@@ -69,14 +83,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     var reunion = this.get('proximaRoots');
     return this.reunionService().updateReunion(reunion)
       .then((reunionGuardada)=> {
-        this.set('proximaRoots', reunionGuardada);
+        this._actualizarProximaRootsCon(reunionGuardada);
       });
   },
 
   _recargarReunion(){
     this.reunionService().getReunion(this._idDeReunion()).then((reunion)=> {
-      this._usarInstanciasDeTemas(reunion, this.get('usuarioActual'));
-      this.set('proximaRoots', reunion);
+      this._actualizarProximaRootsCon(reunion);
     });
   },
 
@@ -130,9 +143,19 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     var reunion = this.get('proximaRoots');
     this.reunionService().cerrarReunion(reunion)
       .then((cerrada)=> {
-        this._usarInstanciasDeTemas(cerrada, this.get('usuarioActual'));
-        this.set('proximaRoots', cerrada);
+        this._actualizarProximaRootsCon(cerrada);
       });
+  },
+
+  _actualizarProximaRootsCon(reunion){
+    this._usarInstanciasDeTemas(reunion, this.get('usuarioActual'));
+    this.set('model.proximaRoots', reunion);
+  },
+
+  _siNoEstaCerrada(accion){
+    if (!this.get('estaCerrada')) {
+      accion.call(this);
+    }
   }
 
 });

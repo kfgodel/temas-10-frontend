@@ -12,16 +12,22 @@
       <h4 {{action "editarFecha" }}>{{proximaRoots.fecha}}</h4>
     {{/if}}
   </div>
-  <div class="col s2 offset-s5 valign-wrapper" style="height: 100%">
-    {{tenpines/material-button label='Cerrar votacion' click=(action 'cerrarVotacion')}}
-  </div>
+  {{#unless estaCerrada}}
+    <div class="col s2 offset-s5">
+      {{tenpines/material-button label='Cerrar votacion' click=(action 'cerrarVotacion')}}
+    </div>
+  {{/unless}}
+
 </div>
 
 <div class="row">
-  <table class="bordered highlight">
+  <table class="bordered highlight col s12">
     <thead>
       <tr>
-        <th class="col s9">
+        <th class="col s1">
+          #
+        </th>
+        <th class="col s8">
           Tema
         </th>
         <th class="col s2">
@@ -36,7 +42,10 @@
     <tbody>
     {{#each proximaRoots.temasPropuestos as |tema|}}
       <tr class="valign-wrapper">
-        <td {{action 'sumarVoto' tema}} class="col s9">
+        <td {{action 'sumarVoto' tema}} class="col s1">
+          {{tema.prioridad}}
+        </td>
+        <td {{action 'sumarVoto' tema}} class="col s8">
           {{tenpines/colored-label value=tema.autor bgColor='green'}}
           <span class="titulo-de-tema">{{tema.titulo}}</span>
           <p>{{tema.descripcion}}</p>
@@ -46,18 +55,23 @@
           {{#repetir-pedazo veces=tema.cantidadVotosPropios click=(action 'restarVoto' tema)}} {{materialize/icon-helper 'thumb_up' }} {{/repetir-pedazo}}
         </td>
         <td class="right-align col s1">
-          <span {{action 'quitarTema' tema}}>{{materialize/icon-helper 'delete'}}</span>
+          {{#unless estaCerrada}}
+            <span {{action 'quitarTema' tema}}>{{materialize/icon-helper 'delete'}}</span>
+          {{/unless}}
         </td>
       </tr>
     {{/each}}
     </tbody>
   </table>
 
-  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormulario'}}><i
-    class="material-icons">add</i></a>
+  {{#unless estaCerrada}}
+    <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormulario'}}><i
+      class="material-icons">add</i></a>
 
-  {{#if mostrandoFormulario}}
-    {{editor-de-tema tema=nuevoTema alGuardar=(action 'agregarTema') classNames='col s11'}}
-  {{/if}}
+    {{#if mostrandoFormulario}}
+      {{editor-de-tema tema=nuevoTema alGuardar=(action 'agregarTema') classNames='col s11'}}
+    {{/if}}
+  {{/unless}}
+
 
 </div>
