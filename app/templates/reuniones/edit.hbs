@@ -7,9 +7,9 @@
   </div>
   <div class="col s2">
     {{#if editandoFecha}}
-      {{tenpines/input-date label='Fecha' value=proximaRoots.fecha}}
+      {{tenpines/input-date label='Fecha' value=reunion.fecha}}
     {{else}}
-      <h4 {{action "editarFecha" }}>{{proximaRoots.fecha}}</h4>
+      <h4 {{action "editarFecha" }}>{{reunion.fecha}}</h4>
     {{/if}}
   </div>
   {{#unless estaCerrada}}
@@ -45,7 +45,7 @@
     </thead>
 
     <tbody>
-    {{#each proximaRoots.temasPropuestos as |tema|}}
+    {{#each reunion.temasPropuestos as |tema|}}
       <tr class="valign-wrapper">
         <td {{action 'sumarVoto' tema}} class="col s1">
           {{tema.prioridad}}

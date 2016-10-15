@@ -1,16 +1,16 @@
 import Ember from "ember";
-import ReunionServiceInjected from "../mixins/reunion-service-injected";
-import TemaServiceInjected from "../mixins/tema-service-injected";
-import Tema from "../concepts/tema";
+import ReunionServiceInjected from "../../mixins/reunion-service-injected";
+import TemaServiceInjected from "../../mixins/tema-service-injected";
+import Tema from "../../concepts/tema";
 
 export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, {
 
-  proximaRoots: Ember.computed('model.proximaRoots', function () {
-    return this.get('model.proximaRoots');
+  reunion: Ember.computed('model.reunion', function () {
+    return this.get('model.reunion');
   }),
 
-  estaCerrada: Ember.computed('model.proximaRoots.status', function () {
-    return this.get('model.proximaRoots.status') === 'CERRADA';
+  estaCerrada: Ember.computed('reunion.status', function () {
+    return this.get('reunion.status') === 'CERRADA';
   }),
 
   usuarioActual: Ember.computed('model.usuarioActual', function () {
@@ -21,17 +21,17 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     return !this.get('editandoFecha');
   }),
 
-  fechaObserver: Ember.observer('proximaRoots.fecha', function () {
+  fechaObserver: Ember.observer('reunion.fecha', function () {
     if (this.get('editandoFecha')) {
       this.set('editandoFecha', false);
       this._guardarCambios();
     }
   }),
 
-  votosRestantes: Ember.computed('proximaRoots.temasPropuestos.@each.cantidadVotosPropios', function () {
-    var temas = this.get('proximaRoots.temasPropuestos');
-    var votosUsados = temas.reduce(function (previousValue, item) {
-      return previousValue + item.get('cantidadVotosPropios');
+  votosRestantes: Ember.computed('reunion.temasPropuestos.@each.cantidadVotosPropios', function () {
+    var temas = this.get('reunion.temasPropuestos');
+    var votosUsados = temas.reduce(function (total, tema) {
+      return total + tema.get('cantidadVotosPropios');
     }, 0);
     return 3 - votosUsados;
   }),
@@ -83,16 +83,16 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   },
 
   _guardarCambios(){
-    var reunion = this.get('proximaRoots');
+    var reunion = this.get('reunion');
     return this.reunionService().updateReunion(reunion)
       .then((reunionGuardada)=> {
-        this._actualizarProximaRootsCon(reunionGuardada);
+        this._actualizarreunionCon(reunionGuardada);
       });
   },
 
   _recargarReunion(){
     this.reunionService().getReunion(this._idDeReunion()).then((reunion)=> {
-      this._actualizarProximaRootsCon(reunion);
+      this._actualizarreunionCon(reunion);
     });
   },
 
@@ -111,7 +111,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   },
 
   _idDeReunion() {
-    return this.get('proximaRoots.id');
+    return this.get('reunion.id');
   },
 
   _idDeUsuarioActual(){
@@ -143,24 +143,24 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   },
 
   _cerrarReunion(){
-    var reunion = this.get('proximaRoots');
+    var reunion = this.get('reunion');
     this.reunionService().cerrarReunion(reunion)
       .then((cerrada)=> {
-        this._actualizarProximaRootsCon(cerrada);
+        this._actualizarreunionCon(cerrada);
       });
   },
 
   _reabrirReunion(){
-    var reunion = this.get('proximaRoots');
+    var reunion = this.get('reunion');
     this.reunionService().reabrirReunion(reunion)
       .then((abierta)=> {
-        this._actualizarProximaRootsCon(abierta);
+        this._actualizarreunionCon(abierta);
       });
   },
 
-  _actualizarProximaRootsCon(reunion){
+  _actualizarreunionCon(reunion){
     this._usarInstanciasDeTemas(reunion, this.get('usuarioActual'));
-    this.set('model.proximaRoots', reunion);
+    this.set('model.reunion', reunion);
   },
 
   _siNoEstaCerrada(accion){
