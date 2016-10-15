@@ -48,7 +48,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     restarVoto(tema){
       this._siNoEstaCerrada(function () {
         this._quitarVotoDeTema(tema);
-      })
+      });
     },
     mostrarFormulario(){
       this._siNoEstaCerrada(function () {
