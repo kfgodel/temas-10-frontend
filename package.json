@@ -20,6 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "ateam-ember-authenticator": "0.0.6",
+    "ateam-ember-marked": "0.0.4",
     "ateam-ember-messager": "0.0.2",
     "ateam-ember-resource": "0.0.17",
     "ateam-ember-supplement": "0.0.6",

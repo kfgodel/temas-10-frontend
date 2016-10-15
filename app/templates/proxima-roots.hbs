@@ -3,7 +3,7 @@
 <div class="row">
 
   <div class="col s2">
-    <h4>Proxima Roots:</h4>
+    <h4>Roots:</h4>
   </div>
   <div class="col s2">
     {{#if editandoFecha}}
@@ -53,7 +53,7 @@
         <td {{action 'sumarVoto' tema}} class="col s8">
           {{tenpines/colored-label value=tema.autor bgColor='green'}}
           <span class="titulo-de-tema">{{tema.titulo}}</span>
-          <p>{{tema.descripcion}}</p>
+          <p>{{markdown-view value=tema.descripcion}}</p>
         </td>
         <td class="col s2">
           {{tema.cantidadVotosTotales}} votos
