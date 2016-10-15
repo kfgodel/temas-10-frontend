@@ -25,6 +25,9 @@ export default Ember.Service.extend(TransitionerInjected, {
   navigateToProximaRoots(){
     this._navigateTo('proxima-roots');
   },
+  navigateToReuniones(){
+    this._navigateTo('reuniones.list');
+  },
   navigateToReunionesEdit(user){
     this._navigateTo('reuniones.edit', user);
   },
