@@ -1,5 +1,5 @@
 <div class="row">
-  {{#tenpines/object-table titulos='Id, Status, Fecha, Temas,-' col="s12" }}
+  {{#tenpines/object-table titulos='Id, Status, Fecha, Temas,-' col=anchoDeTabla }}
     {{#each model as |reunion|}}
       <tr>
         <td {{action 'verReunion' reunion}}>{{reunion.id}}</td>
@@ -13,4 +13,33 @@
       </tr>
     {{/each}}
   {{/tenpines/object-table}}
+
+  {{# if mostrandoDetalle}}
+    <div class="col s4">
+      <div class="card">
+
+        <div class="card-content">
+          <span class="card-title">Fecha {{reunionSeleccionada.fecha}}</span>
+
+          <div class="row">
+            {{#tenpines/object-table titulos='Prioridad, Titulo, Votos' col='s12' }}
+              {{#each reunionSeleccionada.temasPropuestos as |tema|}}
+                <tr>
+                  <td>{{tema.prioridad}}</td>
+                  <td>{{tema.titulo}}</td>
+                  <td>{{tema.cantidadVotosTotales}}</td>
+                </tr>
+              {{/each}}
+            {{/tenpines/object-table}}
+          </div>
+        </div>
+
+        <div class="card-action right-align">
+          {{tenpines/material-button label='Borrar' click=(action 'borrarReunion' reunionSeleccionada) flat=true}}
+          {{tenpines/material-button label='Editar' click=(action 'editarReunion' reunionSeleccionada) }}
+        </div>
+      </div>
+
+    </div>
+  {{/if}}
 </div>

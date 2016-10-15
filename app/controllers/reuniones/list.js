@@ -4,9 +4,11 @@ import NavigatorInjected from "../../mixins/navigator-injected";
 
 export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected, {
 
+  anchoDeTabla: 's12',
+
   actions: {
     verReunion(reunion){
-      Ember.Logger.info('Ver', reunion);
+      this._mostrarDetalleDe(reunion);
     },
     editarReunion(reunion){
       this.navigator().navigateToReunionesEdit(reunion.get('id'));
@@ -14,6 +16,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     borrarReunion(reunion){
       Ember.Logger.info('Borrando', reunion);
     }
+  },
+
+  _mostrarDetalleDe(reunion){
+    this.set('reunionSeleccionada', reunion);
+    this.set('anchoDeTabla', 's8');
+    this.set('mostrandoDetalle', true);
   }
+
 
 });
