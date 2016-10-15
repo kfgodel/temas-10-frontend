@@ -1,5 +1,5 @@
 import Ember from "ember";
 
 export default Ember.Object.extend({
-  displayName: 'Temas-10P',
+  displayName: 'Proxima Roots',
 });

@@ -17,13 +17,9 @@ Router.map(function () {
     this.route('list');
   });
 
-
   this.route('users', function () {
     this.route('edit', {path: "edit/:user_id"});
   });
-
-
-  this.route('proyectos');
 
   // Catches all the malformed urls (not matching previous routes)
   this.route('wrong-paths', {path: '/*badUrl'});
