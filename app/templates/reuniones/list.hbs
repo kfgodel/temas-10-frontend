@@ -16,7 +16,7 @@
       <div class="card">
 
         <div class="card-content">
-          <span class="card-title">Fecha {{reunionSeleccionada.fecha}}</span>
+          <span class="card-title">ID: {{reunionSeleccionada.id}} - Fecha {{reunionSeleccionada.fecha}} </span>
 
           <div class="row">
             {{#tenpines/object-table titulos='Prioridad, Titulo, Votos' col='s12' }}
@@ -39,4 +39,10 @@
 
     </div>
   {{/if}}
+
+</div>
+<div class="row">
+  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'crearReunion'}}><i
+    class="material-icons">add</i></a>
+
 </div>

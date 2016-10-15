@@ -1,13 +1,13 @@
 <div class="row">
 
-  <div class="col s2">
+  <div class="col s1" {{action "editarFecha" }}>
     <h4>Roots:</h4>
   </div>
-  <div class="col s2">
+  <div class="col s1" {{action "editarFecha" }}>
     {{#if editandoFecha}}
       {{tenpines/input-date label='Fecha' value=reunion.fecha}}
     {{else}}
-      <h4 {{action "editarFecha" }}>{{reunion.fecha}}</h4>
+      <h4>{{reunion.fecha}}</h4>
     {{/if}}
   </div>
   {{#unless estaCerrada}}
