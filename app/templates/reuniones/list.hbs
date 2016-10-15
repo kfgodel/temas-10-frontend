@@ -1,11 +1,12 @@
 <div class="row">
+
   {{#tenpines/object-table titulos='Id, Fecha, Status, Temas' col=anchoDeTabla bordered=true highlight=true }}
     {{#each model as |reunion|}}
-      <tr>
-        <td {{action 'verReunion' reunion}}>{{reunion.id}}</td>
-        <td {{action 'verReunion' reunion}}>{{reunion.fecha}}</td>
-        <td {{action 'verReunion' reunion}}>{{reunion.status}}</td>
-        <td {{action 'verReunion' reunion}}>{{reunion.temasPropuestos.length}}</td>
+      <tr {{action 'verReunion' reunion}}>
+        <td>{{reunion.id}}</td>
+        <td>{{reunion.fecha}}</td>
+        <td>{{reunion.status}}</td>
+        <td>{{reunion.temasPropuestos.length}}</td>
       </tr>
     {{/each}}
   {{/tenpines/object-table}}
