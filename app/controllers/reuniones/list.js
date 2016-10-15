@@ -14,7 +14,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
       this.navigator().navigateToReunionesEdit(reunion.get('id'));
     },
     borrarReunion(reunion){
-      Ember.Logger.info('Borrando', reunion);
+      this.reunionService().removeReunion(reunion)
+        .then(()=> {
+          this.set('mostrandoDetalle', false);
+          this.set('anchoDeTabla', 's12');
+          // Actualizamos la lista
+          this.get('target.router').refresh();
+        });
     }
   },
 
