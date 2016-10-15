@@ -20,7 +20,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
 
   _mostrarDetalleDe(reunion){
     this.set('reunionSeleccionada', reunion);
-    this.set('anchoDeTabla', 's8');
+    this.set('anchoDeTabla', 's4');
     this.set('mostrandoDetalle', true);
   }
 
