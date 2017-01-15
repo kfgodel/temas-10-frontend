@@ -5,6 +5,16 @@
       <div class="card-content">
         <span class="card-title">{{application.displayName}}</span>
         <p>Para acceder es necesario tener un usuario del backoffice con permisos de Root</p>
+        {{#if failed}}
+          <p class="red-text">
+          <h5>Authenticacion fallida. Causas posibles</h5>
+          <ul class="browser-default">
+            <li>Aún no sos root</li>
+            <li>Cancelaste el acceso en vez confirmarlo</li>
+            <li>Tus credenciales del backoffice no son corectas</li>
+          </ul>
+          </p>
+        {{/if}}
       </div>
       <div class="card-action">
         {{tenpines/material-button label='Autorizar en backoffice' click=(action 'logIn')}}
