@@ -11,8 +11,6 @@
   <!-- User list -->
   <div class="col s8">
 
-    {{tenpines/material-button label='Crear nuevo' click=(action 'create') }}
-
     {{#tenpines/object-table titulos='Id, Nombre, Login' striped=true}}
       {{#each model as |user|}}
         <tr>

@@ -5,13 +5,7 @@ import AuthenticatorInjected from "ateam-ember-authenticator/mixins/authenticato
 import NavigatorInjected from "../mixins/navigator-injected";
 
 export default Ember.Controller.extend(UserServiceInjected, MessagerInjected, AuthenticatorInjected, NavigatorInjected, {
-  actions: {
-    create: function () {
-      this.promiseWaitingFor(this.userService().createUser())
-        .whenSucceeded(Ember.run.bind(this, this.onUserCreated))
-        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
-    }
-  },
+
   onUserRemoved: function (removedUser) {
     // Need to search by id, because 2 instance may represents teh same entity
     var removedId = removedUser.get('id');
