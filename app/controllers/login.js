@@ -6,7 +6,8 @@ export default Ember.Controller.extend(AuthenticatorInjected, {
   application: Application.create(),
   actions: {
     logIn: function () {
-      this.requestLogin();
+      window.location.replace('https://backoffice.10pines.com/auth/sign_in?app_id=temas-roots&redirect_url=' + window.location.origin + '/j_security_check');
+      // this.requestLogin();
     }
   },
 

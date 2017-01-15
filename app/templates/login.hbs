@@ -1,16 +1,19 @@
 <div class="row">
   <div class="col s8 offset-s2 m6 offset-m3 l4 offset-l4">
-    <form class="form-signin {{if errorMessage "has-error"}}">
-      <h2 class="form-signin-heading">{{application.displayName}}</h2>
 
-      {{tenpines/input-text label='Login name' value=model.login}}
-      {{tenpines/input-password label='Password' value=model.password enter="logIn"}}
-      {{#if errorMessage}}
-        <span class="help-block">{{errorMessage}}</span>
-      {{/if}}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{application.displayName}}</span>
+        <p>Para acceder es necesario tener un usuario del backoffice con permisos de Root</p>
+      </div>
+      <div class="card-action">
+        {{#if errorMessage}}
+          <span class="help-block">{{errorMessage}}</span>
+        {{/if}}
+        {{tenpines/material-button label='Autorizar en backoffice' click=(action 'logIn')}}
+      </div>
+    </div>
 
-      <button class="btn btn-lg btn-primary btn-block" {{action "logIn"}}>Entrar</button>
-    </form>
   </div>
 </div>
 
