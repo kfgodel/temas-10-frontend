@@ -36,6 +36,10 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     return 3 - votosUsados;
   }),
 
+  terminoDeVotar: Ember.computed('votosRestantes', function () {
+    return this.get('votosRestantes') === 0;
+  }),
+
 
   actions: {
     sumarVoto(tema){
@@ -73,6 +77,9 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       this._siNoEstaCerrada(function () {
         this.set('editandoFecha', true);
       });
+    },
+    pedirConfirmacionDeCierre(){
+      this.set('modalDeCierreAbierto', true);
     },
     cerrarVotacion(){
       this._cerrarReunion();
