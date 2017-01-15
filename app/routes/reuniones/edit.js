@@ -25,12 +25,12 @@ export default Ember.Route.extend(AuthenticatedRoute, ReunionServiceInjected, Us
   },
 
   _usarInstanciasDeTemas(reunion, usuarioActual){
-    var temasPropuestos = reunion.get('temasPropuestos');
-    for (var i = 0; i < temasPropuestos.length; i++) {
-      var objetoEmber = temasPropuestos[i];
-      objetoEmber.set('usuarioActual', usuarioActual);
-      var tema = Tema.create(objetoEmber);
-      temasPropuestos[i] = tema;
+    var temasDeLaReunion = reunion.get('temasPropuestos');
+    for (var i = 0; i < temasDeLaReunion.length; i++) {
+      var temaDeLaReunion = temasDeLaReunion[i];
+      temaDeLaReunion.set('usuarioActual', usuarioActual);
+      var temaConComportamiento = Tema.create(temaDeLaReunion);
+      temasDeLaReunion[i] = temaConComportamiento;
     }
   }
 
