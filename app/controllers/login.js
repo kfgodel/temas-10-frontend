@@ -4,6 +4,7 @@ import Application from "../concepts/application";
 
 export default Ember.Controller.extend(AuthenticatorInjected, {
   application: Application.create(),
+  queryParams: ['failed'],
 
   actions: {
     logIn: function () {
