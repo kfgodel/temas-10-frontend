@@ -70,7 +70,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     pedirConfirmacionDeBorrado(temaABorrar){
       this.set('temaABorrar', temaABorrar);
-      this.set('mensajeDeConfirmacionDeBorrado', `Estás seguro de borrar el tema "${temaABorrar.titulo}"?`);
+      this.set('mensajeDeConfirmacionDeBorrado', `Estás seguro de borrar el tema "${temaABorrar.titulo}"? Los votos seran devueltos`);
       this.set('modalDeBorradoAbierto', true);
     },
     borrarTemaElegido(){
