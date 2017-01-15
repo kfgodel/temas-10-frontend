@@ -7,9 +7,6 @@
         <p>Para acceder es necesario tener un usuario del backoffice con permisos de Root</p>
       </div>
       <div class="card-action">
-        {{#if errorMessage}}
-          <span class="help-block">{{errorMessage}}</span>
-        {{/if}}
         {{tenpines/material-button label='Autorizar en backoffice' click=(action 'logIn')}}
       </div>
     </div>
