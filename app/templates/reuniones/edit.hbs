@@ -51,7 +51,8 @@
         <td class="right-align col s1">
           {{#unless estaCerrada}}
             {{#if tema.puedeSerBorrado}}
-              <span {{action 'quitarTema' tema}} class="clickable">{{materialize/icon-helper 'delete'}}</span>
+              <span {{action 'pedirConfirmacionDeBorrado' tema}}
+                class="clickable">{{materialize/icon-helper 'delete'}}</span>
             {{/if}}
           {{/unless}}
         </td>
@@ -71,6 +72,13 @@
 
 
 </div>
+
+{{tenpines/modal-de-confirmacion
+open=modalDeBorradoAbierto
+titulo='Confirmar eliminacion de tema'
+descripcion=mensajeDeConfirmacionDeBorrado
+accionAceptar=(action 'borrarTemaElegido')
+}}
 
 
 {{#if terminoDeVotar}}
@@ -107,7 +115,5 @@
 
     </div>
   </div>
-
-
 {{/if}}
 

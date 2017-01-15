@@ -68,10 +68,15 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     agregarTema(){
       this._guardarTemaYRecargar();
     },
-    quitarTema(tema){
-      this._siNoEstaCerrada(function () {
-        this._borrarTemaYRecargar(tema);
-      });
+    pedirConfirmacionDeBorrado(temaABorrar){
+      this.set('temaABorrar', temaABorrar);
+      this.set('mensajeDeConfirmacionDeBorrado', `Estás seguro de borrar el tema "${temaABorrar.titulo}"?`);
+      this.set('modalDeBorradoAbierto', true);
+    },
+    borrarTemaElegido(){
+      var temaBorrable = this.get('temaABorrar');
+      delete this.temaABorrar; // Desreferenciamos el objeto
+      this._quitarTema(temaBorrable);
     },
     editarFecha(){
       this._siNoEstaCerrada(function () {
@@ -174,6 +179,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     if (!this.get('estaCerrada')) {
       accion.call(this);
     }
-  }
+  },
+
+  _quitarTema(tema){
+    this._siNoEstaCerrada(function () {
+      this._borrarTemaYRecargar(tema);
+    });
+  },
+
 
 });
