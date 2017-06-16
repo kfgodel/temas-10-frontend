@@ -45,7 +45,7 @@
         </td>
         <td class="col s2">
           <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
-          {{tema.cantidadVotosTotales}} votos
+          {{tenpines/colored-label value=tema.cantidadVotosPropios bgColor=tema.colorVotos}} votos
           <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
         </td>
         <td class="right-align col s1">
