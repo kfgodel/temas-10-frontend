@@ -20,6 +20,7 @@ export default Ember.Route.extend(AuthenticatedRoute, ReunionServiceInjected, Us
         })
     }).then((model)=> {
       this._usarInstanciasDeTemas(model.reunion, model.usuarioActual);
+      this._mezclarTemas(model.reunion);
       return model;
     });
   },
@@ -32,6 +33,22 @@ export default Ember.Route.extend(AuthenticatedRoute, ReunionServiceInjected, Us
       var temaConComportamiento = Tema.create(temaDeLaReunion);
       temasDeLaReunion[i] = temaConComportamiento;
     }
+  },
+
+  _mezclarTemas(reunion){
+    var temas = reunion.get('temasPropuestos');
+    var currentIndex = temas.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = temas[currentIndex];
+      temas[currentIndex] = temas[randomIndex];
+      temas[randomIndex] = temporaryValue;
+    }
+
+    return temas;
   }
 
 });
