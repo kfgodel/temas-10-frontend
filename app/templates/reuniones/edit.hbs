@@ -34,7 +34,7 @@
 
     <tbody>
     {{#each reunion.temasPropuestos as |tema|}}
-      <tr class="valign-wrapper">
+      <tr class="valign-wrapper" bgcolor={{tema.colorVotos}}>
         <td class="col s1">
           {{tema.prioridad}}
         </td>
@@ -45,7 +45,7 @@
         </td>
         <td class="col s2">
           <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
-          {{tenpines/colored-label value=tema.cantidadVotosPropios bgColor=tema.colorVotos}} votos
+          {{tema.cantidadVotosPropios }} votos
           <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
         </td>
         <td class="right-align col s1">
