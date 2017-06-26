@@ -8,7 +8,7 @@
       <select class="browser-default" onchange={{action seleccionarDuracion value="target.value" }} >
         <option value="" disabled selected >Elija una duracion</option>
         {{#each duraciones as |duracion|}}
-          <option value={{duracion.duracion}}>{{duracion.descripcion}} ({{duracion.cantidadDeMinutos}} minutos)</option>
+          <option value={{duracion.nombre}}>{{duracion.descripcion}} ({{duracion.cantidadDeMinutos}} minutos)</option>
         {{/each}}
     </select>
       </div>
