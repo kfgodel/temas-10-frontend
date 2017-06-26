@@ -3,6 +3,7 @@ import Ember from "ember";
 export default Ember.Object.extend({
 
   cantidadVotosTotales: Ember.computed('idsDeInteresados.[]', function () {
+    debugger
     return this.get('idsDeInteresados.length');
   }),
   colorVotos:Ember.computed('cantidadVotosPropios',function(){

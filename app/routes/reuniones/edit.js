@@ -24,7 +24,6 @@ export default Ember.Route.extend(AuthenticatedRoute, ReunionServiceInjected, Us
       return model;
     });
   },
-
   _usarInstanciasDeTemas(reunion, usuarioActual){
     var temasDeLaReunion = reunion.get('temasPropuestos');
     for (var i = 0; i < temasDeLaReunion.length; i++) {
