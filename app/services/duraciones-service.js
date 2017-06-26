@@ -10,7 +10,7 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
 
 
   getAll:function(){
-    debugger;
+
     return this._duracionesResource().getAll();
   },
 
