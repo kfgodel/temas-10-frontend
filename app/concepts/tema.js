@@ -18,7 +18,6 @@ export default Ember.Object.extend({
     var votosDelUsuario = this.get('idsDeInteresados').filter(function (idDeInteresado) {
       return idDeInteresado === idDeUsuarioActual;
     });
-   debugger;
       return votosDelUsuario.length.toString();
 
   }),
