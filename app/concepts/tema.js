@@ -19,7 +19,6 @@ export default Ember.Object.extend({
       return idDeInteresado === idDeUsuarioActual;
     });
       return votosDelUsuario.length;
-
   }),
 
   puedeSerBorrado: Ember.computed('idDeAutor', 'usuarioActual.id', function () {
