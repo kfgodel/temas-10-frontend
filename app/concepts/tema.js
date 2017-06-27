@@ -3,7 +3,7 @@ import Ember from "ember";
 export default Ember.Object.extend({
 
   cantidadVotosTotales: Ember.computed('idsDeInteresados.[]', function () {
-    return this.get('idsDeInteresados.length');
+      return this.get('idsDeInteresados.length');
   }),
   colorVotos:Ember.computed('cantidadVotosPropios',function(){
       if(this.get('cantidadVotosPropios')>0){
@@ -18,8 +18,7 @@ export default Ember.Object.extend({
     var votosDelUsuario = this.get('idsDeInteresados').filter(function (idDeInteresado) {
       return idDeInteresado === idDeUsuarioActual;
     });
-      return votosDelUsuario.length.toString();
-
+      return votosDelUsuario.length;
   }),
 
   puedeSerBorrado: Ember.computed('idDeAutor', 'usuarioActual.id', function () {

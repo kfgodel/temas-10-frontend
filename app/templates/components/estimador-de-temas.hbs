@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-content">
+
+    <span class="card-title center-align">Estimacion de temas </span>
+
+    <div class="row">
+      <div class="input-field  col s2 push-l10">
+        {{input value=duracionDeReunion type="number" class="validate" name="minutos de reunion"}}
+      </div>
+
+      <table class="bordered highlight col s12">
+        <thead>
+        <tr>
+          <th class="col s1">
+            #
+          </th>
+          <th class="col s8">
+            Tema
+          </th>
+          <th class="col s2">
+            Votos
+          </th>
+          <th class="right-align col s1">
+            -
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#each temas as |tema|}}
+          <tr class="valign-wrapper" bgcolor={{tema.colorVotos}}>
+            <td class="col s1">
+              {{tema.prioridad}}
+            </td>
+            <td class="col s8">
+              {{tenpines/colored-label value=tema.autor bgColor='green'}}
+              <span class="titulo-de-tema">{{tema.titulo}}</span>
+              <span> ({{tema.duracion}})</span>
+              <p>{{markdown-view value=tema.descripcion}}</p>
+            </td>
+            <td class="col s2">
+              <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
+              {{tema.cantidadVotosPropios }} votos
+              <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
+            </td>
+            <td class="right-align col s1">
+              {{#unless estaCerrada}}
+                {{#if tema.puedeSerBorrado}}
+                  <span {{action 'pedirConfirmacionDeBorrado' tema}}
+                    class="clickable">{{materialize/icon-helper 'delete'}}</span>
+                {{/if}}
+              {{/unless}}
+            </td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>

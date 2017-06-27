@@ -1,9 +1,10 @@
 import Ember from "ember";
 import ReunionServiceInjected from "../../mixins/reunion-service-injected";
 import TemaServiceInjected from "../../mixins/tema-service-injected";
+import DuracionesServiceInjected from "../../mixins/duraciones-service-injected";
 import Tema from "../../concepts/tema";
 
-export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, {
+export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected,DuracionesServiceInjected,{
 
   reunion: Ember.computed('model.reunion', function () {
     return this.get('model.reunion');
@@ -27,7 +28,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       this._guardarCambios();
     }
   }),
-
   votosRestantes: Ember.computed('reunion.temasPropuestos.@each.cantidadVotosPropios', function () {
     var temas = this.get('reunion.temasPropuestos');
     var votosUsados = temas.reduce(function (total, tema) {
@@ -39,8 +39,14 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   terminoDeVotar: Ember.computed('votosRestantes', function () {
     return this.get('votosRestantes') === 0;
   }),
-
-
+  guardarHabilitado:Ember.computed('nuevoTema.duracion','nuevoTema.titulo', function () {
+        if(!this.get('nuevoTema.duracion') || !this.get('nuevoTema.titulo')){
+      return "disabled"
+    }
+    else{
+      return ""
+    }
+  }),
   actions: {
     sumarVoto(tema){
       this._siNoEstaCerrada(function () {
@@ -49,6 +55,9 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
         }
       });
     },
+    seleccionarDuracion(duracion){
+      this.set('nuevoTema.duracion',duracion);
+    },
     restarVoto(tema){
       this._siNoEstaCerrada(function () {
         this._quitarVotoDeTema(tema);
@@ -56,6 +65,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     mostrarFormulario(){
       this._siNoEstaCerrada(function () {
+
         this.set('mostrandoFormulario', true);
         this.set('nuevoTema', Tema.create({
             idDeReunion: this._idDeReunion(),
@@ -63,6 +73,8 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
             usuarioActual: this.get('model.usuarioActual')
           })
         );
+        this._traerDuraciones()
+
       });
     },
     agregarTema(){
@@ -94,6 +106,11 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     }
   },
 
+  _traerDuraciones(){
+  this.duracionesService().getAll().then((duraciones)=> {
+    this.set('duraciones',duraciones);
+  });
+},
   _guardarCambios(){
     var reunion = this.get('reunion');
     return this.reunionService().updateReunion(reunion)
@@ -111,6 +128,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   _guardarTemaYRecargar: function () {
     var tema = this.get('nuevoTema');
+
     this.temaService().createTema(tema).then(()=> {
       this.set('mostrandoFormulario', false);
       this._recargarReunion();
@@ -132,14 +150,14 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   _votarPorTema(tema){
     tema.agregarInteresado(this._idDeUsuarioActual());
-    this.temaService().updateTema(tema).then(()=> {
+    this.temaService().votarTema(tema.id).then(()=> {
       this._recargarReunion();
     });
   },
 
   _quitarVotoDeTema(tema){
     tema.quitarInteresado(this._idDeUsuarioActual());
-    this.temaService().updateTema(tema).then(()=> {
+    this.temaService().quitarVotoTema(tema.id).then(()=> {
       this._recargarReunion();
     });
   },
