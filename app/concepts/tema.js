@@ -5,13 +5,21 @@ export default Ember.Object.extend({
   cantidadVotosTotales: Ember.computed('idsDeInteresados.[]', function () {
     return this.get('idsDeInteresados.length');
   }),
-
+  colorVotos:Ember.computed('cantidadVotosPropios',function(){
+      if(this.get('cantidadVotosPropios')>0){
+        return "#CEFFD4"
+      }
+      else{
+      return 'white'
+      }
+  }),
   cantidadVotosPropios: Ember.computed('idsDeInteresados.[]', 'usuarioActual', function () {
     var idDeUsuarioActual = this.get('usuarioActual.id');
     var votosDelUsuario = this.get('idsDeInteresados').filter(function (idDeInteresado) {
       return idDeInteresado === idDeUsuarioActual;
     });
-    return votosDelUsuario.length;
+      return votosDelUsuario.length.toString();
+
   }),
 
   puedeSerBorrado: Ember.computed('idDeAutor', 'usuarioActual.id', function () {
