@@ -33,7 +33,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     var votosUsados = temas.reduce(function (total, tema) {
       return total + tema.get('cantidadVotosPropios');
     }, 0);
-    debugger
     return 3 - votosUsados;
   }),
 
@@ -57,7 +56,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       });
     },
     seleccionarDuracion(duracion){
-      debugger
       this.set('nuevoTema.duracion',duracion);
     },
     restarVoto(tema){
@@ -131,7 +129,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   _guardarTemaYRecargar: function () {
     var tema = this.get('nuevoTema');
 
-    debugger
     this.temaService().createTema(tema).then(()=> {
       this.set('mostrandoFormulario', false);
       this._recargarReunion();
