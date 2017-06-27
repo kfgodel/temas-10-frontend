@@ -153,14 +153,14 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   _votarPorTema(tema){
     tema.agregarInteresado(this._idDeUsuarioActual());
-    this.temaService().updateTema(tema).then(()=> {
+    this.temaService().votarTema(tema.id).then(()=> {
       this._recargarReunion();
     });
   },
 
   _quitarVotoDeTema(tema){
     tema.quitarInteresado(this._idDeUsuarioActual());
-    this.temaService().updateTema(tema).then(()=> {
+    this.temaService().quitarVotoTema(tema.id).then(()=> {
       this._recargarReunion();
     });
   },
