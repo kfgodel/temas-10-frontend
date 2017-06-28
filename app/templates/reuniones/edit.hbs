@@ -45,9 +45,11 @@
           <p>{{markdown-view value=tema.descripcion}}</p>
         </td>
         <td class="col s2">
-          <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
-          {{tema.cantidadVotosPropios }} votos
-          <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
+          {{#unless tema.esObligatorio}}
+            <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
+            {{tema.cantidadVotosPropios }} votos
+            <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
+          {{/unless}}
         </td>
         <td class="right-align col s1">
           {{#unless estaCerrada}}
@@ -67,7 +69,7 @@
       class="material-icons">add</i></a>
 
     {{#if mostrandoFormulario}}
-      {{editor-de-tema tema=nuevoTema duraciones=duraciones alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado  seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
+      {{editor-de-tema tema=nuevoTema duraciones=duraciones alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
     {{/if}}
   {{/unless}}
 

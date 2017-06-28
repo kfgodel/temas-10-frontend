@@ -5,13 +5,20 @@
     <div class="row">
       {{tenpines/input-text label='Titulo' value=tema.titulo col='s4' }}
       <div class="input-field col s4">
-      <select class="browser-default" onchange={{action seleccionarDuracion value="target.value" }} >
-        <option value="" disabled selected >Elija una duracion</option>
-        {{#each duraciones as |duracion|}}
-          <option value={{duracion.nombre}}>{{duracion.descripcion}} ({{duracion.cantidadDeMinutos}} minutos)</option>
-        {{/each}}
-    </select>
+        <select class="browser-default" onchange={{action seleccionarDuracion value="target.value" }} >
+            <option value="" disabled selected >Elija una duracion</option>
+          {{#each duraciones as |duracion|}}
+            <option value={{duracion.nombre}}>{{duracion.descripcion}} ({{duracion.cantidadDeMinutos}} minutos)</option>
+          {{/each}}
+        </select>
       </div>
+      <div class="switch">
+        <label>
+          Obligatorio
+          {{input type="checkbox" checked=esObligatorio}}
+          <span class="lever"></span>
+        </label>
+    </div>
       {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}
 
     </div>

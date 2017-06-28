@@ -7,10 +7,10 @@ export default Ember.Object.extend({
   }),
   colorVotos:Ember.computed('cantidadVotosPropios',function(){
       if(this.get('cantidadVotosPropios')>0){
-        return "#CEFFD4"
+        return "#CEFFD4";
       }
       else{
-      return 'white'
+        return 'white';
       }
   }),
   cantidadVotosPropios: Ember.computed('idsDeInteresados.[]', 'usuarioActual', function () {
@@ -27,6 +27,9 @@ export default Ember.Object.extend({
     return idDeAutor === idDelUsuarioActual;
   }),
 
+  esObligatorio: Ember.computed('obligatoriedad', function(){
+    return this.get('obligatoriedad') == "OBLIGATORIO";
+  }),
 
   agregarInteresado(idDeInteresado){
     this.get('idsDeInteresados').pushObject(idDeInteresado);
