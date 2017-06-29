@@ -7,10 +7,10 @@ export default Ember.Object.extend({
   }),
   colorVotos:Ember.computed('cantidadVotosPropios',function(){
       if(this.get('cantidadVotosPropios')>0){
-        return "#CEFFD4"
+        return "#CEFFD4";
       }
       else{
-      return 'white'
+      return 'white';
       }
   }),
   cantidadVotosPropios: Ember.computed('idsDeInteresados.[]', 'usuarioActual', function () {

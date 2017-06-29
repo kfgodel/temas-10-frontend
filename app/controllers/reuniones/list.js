@@ -12,7 +12,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     return reuniones.objectAt(indiceSeleccionado);
   }),
   mostrarBotonDeEstimacion:Ember.computed('reunionSeleccionada',function(){
-    return this.get('reunionSeleccionada.status')==="CERRADA"
+    return this.get('reunionSeleccionada.status')==="CERRADA";
   }),
   duracionDeReunion:180,
   temasEstimados: Ember.computed('duracionDeReunion',function(){
@@ -95,6 +95,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
    var duraciones= this.get('duraciones');
     return duraciones.find(function (duracion) {
      return duracion.nombre===unTema.duracion;
-   })
+   });
   },
 });

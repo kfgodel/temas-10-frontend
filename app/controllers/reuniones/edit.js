@@ -41,10 +41,10 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   }),
   guardarHabilitado:Ember.computed('nuevoTema.duracion','nuevoTema.titulo', function () {
         if(!this.get('nuevoTema.duracion') || !this.get('nuevoTema.titulo')){
-      return "disabled"
+      return "disabled";
     }
     else{
-      return ""
+      return "";
     }
   }),
   actions: {
@@ -59,7 +59,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       this.set('nuevoTema.duracion',duracion);
     },
     cerrarEditor(){
-      this.set('mostrandoFormulario',false)
+      this.set('mostrandoFormulario',false);
     },
     restarVoto(tema){
       this._siNoEstaCerrada(function () {
@@ -76,7 +76,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
             usuarioActual: this.get('model.usuarioActual')
           })
         );
-        this._traerDuraciones()
+        this._traerDuraciones();
 
       });
     },
