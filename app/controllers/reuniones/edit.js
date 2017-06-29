@@ -58,6 +58,9 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     seleccionarDuracion(duracion){
       this.set('nuevoTema.duracion',duracion);
     },
+    cerrarEditor(){
+      this.set('mostrandoFormulario',false)
+    },
     restarVoto(tema){
       this._siNoEstaCerrada(function () {
         this._quitarVotoDeTema(tema);
