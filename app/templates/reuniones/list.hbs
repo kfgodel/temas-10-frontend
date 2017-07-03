@@ -12,8 +12,10 @@
   {{/tenpines/object-table}}
 
   {{# if mostrandoDetalle}}
+
     <div class="col s8">
       <div class="card">
+        <a class="btn-floating waves-effect waves-light red right"  {{action 'cerrarDetalle'}}><i class="material-icons ">close</i></a>
 
         <div class="card-content">
           <span class="card-title">ID: {{reunionSeleccionada.id}} - Fecha {{reunionSeleccionada.fecha}} </span>
@@ -34,6 +36,14 @@
         <div class="card-action right-align">
           {{tenpines/material-button label='Borrar' click=(action 'borrarReunion' reunionSeleccionada) flat=true}}
           {{tenpines/material-button label='Editar' click=(action 'editarReunion' reunionSeleccionada) }}
+          {{#if mostrarBotonDeEstimacion}}
+            {{tenpines/material-button label='Mostrar Estimacion' click=(action 'mostrarEstimacion' reunionSeleccionada) }}
+          {{/if}}
+        </div>
+        <div>
+          {{#if mostrandoEstimacion}}
+            {{estimador-de-reunion reunion=reunionSeleccionada temas=temasEstimados cerrarEstimador=(action 'cerrarEstimador') duracionDeReunion=duracionDeReunion}}
+          {{/if}}
         </div>
       </div>
 
