@@ -11,11 +11,17 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     var reuniones = this._reuniones();
     return reuniones.objectAt(indiceSeleccionado);
   }),
-  mostrarBotonDeEstimacion:Ember.computed('reunionSeleccionada',function(){
-    return this.get('reunionSeleccionada.status')==="CERRADA";
+  mostrarDuracion:Ember.computed('reunionSeleccionada',function(){
+     if(this.get('reunionSeleccionada.status')==="CERRADA"){
+       this.set('duracionDeReunion',180);
+     }
+     else{
+       this.set('duracionDeReunion',0);
+     }
+     return this.get('reunionSeleccionada.status')==="CERRADA";
   }),
-  duracionDeReunion:180,
   temasEstimados: Ember.computed('duracionDeReunion',function(){
+
     var temas= this.get('reunionSeleccionada.temasPropuestos');
     var duracionRestante=this.duracionDeReunion;
     var i=0;
@@ -27,18 +33,21 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     }
     return temasQueEntran;
   }),
+  ultimoTemaQueEntra: Ember.computed('temasEstimados',function(){
+
+    var temasEstimados=this.get('temasEstimados');
+    return temasEstimados[temasEstimados.length-1]
+  }),
   actions: {
     verReunion(reunion){
-      this._mostrarDetalleDe(reunion);
+      this._traerDuraciones().then(() => {
+        this._mostrarDetalleDe(reunion);
+      });
     },
     cerrarDetalle(){
       this._ocultarDetalle();
     },
-    mostrarEstimacion(){
-      this._traerDuraciones().then(() => {
-        this.set('mostrandoEstimacion',true);
-      });
-    },
+
     editarReunion(reunion){
       this.navigator().navigateToReunionesEdit(reunion.get('id'));
     },
@@ -51,9 +60,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
           this._ocultarDetalle();
           this._recargarLista();
         });
-    },
-    cerrarEstimador(){
-      this.set('mostrandoEstimacion',false);
     }
   },
 

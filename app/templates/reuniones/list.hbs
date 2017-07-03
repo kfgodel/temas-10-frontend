@@ -8,6 +8,7 @@
         <td>{{reunion.status}}</td>
         <td>{{reunion.temasPropuestos.length}}</td>
       </tr>
+
     {{/each}}
   {{/tenpines/object-table}}
 
@@ -19,19 +20,22 @@
 
         <div class="card-content">
           <span class="card-title">ID: {{reunionSeleccionada.id}} - Fecha {{reunionSeleccionada.fecha}} </span>
-
+          <div class="row">
+           {{#if mostrarDuracion}}
+            <div class="col s2 push-l10">
+              <label>
+                Duración (minutos)
+                <div class="input-field ">
+                  {{input value=duracionDeReunion type="number" class="validate" name="minutos de reunion"}}
+                </div>
+              </label>
+            </div>
+           {{/if}}
+          </div>
           <div class="row">
             {{#tenpines/object-table titulos='Prioridad, Titulo, Votos' col='s12' }}
               {{#each reunionSeleccionada.temasPropuestos as |tema|}}
-                <tr>
-                  <td>{{tema.prioridad}}</td>
-                  <td>{{tema.titulo}}</td>
-                  {{#if tema.esObligatorio}}
-                    <td>OBLIGATORIO</td>
-                  {{else}}
-                    <td>{{tema.cantidadVotosTotales}}</td>
-                  {{/if}}
-                </tr>
+                {{tema-en-tabla tema=tema ultimoTema=ultimoTemaQueEntra}}
               {{/each}}
             {{/tenpines/object-table}}
           </div>
@@ -40,14 +44,6 @@
         <div class="card-action right-align">
           {{tenpines/material-button label='Borrar' click=(action 'borrarReunion' reunionSeleccionada) flat=true}}
           {{tenpines/material-button label='Editar' click=(action 'editarReunion' reunionSeleccionada) }}
-          {{#if mostrarBotonDeEstimacion}}
-            {{tenpines/material-button label='Mostrar Estimacion' click=(action 'mostrarEstimacion' reunionSeleccionada) }}
-          {{/if}}
-        </div>
-        <div>
-          {{#if mostrandoEstimacion}}
-            {{estimador-de-reunion reunion=reunionSeleccionada temas=temasEstimados cerrarEstimador=(action 'cerrarEstimador') duracionDeReunion=duracionDeReunion}}
-          {{/if}}
         </div>
       </div>
 
