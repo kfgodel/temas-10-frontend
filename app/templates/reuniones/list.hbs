@@ -26,7 +26,11 @@
                 <tr>
                   <td>{{tema.prioridad}}</td>
                   <td>{{tema.titulo}}</td>
-                  <td>{{tema.cantidadVotosTotales}}</td>
+                  {{#if tema.esObligatorio}}
+                    <td>OBLIGATORIO</td>
+                  {{else}}
+                    <td>{{tema.cantidadVotosTotales}}</td>
+                  {{/if}}
                 </tr>
               {{/each}}
             {{/tenpines/object-table}}

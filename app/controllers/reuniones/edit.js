@@ -6,6 +6,8 @@ import Tema from "../../concepts/tema";
 
 export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected,DuracionesServiceInjected,{
 
+  esObligatorio: false,
+
   reunion: Ember.computed('model.reunion', function () {
     return this.get('model.reunion');
   }),
@@ -73,7 +75,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
         this.set('nuevoTema', Tema.create({
             idDeReunion: this._idDeReunion(),
             idDeAutor: this._idDeUsuarioActual(),
-            usuarioActual: this.get('model.usuarioActual')
+            usuarioActual: this.get('model.usuarioActual'),
           })
         );
         this._traerDuraciones();
@@ -131,7 +133,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   _guardarTemaYRecargar: function () {
     var tema = this.get('nuevoTema');
-
+    tema.obligatoriedad = this._obligatoriedad(this.get('esObligatorio'));
     this.temaService().createTema(tema).then(()=> {
       this.set('mostrandoFormulario', false);
       this._recargarReunion();
@@ -206,6 +208,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     this._siNoEstaCerrada(function () {
       this._borrarTemaYRecargar(tema);
     });
+  },
+
+  _obligatoriedad(esObligatorio){
+    if(esObligatorio)
+      return "OBLIGATORIO"
+    else
+      return "NO_OBLIGATORIO"
   },
 
 
