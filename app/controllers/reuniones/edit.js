@@ -4,7 +4,7 @@ import TemaServiceInjected from "../../mixins/tema-service-injected";
 import DuracionesServiceInjected from "../../mixins/duraciones-service-injected";
 import Tema from "../../concepts/tema";
 
-export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected,DuracionesServiceInjected,{
+export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, DuracionesServiceInjected, {
 
   esObligatorio: false,
 
@@ -41,11 +41,11 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   terminoDeVotar: Ember.computed('votosRestantes', function () {
     return this.get('votosRestantes') === 0;
   }),
-  guardarHabilitado:Ember.computed('nuevoTema.duracion','nuevoTema.titulo', function () {
-        if(!this.get('nuevoTema.duracion') || !this.get('nuevoTema.titulo')){
+  guardarHabilitado: Ember.computed('nuevoTema.duracion', 'nuevoTema.titulo', function () {
+    if (!this.get('nuevoTema.duracion') || !this.get('nuevoTema.titulo')) {
       return "disabled";
     }
-    else{
+    else {
       return "";
     }
   }),
@@ -58,10 +58,10 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       });
     },
     seleccionarDuracion(duracion){
-      this.set('nuevoTema.duracion',duracion);
+      this.set('nuevoTema.duracion', duracion);
     },
     cerrarEditor(){
-      this.set('mostrandoFormulario',false);
+      this.set('mostrandoFormulario', false);
     },
     restarVoto(tema){
       this._siNoEstaCerrada(function () {
@@ -112,20 +112,20 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   },
 
   _traerDuraciones(){
-  this.duracionesService().getAll().then((duraciones)=> {
-    this.set('duraciones',duraciones);
-  });
-},
+    this.duracionesService().getAll().then((duraciones) => {
+      this.set('duraciones', duraciones);
+    });
+  },
   _guardarCambios(){
     var reunion = this.get('reunion');
     return this.reunionService().updateReunion(reunion)
-      .then((reunionGuardada)=> {
+      .then((reunionGuardada) => {
         this._actualizarreunionCon(reunionGuardada);
       });
   },
 
   _recargarReunion(){
-    this.reunionService().getReunion(this._idDeReunion()).then((reunion)=> {
+    this.reunionService().getReunion(this._idDeReunion()).then((reunion) => {
       this._actualizarreunionCon(reunion);
     });
   },
@@ -134,13 +134,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   _guardarTemaYRecargar: function () {
     var tema = this.get('nuevoTema');
     tema.obligatoriedad = this._obligatoriedad(this.get('esObligatorio'));
-    this.temaService().createTema(tema).then(()=> {
+    this.temaService().createTema(tema).then(() => {
       this.set('mostrandoFormulario', false);
       this._recargarReunion();
     });
   },
   _borrarTemaYRecargar(tema){
-    this.temaService().removeTema(tema).then(()=> {
+    this.temaService().removeTema(tema).then(() => {
       this._recargarReunion();
     });
   },
@@ -155,14 +155,14 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   _votarPorTema(tema){
     tema.agregarInteresado(this._idDeUsuarioActual());
-    this.temaService().votarTema(tema.id).then(()=> {
+    this.temaService().votarTema(tema.id).then(() => {
       this._recargarReunion();
     });
   },
 
   _quitarVotoDeTema(tema){
     tema.quitarInteresado(this._idDeUsuarioActual());
-    this.temaService().quitarVotoTema(tema.id).then(()=> {
+    this.temaService().quitarVotoTema(tema.id).then(() => {
       this._recargarReunion();
     });
   },
@@ -180,7 +180,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   _cerrarReunion(){
     var reunion = this.get('reunion');
     this.reunionService().cerrarReunion(reunion)
-      .then((cerrada)=> {
+      .then((cerrada) => {
         this._actualizarreunionCon(cerrada);
       });
   },
@@ -188,7 +188,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   _reabrirReunion(){
     var reunion = this.get('reunion');
     this.reunionService().reabrirReunion(reunion)
-      .then((abierta)=> {
+      .then((abierta) => {
         this._actualizarreunionCon(abierta);
       });
   },
@@ -211,10 +211,12 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   },
 
   _obligatoriedad(esObligatorio){
-    if(esObligatorio)
-      return "OBLIGATORIO"
-    else
-      return "NO_OBLIGATORIO"
+    if (esObligatorio) {
+      return "OBLIGATORIO";
+    }
+    else {
+      return "NO_OBLIGATORIO";
+    }
   },
 
 
