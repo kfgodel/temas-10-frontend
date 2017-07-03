@@ -131,7 +131,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   _guardarTemaYRecargar: function () {
     var tema = this.get('nuevoTema');
     tema.obligatoriedad = this._obligatoriedad(this.get('esObligatorio'));
-    debugger;
     this.temaService().createTema(tema).then(()=> {
       this.set('mostrandoFormulario', false);
       this._recargarReunion();
