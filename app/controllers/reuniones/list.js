@@ -11,7 +11,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     var reuniones = this._reuniones();
     return reuniones.objectAt(indiceSeleccionado);
   }),
-  mostrarDuracion:Ember.computed('reunionSeleccionada',function(){
+  reunionCerrada:Ember.computed('reunionSeleccionada',function(){
      if(this.get('reunionSeleccionada.status')==="CERRADA"){
        this.set('duracionDeReunion',180);
      }
@@ -47,7 +47,11 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     cerrarDetalle(){
       this._ocultarDetalle();
     },
-
+    traerMinuta(){
+      this.reunionService().getMinuta(this.get('reunionSeleccionada.id')).then((minuta)=> {
+        this.set('minuta',minuta);
+      }).then( ()=>this.set('mostrarMinuta',true));
+    },
     editarReunion(reunion){
       this.navigator().navigateToReunionesEdit(reunion.get('id'));
     },

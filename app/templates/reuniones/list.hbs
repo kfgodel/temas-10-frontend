@@ -21,7 +21,7 @@
         <div class="card-content">
           <span class="card-title">ID: {{reunionSeleccionada.id}} - Fecha {{reunionSeleccionada.fecha}} </span>
           <div class="row">
-           {{#if mostrarDuracion}}
+           {{#if reunionCerrada}}
             <div class="col s2 push-l10">
               <label>
                 Duración (minutos)
@@ -42,8 +42,12 @@
         </div>
 
         <div class="card-action right-align">
+          {{#if reunionCerrada}}
+            {{tenpines/material-button label='minuta' click=(action 'traerMinuta') }}
+          {{/if}}
           {{tenpines/material-button label='Borrar' click=(action 'borrarReunion' reunionSeleccionada) flat=true}}
           {{tenpines/material-button label='Editar' click=(action 'editarReunion' reunionSeleccionada) }}
+
         </div>
       </div>
 
@@ -54,5 +58,10 @@
 <div class="row">
   <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'crearReunion'}}><i
     class="material-icons">add</i></a>
-
+  {{#if mostrarMinuta}}
+    <div class="card">
+      {{minuta}}
+      saraza
+    </div>
+  {{/if}}
 </div>
