@@ -10,7 +10,6 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
 
 
   getAll:function(){
-
     return this._duracionesResource().getAll();
   },
 

@@ -34,7 +34,6 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   },
   getMinuta(reunion){
     return this._minutaReunionResource().getSingle(reunion);
-
   },
 
   // PRIVATE
