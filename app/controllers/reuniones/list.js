@@ -37,7 +37,7 @@ export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjecte
   ultimoTemaQueEntra: Ember.computed('temasEstimados',function(){
 
     var temasEstimados=this.get('temasEstimados');
-    return temasEstimados[temasEstimados.length-1]
+    return temasEstimados[temasEstimados.length-1];
   }),
   actions: {
     verReunion(reunion){
@@ -146,6 +146,6 @@ export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjecte
 
    return this.userService().getNoVotantes(reunion.id).then((noVotantes)=> {
      this.set('noVotantes', noVotantes);
-   })
+   });
   }
 });
