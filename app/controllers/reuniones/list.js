@@ -2,7 +2,8 @@ import Ember from "ember";
 import ReunionServiceInjected from "../../mixins/reunion-service-injected";
 import NavigatorInjected from "../../mixins/navigator-injected";
 import DuracionesServiceInjected from "../../mixins/duraciones-service-injected";
-export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected,DuracionesServiceInjected, {
+import UserServiceInjected from "../../mixins/user-service-injected";
+export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjected, NavigatorInjected,DuracionesServiceInjected, {
 
   anchoDeTabla: 's12',
 
@@ -44,11 +45,19 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
         this._mostrarDetalleDe(reunion);
       });
     },
+    verNoVotantes(reunion){
+      this._traerNoVotantes(reunion).then(() => {
+        this._mostrarNoVotantes();
+      });
+    },
     cerrarDetalle(){
       this._ocultarDetalle();
     },
     cerrarMinuta(){
       this._ocultarMinuta();
+    },
+    cerrarNoVotantes(){
+      this._ocultarNoVotantes();
     },
     verMinuta(){
       this._traerMinuta().then(()=>{
@@ -96,6 +105,9 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     this.set('mostrandoDetalle',true);
     this.set('mostrandoMinuta',false);
   },
+  _ocultarNoVotantes(){
+    this.set('mostrandoNoVotantes',false);
+  },
   _mostrarDetalle(){
     this.set('anchoDeTabla', 's4');
     this.set('mostrandoDetalle', true);
@@ -126,5 +138,14 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     this.set('mostrandoMinuta',true);
     this.set('mostrandoDetalle',false);
 
+  },
+  _mostrarNoVotantes(){
+    this.set('mostrandoNoVotantes',true);
+  },
+  _traerNoVotantes(reunion){
+
+   return this.userService().getNoVotantes(reunion.id).then((noVotantes)=> {
+     this.set('noVotantes', noVotantes);
+   })
   }
 });

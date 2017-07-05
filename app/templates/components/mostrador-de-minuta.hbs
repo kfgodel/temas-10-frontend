@@ -1,0 +1,39 @@
+<div class="col s8">
+  <div class="card" >
+    <a class="btn-floating waves-effect waves-light red right"  {{action cerrarMinuta}}><i class="material-icons ">close</i></a>
+
+
+    Formato del template:
+    <br>
+    <br>
+    Fecha: {{minuta.fecha}}
+    <br>
+    <br>
+    Minuteador:
+    <br>
+    <br>
+    Vinieron:   <br>  {{#each minuta.listaDeUsuarios as |user|}}
+    {{user.name}} <br>
+  {{/each}}
+    <br>
+    <br>
+    Temas propuestos:  <br>    {{#each minuta.listaDeTemas as |tema|}}
+    {{tema.titulo}} <br>
+  {{/each}}
+    <br>
+    <br>
+    Action items de la reunion anterior:
+    <br>
+    <br>
+    Detalle de los temas hablados:
+    <br>
+    <br>
+    Nombre del tema
+    <br>
+    <br>
+    Conclusiones: Actions Items:
+    <br>
+    <br>
+    Responsable: Tarea a la que se compromete
+  </div>
+</div>
