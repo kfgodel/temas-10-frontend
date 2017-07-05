@@ -42,12 +42,17 @@
         </div>
 
         <div class="card-action right-align">
-          <div class=" left-align "  >
-            {{tenpines/material-button   label='mandar al frente' click=(action 'verNoVotantes' reunionSeleccionada) }}
 
-          </div>
+            {{tenpines/material-button   label='no votaron' click=(action 'verNoVotantes' reunionSeleccionada) }}
+
           {{#if reunionCerrada}}
+
+            {{#link-to  'reuniones.minuta'}}
+              {{tenpines/material-button label='edit. Minuta' }}
+            {{/link-to}}
+
             {{tenpines/material-button label='minuta' click=(action 'verMinuta') }}
+
           {{/if}}
           {{tenpines/material-button label='Borrar' click=(action 'borrarReunion' reunionSeleccionada) flat=true}}
           {{tenpines/material-button label='Editar' click=(action 'editarReunion' reunionSeleccionada) }}
