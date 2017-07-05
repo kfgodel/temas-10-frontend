@@ -1,0 +1,39 @@
+{{navigation-bar}}
+
+<div class="row">
+  <div class="col s12">
+    <h4>Temas Generales</h4>
+  </div>
+</div>
+
+<div class="row">
+  <table class="bordered highlight col s12">
+    <tbody>
+    {{#each model.temasGenerales as |tema|}}
+      <tr class="valign-wrapper">
+        <td class="col s8">
+          {{tenpines/colored-label value=tema.autor bgColor='green'}}
+          <span class="titulo-de-tema">{{tema.titulo}}</span>
+          <span> ({{tema.duracion }})</span>
+          <p>{{markdown-view value=tema.descripcion}}</p>
+        </td>
+        <td class="right-align col s1">
+            {{#if tema.puedeSerBorrado}}
+              <span {{action 'pedirConfirmacionDeBorrado' tema}}
+                class="clickable">{{materialize/icon-helper 'delete'}}</span>
+            {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormulario'}}><i
+    class="material-icons">add</i></a>
+
+  {{#if mostrandoFormulario}}
+    {{editor-de-tema tema=nuevoTema duraciones=duraciones cerrarEditor=(action 'cerrarEditor') alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
+  {{/if}}
+
+</div>
+
