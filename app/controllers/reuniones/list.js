@@ -47,11 +47,15 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     cerrarDetalle(){
       this._ocultarDetalle();
     },
-    traerMinuta(){
-      this.reunionService().getMinuta(this.get('reunionSeleccionada.id')).then((minuta)=> {
-        this.set('minuta',minuta);
-      }).then( ()=>this.set('mostrarMinuta',true));
+    cerrarMinuta(){
+      this._ocultarMinuta();
     },
+    verMinuta(){
+      this._traerMinuta().then(()=>{
+        this._mostrarMinuta();
+
+      });
+     },
     editarReunion(reunion){
       this.navigator().navigateToReunionesEdit(reunion.get('id'));
     },
@@ -88,6 +92,10 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     this.set('mostrandoDetalle', false);
     this.set('anchoDeTabla', 's12');
   },
+  _ocultarMinuta(){
+    this.set('mostrandoDetalle',true);
+    this.set('mostrandoMinuta',false);
+  },
   _mostrarDetalle(){
     this.set('anchoDeTabla', 's4');
     this.set('mostrandoDetalle', true);
@@ -107,4 +115,16 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
      return duracion.nombre===unTema.duracion;
    });
   },
+  _traerMinuta(){
+
+     return this.reunionService().getMinuta(this.get('reunionSeleccionada.id'))
+       .then((minuta)=> {
+      this.set('minuta',minuta);
+    });
+  },
+  _mostrarMinuta(){
+    this.set('mostrandoMinuta',true);
+    this.set('mostrandoDetalle',false);
+
+  }
 });
