@@ -24,6 +24,9 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   removeUser: function (user) {
     return this._userResource().remove(user);
   },
+  getNoVotantes: function (reunion) {
+    return this._noVotaronUserResource().getSingle(reunion);
+  },
   // PRIVATE
   _userResource: function () {
     var resourceCreator = this.resourceCreator();
@@ -33,6 +36,11 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   _currentUserResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('users/current');
+    return resource;
+  },
+  _noVotaronUserResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('users/noVotaron');
     return resource;
   },
 

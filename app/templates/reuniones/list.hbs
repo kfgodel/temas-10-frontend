@@ -42,6 +42,10 @@
         </div>
 
         <div class="card-action right-align">
+          <div class=" left-align "  >
+            {{tenpines/material-button   label='mandar al frente' click=(action 'verNoVotantes' reunionSeleccionada) }}
+
+          </div>
           {{#if reunionCerrada}}
             {{tenpines/material-button label='minuta' click=(action 'verMinuta') }}
           {{/if}}
@@ -49,56 +53,23 @@
           {{tenpines/material-button label='Editar' click=(action 'editarReunion' reunionSeleccionada) }}
 
         </div>
+        {{#if mostrandoNoVotantes}}
+
+          {{lista-de-no-votantes noVotantes=noVotantes cerrarNoVotantes=(action 'cerrarNoVotantes')}}
+        {{/if}}
       </div>
 
     </div>
   {{/if}}
   {{#if mostrandoMinuta}}
-
-    <div class="col s8">
-      <div class="card" >
-        <a class="btn-floating waves-effect waves-light red right"  {{action 'cerrarMinuta'}}><i class="material-icons ">close</i></a>
-
-
-        Formato del template:
-        <br>
-        <br>
-        Fecha: {{minuta.fecha}}
-        <br>
-        <br>
-        Minuteador:
-        <br>
-        <br>
-        Vinieron:   <br>  {{#each minuta.listaDeUsuarios as |user|}}
-        {{user.name}} <br>
-      {{/each}}
-        <br>
-        <br>
-        Temas propuestos:  <br>    {{#each minuta.listaDeTemas as |tema|}}
-        {{tema.titulo}} <br>
-      {{/each}}
-        <br>
-        <br>
-        Action items de la reunion anterior:
-        <br>
-        <br>
-        Detalle de los temas hablados:
-        <br>
-        <br>
-        Nombre del tema
-        <br>
-        <br>
-        Conclusiones: Actions Items:
-        <br>
-        <br>
-        Responsable: Tarea a la que se compromete
-      </div>
-    </div>
+  {{mostrador-de-minuta cerrarMinuta=(action 'cerrarMinuta') minuta=minuta}}
   {{/if}}
 </div>
 <div class="row">
   <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'crearReunion'}}><i
     class="material-icons">add</i></a>
   </div>
+
+
 
 
