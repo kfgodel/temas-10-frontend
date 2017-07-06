@@ -177,6 +177,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     }
   },
 
+  _filtrarTemasGeneradosPorTemasGenerales(reunion){
+    var temasFiltrados = reunion.get('temasPropuestos').filter(function (tema) {
+      return !tema.get('esDeUnTemaGeneral');
+    });
+    reunion.set('temasPropuestos', temasFiltrados);
+  },
+
   _cerrarReunion(){
     var reunion = this.get('reunion');
     this.reunionService().cerrarReunion(reunion)
@@ -195,6 +202,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
 
   _actualizarreunionCon(reunion){
     this._usarInstanciasDeTemas(reunion, this.get('usuarioActual'));
+    this._filtrarTemasGeneradosPorTemasGenerales(reunion);
     this.set('model.reunion', reunion);
   },
 
