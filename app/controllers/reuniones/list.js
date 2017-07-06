@@ -2,7 +2,8 @@ import Ember from "ember";
 import ReunionServiceInjected from "../../mixins/reunion-service-injected";
 import NavigatorInjected from "../../mixins/navigator-injected";
 import DuracionesServiceInjected from "../../mixins/duraciones-service-injected";
-export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected,DuracionesServiceInjected, {
+import UserServiceInjected from "../../mixins/user-service-injected";
+export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjected, NavigatorInjected,DuracionesServiceInjected, {
 
   anchoDeTabla: 's12',
 
@@ -11,11 +12,17 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     var reuniones = this._reuniones();
     return reuniones.objectAt(indiceSeleccionado);
   }),
-  mostrarBotonDeEstimacion:Ember.computed('reunionSeleccionada',function(){
-    return this.get('reunionSeleccionada.status')==="CERRADA";
+  reunionCerrada:Ember.computed('reunionSeleccionada',function(){
+     if(this.get('reunionSeleccionada.status')==="CERRADA"){
+       this.set('duracionDeReunion',180);
+     }
+     else{
+       this.set('duracionDeReunion',0);
+     }
+     return this.get('reunionSeleccionada.status')==="CERRADA";
   }),
-  duracionDeReunion:180,
   temasEstimados: Ember.computed('duracionDeReunion',function(){
+
     var temas= this.get('reunionSeleccionada.temasPropuestos');
     var duracionRestante=this.duracionDeReunion;
     var i=0;
@@ -27,18 +34,37 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     }
     return temasQueEntran;
   }),
+  ultimoTemaQueEntra: Ember.computed('temasEstimados',function(){
+
+    var temasEstimados=this.get('temasEstimados');
+    return temasEstimados[temasEstimados.length-1];
+  }),
   actions: {
     verReunion(reunion){
-      this._mostrarDetalleDe(reunion);
+      this._traerDuraciones().then(() => {
+        this._mostrarDetalleDe(reunion);
+      });
+    },
+    verNoVotantes(reunion){
+      this._traerNoVotantes(reunion).then(() => {
+        this._mostrarNoVotantes();
+      });
     },
     cerrarDetalle(){
       this._ocultarDetalle();
     },
-    mostrarEstimacion(){
-      this._traerDuraciones().then(() => {
-        this.set('mostrandoEstimacion',true);
-      });
+    cerrarMinuta(){
+      this._ocultarMinuta();
     },
+    cerrarNoVotantes(){
+      this._ocultarNoVotantes();
+    },
+    verMinuta(){
+      this._traerMinuta().then(()=>{
+        this._mostrarMinuta();
+
+      });
+     },
     editarReunion(reunion){
       this.navigator().navigateToReunionesEdit(reunion.get('id'));
     },
@@ -51,9 +77,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
           this._ocultarDetalle();
           this._recargarLista();
         });
-    },
-    cerrarEstimador(){
-      this.set('mostrandoEstimacion',false);
     }
   },
 
@@ -78,6 +101,13 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
     this.set('mostrandoDetalle', false);
     this.set('anchoDeTabla', 's12');
   },
+  _ocultarMinuta(){
+    this.set('mostrandoDetalle',true);
+    this.set('mostrandoMinuta',false);
+  },
+  _ocultarNoVotantes(){
+    this.set('mostrandoNoVotantes',false);
+  },
   _mostrarDetalle(){
     this.set('anchoDeTabla', 's4');
     this.set('mostrandoDetalle', true);
@@ -97,4 +127,25 @@ export default Ember.Controller.extend(ReunionServiceInjected, NavigatorInjected
      return duracion.nombre===unTema.duracion;
    });
   },
+  _traerMinuta(){
+
+     return this.reunionService().getMinuta(this.get('reunionSeleccionada.id'))
+       .then((minuta)=> {
+      this.set('minuta',minuta);
+    });
+  },
+  _mostrarMinuta(){
+    this.set('mostrandoMinuta',true);
+    this.set('mostrandoDetalle',false);
+
+  },
+  _mostrarNoVotantes(){
+    this.set('mostrandoNoVotantes',true);
+  },
+  _traerNoVotantes(reunion){
+
+   return this.userService().getNoVotantes(reunion.id).then((noVotantes)=> {
+     this.set('noVotantes', noVotantes);
+   });
+  }
 });
