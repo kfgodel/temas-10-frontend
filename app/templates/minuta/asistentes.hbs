@@ -1,3 +1,25 @@
+<div class="row">
+  <div class="col s12">
+    <h5>Asistentes a la reunión</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s10">
+    <center>
+      {{#power-select-multiple
+        options=usuarios
+        selected=usuario
+        placeholder="Select some names..."
+        onchange=(action (mut usuario))
+        as |usuario|
+      }}
+        {{usuario.login}}
+      {{/power-select-multiple}}
+    </center>
+  </div>
+</div>
+
 {{#link-to 'minuta.conclusiones' id}}
-  {{tenpines/material-button label='conclusiones' }}
+  {{tenpines/material-button label='Siguiente: Conclusiones' }}
 {{/link-to}}

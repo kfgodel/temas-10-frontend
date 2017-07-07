@@ -32,6 +32,9 @@ export default Ember.Service.extend(TransitionerInjected, {
     this._navigateTo('reuniones.edit', user);
   },
 
+  navigateToAsistentesMinuta(reunion){
+    this._navigateTo('minuta.asistentes', reunion);
+  },
 
   navigateToUsers(){
     this._navigateTo('users');
