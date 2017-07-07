@@ -3,7 +3,8 @@ import ReunionServiceInjected from "../../mixins/reunion-service-injected";
 import NavigatorInjected from "../../mixins/navigator-injected";
 import DuracionesServiceInjected from "../../mixins/duraciones-service-injected";
 import UserServiceInjected from "../../mixins/user-service-injected";
-export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjected, NavigatorInjected,DuracionesServiceInjected, {
+import MinutaServiceInjected from "../../mixins/minuta-service-injected";
+export default Ember.Controller.extend(ReunionServiceInjected,MinutaServiceInjected,UserServiceInjected, NavigatorInjected,DuracionesServiceInjected, {
 
   anchoDeTabla: 's12',
 
@@ -146,7 +147,7 @@ export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjecte
   },
 
   _traerMinuta(){
-     return this.reunionService().getMinuta(this.get('reunionSeleccionada.id'))
+     return this.minutaService().getMinutaDeReunion(this.get('reunionSeleccionada.id'))
        .then((minuta)=> {
       this.set('minuta',minuta);
     });
