@@ -40,6 +40,10 @@ export default Ember.Service.extend(TransitionerInjected, {
     this._navigateTo('users.edit', user);
   },
 
+  navigateToTemasGenerales(){
+    this._navigateTo('temas-generales');
+  },
+
   // PRIVATE
   _navigateTo(routeName, models, queryParams){
     this.transitioner().transitionTo(routeName, models, queryParams);

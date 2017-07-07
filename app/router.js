@@ -21,6 +21,8 @@ Router.map(function () {
     this.route('edit', {path: "edit/:user_id"});
   });
 
+  this.route('temas-generales');
+
   // Catches all the malformed urls (not matching previous routes)
   this.route('wrong-paths', {path: '/*badUrl'});
   this.route('minuta');
