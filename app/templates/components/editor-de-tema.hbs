@@ -13,15 +13,11 @@
           {{/each}}
         </select>
       </div>
-      <div class="switch">
-        <label>
-          Obligatorio
-          {{input type="checkbox" checked=esObligatorio}}
-          <span class="lever"></span>
-        </label>
-    </div>
-      {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}
+      <div class="col s3">
+        {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
+      </div>
 
+      {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}
     </div>
 
   </div>
