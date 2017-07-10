@@ -33,9 +33,9 @@
            {{/if}}
           </div>
           <div class="row">
-            {{#tenpines/object-table titulos='Prioridad, Titulo, Votos' col='s12' }}
+            {{#tenpines/object-table titulos='Prioridad, Titulo, Autor,Duracion, Votos' col='s12' }}
               {{#each reunionSeleccionada.temasPropuestos as |tema|}}
-                {{tema-en-tabla tema=tema ultimoTema=ultimoTemaQueEntra}}
+                {{tema-en-tabla tema=tema ultimoTema=ultimoTemaQueEntra duraciones=duraciones}}
               {{/each}}
             {{/tenpines/object-table}}
           </div>

@@ -1,9 +1,14 @@
-<td>{{tema.prioridad}}</td>
-<td class="col s8">
-  {{tenpines/colored-label value=tema.autor bgColor='green'}}
+<td >
+  {{tema.prioridad}}
+</td>
+<td >
   <span class="titulo-de-tema">{{tema.titulo}}</span>
-  <span> ({{tema.duracion}})</span>
-  <p>{{markdown-view value=tema.descripcion}}</p>
+</td>
+<td>
+  {{tema.autor}}
+</td>
+<td>
+  {{tema.duracion}}({{cantDeMinutosDeDuracionDeTema}} Minutos)
 </td>
 {{#if tema.esObligatorio}}
   <td>OBLIGATORIO</td>
