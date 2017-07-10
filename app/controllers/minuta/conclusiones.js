@@ -22,15 +22,6 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
     cerrarEditor(){
       this._ocultarEditor();
     },
-    conclusionPresente(){
-      debugger;
-      if(true){
-        return 'done';
-      }
-      else{
-        return '';
-      }
-    },
     guardarConclusion(){
       this.temaDeMinutaService().updateTemaDeMinuta(this.get('temaSeleccionado'))
         .then(()=> {
