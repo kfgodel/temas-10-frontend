@@ -28,7 +28,8 @@ export default Ember.Object.extend({
   }),
 
   esObligatorio: Ember.computed('obligatoriedad', function(){
-    return this.get('obligatoriedad') === "OBLIGATORIO";
+    let obligatoriedad = this.get('obligatoriedad');
+    return obligatoriedad === "OBLIGATORIO" || obligatoriedad === "OBLIGATORIO_GENERAL";
   }),
 
   agregarInteresado(idDeInteresado){

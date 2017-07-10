@@ -20,7 +20,6 @@ export default Ember.Route.extend(AuthenticatedRoute, ReunionServiceInjected, Us
         })
     }).then((model)=> {
       this._usarInstanciasDeTemas(model.reunion, model.usuarioActual);
-      this._filtrarTemasGeneradosPorTemasGenerales(model.reunion);
 
       return model;
     });
@@ -35,12 +34,5 @@ export default Ember.Route.extend(AuthenticatedRoute, ReunionServiceInjected, Us
       temasDeLaReunion[i] = temaConComportamiento;
     }
   },
-
-  _filtrarTemasGeneradosPorTemasGenerales(reunion){
-    var temasFiltrados = reunion.get('temasPropuestos').filter(function (tema) {
-      return !tema.get('esDeUnTemaGeneral');
-    });
-    reunion.set('temasPropuestos', temasFiltrados);
-  }
 
 });
