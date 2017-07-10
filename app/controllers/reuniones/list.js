@@ -41,7 +41,7 @@ export default Ember.Controller.extend(ReunionServiceInjected,MinutaServiceInjec
   }),
 
   ultimoTemaQueEntra: Ember.computed('temasEstimados,reunionSeleccionada',function(){
-    debugger;
+   
     var temasEstimados=this.get('temasEstimados');
     return temasEstimados[temasEstimados.length-1];
   }),
