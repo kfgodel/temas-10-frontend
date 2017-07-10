@@ -6,8 +6,13 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected,{
   getMinuta(minuta){
     return this._minutaResource().getSingle(minuta);
   },
+
   getMinutaDeReunion(reunion){
     return this._minutaDeReunionResource().getSingle(reunion);
+  },
+
+  updateMinuta(minuta){
+    return this._minutaResource().update(minuta);
   },
 
   //private
