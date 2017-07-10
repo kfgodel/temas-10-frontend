@@ -7,7 +7,17 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected,{
     return this._minutaDeReunionResource().getSingle(reunion);
   },
 
+  updateMinuta(minuta){
+    return this._minutaResource().update(minuta);
+  },
+
   //private
+  _minutaResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('minuta');
+    return resource;
+  },
+
   _minutaDeReunionResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('minuta/reunion');
