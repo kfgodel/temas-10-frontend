@@ -7,7 +7,6 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function () {
-
   this.route('login');
   this.route('engaging-session');
 
@@ -15,6 +14,10 @@ Router.map(function () {
   this.route('reuniones', function () {
     this.route('edit', {path: "reuniones/:reunion_id"});
     this.route('list');
+  });
+  this.route('minuta', function(){
+    this.route('asistentes', {path:":reunion_id/asistentes"});
+    this.route('conclusiones', {path:":reunion_id/conclusiones"});
   });
 
   this.route('users', function () {
