@@ -3,14 +3,16 @@ import EmberizedResourceCreatorInjected from "ateam-ember-resource/mixins/emberi
 
 export default Ember.Service.extend(EmberizedResourceCreatorInjected,{
 
-  getMinutaDeReunion(reunion){
-    return this._minutaDeReunionResource().getSingle(reunion);
+  getTemaDeMinuta(temaDeMinuta){
+    return this._temaDeMinutaService().getSingle(temaDeMinuta);
   },
-
+  updateTemaDeMinuta(temaDeMinuta){
+    return this._temaDeMinutaService().update(temaDeMinuta);
+  },
   //private
-  _minutaDeReunionResource: function () {
+  _temaDeMinutaService: function () {
     var resourceCreator = this.resourceCreator();
-    var resource = resourceCreator.createResource('minuta/reunion');
+    var resource = resourceCreator.createResource('temaDeMinuta');
     return resource;
   }
 });
