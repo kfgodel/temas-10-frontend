@@ -17,23 +17,28 @@
   {{/each}}
     <br>
     <br>
-    Temas propuestos:  <br>    {{#each minuta.temas as |tema|}}
-    {{tema.titulo}} <br>
+    Temas propuestos:  <br>    {{#each minuta.temas as |temaDeMinuta|}}
+    {{temaDeMinuta.tema.titulo}} <br>
   {{/each}}
     <br>
     <br>
     Action items de la reunion anterior:
     <br>
     <br>
-    Detalle de los temas hablados:
+    Detalle de los temas hablados: {{#each minuta.temas as |temaDeMinuta|}}
     <br>
     <br>
-    Nombre del tema
+    Nombre: {{temaDeMinuta.tema.titulo}}
     <br>
     <br>
-    Conclusiones: Actions Items:
+    Conclusion: <br>
+    {{temaDeMinuta.conclusion}}
+    <br>
+    <br>
+    Actions Items:
     <br>
     <br>
     Responsable: Tarea a la que se compromete
+  {{/each}}
   </div>
 </div>
