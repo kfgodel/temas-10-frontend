@@ -37,7 +37,7 @@
     </thead>
 
     <tbody>
-    {{#each reunion.temasPropuestos as |tema|}}
+    {{#each temasOrdenados as |tema|}}
       {{#if (or mostrarObligatorios (not tema.esObligatorio))}}
         <tr class="valign-wrapper" bgcolor={{tema.colorVotos}}>
           <td class="col s1">

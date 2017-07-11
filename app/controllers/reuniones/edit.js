@@ -13,6 +13,20 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     return this.get('model.reunion');
   }),
 
+  temasOrdenados: Ember.computed('reunion.temasPropuestos', function() {
+    let todosLosTemas = this.get('reunion.temasPropuestos');
+    let temasOrdenados = todosLosTemas.filter(function (tema) {
+      return tema.obligatoriedad === "OBLIGATORIO_GENERAL";
+    });
+    temasOrdenados = temasOrdenados.concat(todosLosTemas.filter(function (tema) {
+      return tema.obligatoriedad === "OBLIGATORIO";
+    }));
+    temasOrdenados = temasOrdenados.concat(todosLosTemas.filter(function (tema) {
+      return tema.obligatoriedad === "NO_OBLIGATORIO";
+    }));
+    return temasOrdenados;
+  }),
+
   estaCerrada: Ember.computed('reunion.status', function () {
     return this.get('reunion.status') === 'CERRADA';
   }),
