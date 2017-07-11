@@ -42,6 +42,17 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
       this.set('nuevoTema.duracion', duracion);
     },
 
+    pedirConfirmacionDeBorrado(temaABorrar){
+      this.set('temaABorrar', temaABorrar);
+      this.set('mensajeDeConfirmacionDeBorrado', `¿Estás seguro de borrar el tema general "${temaABorrar.titulo}"?`);
+      this.set('modalDeBorradoAbierto', true);
+    },
+
+    borrarTemaElegido(){
+      var temaBorrable = this.get('temaABorrar');
+      delete this.temaABorrar;
+      this._borrarTema(temaBorrable);
+    },
   },
 
   _idDeUsuarioActual(){
@@ -70,6 +81,12 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
 
   _actualizarTemasGenerales(temasGenerales){
     this.set('model.temasGenerales', temasGenerales);
+  },
+
+  _borrarTema(tema){
+    this.temasGeneralesService().deleteTemaGeneral(tema).then(() => {
+      this._recargarTemasGenerales();
+    });
   },
 
 });

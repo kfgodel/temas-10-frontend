@@ -18,10 +18,8 @@
           <p>{{markdown-view value=tema.descripcion}}</p>
         </td>
         <td class="right-align col s1">
-            {{#if tema.puedeSerBorrado}}
-              <span {{action 'pedirConfirmacionDeBorrado' tema}}
-                class="clickable">{{materialize/icon-helper 'delete'}}</span>
-            {{/if}}
+          <span {{action 'pedirConfirmacionDeBorrado' tema}}
+            class="clickable">{{materialize/icon-helper 'delete'}}</span>
         </td>
       </tr>
     {{/each}}
@@ -36,4 +34,12 @@
   {{/if}}
 
 </div>
+
+{{tenpines/modal-de-confirmacion
+  open=modalDeBorradoAbierto
+  titulo='Confirmar eliminacion de tema general'
+  descripcion=mensajeDeConfirmacionDeBorrado
+  accionAceptar=(action 'borrarTemaElegido')
+}}
+
 
