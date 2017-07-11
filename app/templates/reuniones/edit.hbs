@@ -11,6 +11,10 @@
     {{/if}}
   </div>
 
+  <div class="col s12 right-align">
+    {{materialize/check-box label='Ver temas obligatorios' checked=mostrarObligatorios checkboxClasses="filled-in"}}
+  </div>
+
 </div>
 
 <div class="row">
@@ -34,32 +38,34 @@
 
     <tbody>
     {{#each reunion.temasPropuestos as |tema|}}
-      <tr class="valign-wrapper" bgcolor={{tema.colorVotos}}>
-        <td class="col s1">
-          {{tema.prioridad}}
-        </td>
-        <td class="col s8">
-          {{tenpines/colored-label value=tema.autor bgColor='green'}}
-          <span class="titulo-de-tema">{{tema.titulo}}</span>
-          <span> ({{tema.duracion }})</span>
-          <p>{{markdown-view value=tema.descripcion}}</p>
-        </td>
-        <td class="col s2">
-          {{#unless tema.esObligatorio}}
-            <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
-            {{tema.cantidadVotosPropios }} votos
-            <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
-          {{/unless}}
-        </td>
-        <td class="right-align col s1">
-          {{#unless estaCerrada}}
-            {{#if tema.puedeSerBorrado}}
-              <span {{action 'pedirConfirmacionDeBorrado' tema}}
-                class="clickable">{{materialize/icon-helper 'delete'}}</span>
-            {{/if}}
-          {{/unless}}
-        </td>
-      </tr>
+      {{#if (or mostrarObligatorios (not tema.esObligatorio))}}
+        <tr class="valign-wrapper" bgcolor={{tema.colorVotos}}>
+          <td class="col s1">
+            {{tema.prioridad}}
+          </td>
+          <td class="col s8">
+            {{tenpines/colored-label value=tema.autor bgColor='green'}}
+            <span class="titulo-de-tema">{{tema.titulo}}</span>
+            <span> ({{tema.duracion }})</span>
+            <p>{{markdown-view value=tema.descripcion}}</p>
+          </td>
+          <td class="col s2">
+            {{#unless tema.esObligatorio}}
+              <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
+              {{tema.cantidadVotosPropios }} votos
+              <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
+            {{/unless}}
+          </td>
+          <td class="right-align col s1">
+            {{#unless estaCerrada}}
+              {{#if tema.puedeSerBorrado}}
+                <span {{action 'pedirConfirmacionDeBorrado' tema}}
+                  class="clickable">{{materialize/icon-helper 'delete'}}</span>
+              {{/if}}
+            {{/unless}}
+          </td>
+        </tr>
+      {{/if}}
     {{/each}}
     </tbody>
   </table>

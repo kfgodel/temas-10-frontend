@@ -7,6 +7,7 @@ import Tema from "../../concepts/tema";
 export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, DuracionesServiceInjected, {
 
   esObligatorio: false,
+  mostrarObligatorios: false,
 
   reunion: Ember.computed('model.reunion', function () {
     return this.get('model.reunion');
