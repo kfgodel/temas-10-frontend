@@ -4,7 +4,7 @@
   max-width: none;
 }
 .ultimo-tema-stile{
-  border-bottom:dashed ;
+  border-bottom:dashed;
   border-bottom-color:#ff2323 ;
 }
 @media only screen and (min-width: 993px) {
@@ -20,3 +20,5 @@
 .clickable {
   cursor: pointer;
 }
+
+@import "ember-power-select";

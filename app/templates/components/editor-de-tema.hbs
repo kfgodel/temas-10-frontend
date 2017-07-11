@@ -3,25 +3,24 @@
   <div class="card-content">
     <span class="card-title">Nueva propuesta</span>
 
-    <div class="row">
+    <div class="row ">
+
       {{tenpines/input-text label='Titulo' value=tema.titulo col='s4' }}
-      <div class="input-field col s4">
-        <select onchange={{action seleccionarDuracion value="target.value" }} >
+      <div style="height: 2px" >
+      <label >  Duracion</label>
+      </div>
+        <div class="input-field col s4"  >
+        <select  onchange={{action seleccionarDuracion value="target.value" }} >
             <option value="" disabled selected >Elija una duracion</option>
           {{#each duraciones as |duracion|}}
             <option value={{duracion.nombre}}>{{duracion.descripcion}} ({{duracion.cantidadDeMinutos}} minutos)</option>
           {{/each}}
         </select>
       </div>
-      <div class="switch">
-        <label>
-          Obligatorio
-          {{input type="checkbox" checked=esObligatorio}}
-          <span class="lever"></span>
-        </label>
-    </div>
+      <div style="line-height: 6">
+        {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
+      </div>
       {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}
-
     </div>
 
   </div>

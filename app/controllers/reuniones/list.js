@@ -3,7 +3,8 @@ import ReunionServiceInjected from "../../mixins/reunion-service-injected";
 import NavigatorInjected from "../../mixins/navigator-injected";
 import DuracionesServiceInjected from "../../mixins/duraciones-service-injected";
 import UserServiceInjected from "../../mixins/user-service-injected";
-export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjected, NavigatorInjected,DuracionesServiceInjected, {
+import MinutaServiceInjected from "../../mixins/minuta-service-injected";
+export default Ember.Controller.extend(ReunionServiceInjected,MinutaServiceInjected,UserServiceInjected, NavigatorInjected,DuracionesServiceInjected, {
 
   anchoDeTabla: 's12',
 
@@ -12,15 +13,19 @@ export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjecte
     var reuniones = this._reuniones();
     return reuniones.objectAt(indiceSeleccionado);
   }),
+
   reunionCerrada:Ember.computed('reunionSeleccionada',function(){
      if(this.get('reunionSeleccionada.status')==="CERRADA"){
+
        this.set('duracionDeReunion',180);
      }
      else{
        this.set('duracionDeReunion',0);
      }
-     return this.get('reunionSeleccionada.status')==="CERRADA";
+
+    return this.get('reunionSeleccionada.status')==="CERRADA";
   }),
+
   temasEstimados: Ember.computed('duracionDeReunion',function(){
 
     var temas= this.get('reunionSeleccionada.temasPropuestos');
@@ -34,43 +39,53 @@ export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjecte
     }
     return temasQueEntran;
   }),
-  ultimoTemaQueEntra: Ember.computed('temasEstimados',function(){
+
+  ultimoTemaQueEntra: Ember.computed('temasEstimados,reunionSeleccionada',function(){
 
     var temasEstimados=this.get('temasEstimados');
     return temasEstimados[temasEstimados.length-1];
   }),
+
   actions: {
+
     verReunion(reunion){
       this._traerDuraciones().then(() => {
         this._mostrarDetalleDe(reunion);
       });
     },
+
     verNoVotantes(reunion){
       this._traerNoVotantes(reunion).then(() => {
         this._mostrarNoVotantes();
       });
     },
+
     cerrarDetalle(){
       this._ocultarDetalle();
     },
+
     cerrarMinuta(){
       this._ocultarMinuta();
     },
+
     cerrarNoVotantes(){
       this._ocultarNoVotantes();
     },
+
     verMinuta(){
       this._traerMinuta().then(()=>{
         this._mostrarMinuta();
-
       });
-     },
+    },
+
     editarReunion(reunion){
       this.navigator().navigateToReunionesEdit(reunion.get('id'));
     },
+
     crearReunion(){
       this._guardarNuevaYRecargar();
     },
+
     borrarReunion(reunion){
       this.reunionService().removeReunion(reunion)
         .then(()=> {
@@ -101,13 +116,16 @@ export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjecte
     this.set('mostrandoDetalle', false);
     this.set('anchoDeTabla', 's12');
   },
+
   _ocultarMinuta(){
     this.set('mostrandoDetalle',true);
     this.set('mostrandoMinuta',false);
   },
+
   _ocultarNoVotantes(){
     this.set('mostrandoNoVotantes',false);
   },
+
   _mostrarDetalle(){
     this.set('anchoDeTabla', 's4');
     this.set('mostrandoDetalle', true);
@@ -116,34 +134,37 @@ export default Ember.Controller.extend(ReunionServiceInjected,UserServiceInjecte
   _reuniones(){
     return this.get('model');
   },
+
   _traerDuraciones(){
     return this.duracionesService().getAll().then((duraciones)=> {
       this.set('duraciones',duraciones);
     });
   },
+
   _obtenerDuracionDeTema(unTema){
    var duraciones= this.get('duraciones');
     return duraciones.find(function (duracion) {
      return duracion.nombre===unTema.duracion;
    });
   },
-  _traerMinuta(){
 
-     return this.reunionService().getMinuta(this.get('reunionSeleccionada.id'))
+  _traerMinuta(){
+     return this.minutaService().getMinutaDeReunion(this.get('reunionSeleccionada.id'))
        .then((minuta)=> {
       this.set('minuta',minuta);
     });
   },
+
   _mostrarMinuta(){
     this.set('mostrandoMinuta',true);
     this.set('mostrandoDetalle',false);
-
   },
+
   _mostrarNoVotantes(){
     this.set('mostrandoNoVotantes',true);
   },
-  _traerNoVotantes(reunion){
 
+  _traerNoVotantes(reunion){
    return this.userService().getNoVotantes(reunion.id).then((noVotantes)=> {
      this.set('noVotantes', noVotantes);
    });

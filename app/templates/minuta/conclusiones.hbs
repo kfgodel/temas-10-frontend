@@ -1,0 +1,34 @@
+<div class="row">
+{{#tenpines/object-table titulos='Pioridad, Tema, Autor,Duracion, Obligatoriedad ' col=anchoDeTabla bordered=true highlight=true }}
+  {{#each  minuta.temas as |temaDeMinuta|}}
+    <tr  {{action 'verEditorDeConclusion' temaDeMinuta}} >
+      <td>{{temaDeMinuta.tema.prioridad}}</td>
+      <td>{{temaDeMinuta.tema.titulo}}</td>
+      <td>{{temaDeMinuta.tema.autor}}</td>
+      <td>{{temaDeMinuta.tema.duracion}}</td>
+      <td>{{temaDeMinuta.tema.obligatoriedad}}</td>
+     {{tema-de-minuta-conclusion-checked temaDeMinuta=temaDeMinuta}}
+    </tr>
+  {{/each}}
+{{/tenpines/object-table}}
+
+{{# if mostrandoEditor}}
+
+  <div class="col s8">
+    <div class="card">
+      <a class="btn-floating waves-effect waves-light red right"  {{action 'cerrarEditor'}}><i class="material-icons ">close</i></a>
+
+      <div class="card-content">
+        <span class="card-title"><h2 class="header">{{temaSeleccionado.tema.titulo}}</h2> </span>
+        {{tenpines/text-area label='Conclusion' value=temaSeleccionado.conclusion col='s12' }}
+
+      {{tenpines/material-button alight=left label='Guardar' click=(action 'guardarConclusion') }}
+        <div class="row">
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{/if}}
+
+</div>

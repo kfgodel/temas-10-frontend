@@ -33,9 +33,9 @@
            {{/if}}
           </div>
           <div class="row">
-            {{#tenpines/object-table titulos='Prioridad, Titulo, Votos' col='s12' }}
+            {{#tenpines/object-table titulos='Prioridad, Titulo, Autor,Duracion, Votos' col='s12' }}
               {{#each reunionSeleccionada.temasPropuestos as |tema|}}
-                {{tema-en-tabla tema=tema ultimoTema=ultimoTemaQueEntra}}
+                {{tema-en-tabla tema=tema ultimoTema=ultimoTemaQueEntra duraciones=duraciones}}
               {{/each}}
             {{/tenpines/object-table}}
           </div>
@@ -47,7 +47,7 @@
 
           {{#if reunionCerrada}}
 
-            {{#link-to  'reuniones.minuta'}}
+            {{#link-to 'minuta.asistentes' reunionSeleccionada.id}}
               {{tenpines/material-button label='edit. Minuta' }}
             {{/link-to}}
 
@@ -67,7 +67,7 @@
     </div>
   {{/if}}
   {{#if mostrandoMinuta}}
-  {{mostrador-de-minuta cerrarMinuta=(action 'cerrarMinuta') minuta=minuta}}
+    {{mostrador-de-minuta cerrarMinuta=(action 'cerrarMinuta') minuta=minuta}}
   {{/if}}
 </div>
 <div class="row">
