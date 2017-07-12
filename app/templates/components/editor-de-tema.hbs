@@ -9,13 +9,20 @@
       <div style="height: 2px" >
       <label >  Duracion</label>
       </div>
-        <div class="input-field col s4"  >
-        <select  onchange={{action seleccionarDuracion value="target.value" }} >
-            <option value="" disabled selected >Elija una duracion</option>
-          {{#each duraciones as |duracion|}}
-            <option value={{duracion.nombre}}>{{duracion.descripcion}} ({{duracion.cantidadDeMinutos}} minutos)</option>
-          {{/each}}
-        </select>
+
+        <div class=" col s4"  style="line-height: 6"  >
+          {{#power-select
+            options=nombreDeDuraciones
+            selected=tema.duracion
+            noMatchesMessage=""
+            searchEnabled=false
+            placeholder="Seleccione los asistentes a la reunión "
+            onchange=(action (mut tema.duracion))
+          as |duracion|
+          }}
+            {{duracion}} {{minutos-de-duracion duracion duraciones }}
+          {{/power-select}}
+
       </div>
       <div style="line-height: 6">
         {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
