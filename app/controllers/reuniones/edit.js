@@ -94,29 +94,29 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       });
     },
     mostrarFormularioDeEdicion(tema){
-
       this._siNoEstaCerrada(function () {
-        this._traerDuraciones().then((x)=>{
+        this._traerDuraciones().then(()=>{
           this.set('nuevoTema', tema);
-        this.set('obligatoriedadPasada',this.get('nuevoTema.obligatoriedad'));
-        this.set('esObligatorio',(this.get('nuevoTema.obligatoriedad')==='OBLIGATORIO'));
-        this.set('mostrandoFormularioXTemaNuevo', false);
-        this.set('mostrandoFormularioDeEdicion', true);})
-
+          this.set('obligatoriedadPasada',this.get('nuevoTema.obligatoriedad'));
+          this.set('nuevoTema.idDeUltimoModificador',this._idDeUsuarioActual());
+          this.set('esObligatorio',(this.get('nuevoTema.obligatoriedad')==='OBLIGATORIO'));
+          this.set('mostrandoFormularioXTemaNuevo', false);
+          this.set('mostrandoFormularioDeEdicion', true);
+        })
       });
     },
     mostrarFormulario(){
       this._siNoEstaCerrada(function () {
-        this.set('mostrandoFormularioDeEdicion',false);
-        this.set('mostrandoFormularioXTemaNuevo', true);
-        this.set('nuevoTema', Tema.create({
+        this._traerDuraciones().then(()=>{
+          this.set('mostrandoFormularioDeEdicion',false);
+          this.set('mostrandoFormularioXTemaNuevo', true);
+          this.set('nuevoTema', Tema.create({
             idDeReunion: this._idDeReunion(),
             idDeAutor: this._idDeUsuarioActual(),
             usuarioActual: this.get('model.usuarioActual'),
-          })
-        );
-        this._traerDuraciones();
-
+            idDeUltimoModificador:this._idDeUsuarioActual()
+          }));
+        })
       });
     },
     agregarTema(){
@@ -133,10 +133,12 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
         this.set('modalDeCambioDeObligatoriedadAbierto',true);
       }
       else{
-      this._updatearTemaYRecargar();
+        this._updatearTemaYRecargar();
       };
     },
     pedirConfirmacionDeBorrado(temaABorrar){
+      this.set('mostrandoFormularioDeEdicion',false);
+      this.set('mostrandoFormularioXTemaNuevo', false);
       this.set('temaABorrar', temaABorrar);
       this.set('mensajeDeConfirmacionDeBorrado', `Estás seguro de borrar el tema "${temaABorrar.titulo}"? Los votos seran devueltos`);
       this.set('modalDeBorradoAbierto', true);

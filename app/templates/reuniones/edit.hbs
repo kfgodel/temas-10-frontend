@@ -24,21 +24,21 @@
         <th class="col s1">
           #
         </th>
-        <th class="col s3">
+        <th class="col s2">
           Tema
         </th>
         <th class="col s2">
           Autor
         </th>
 
-        <th class="col s2">
+        <th class="col s1">
           Duracion
         </th>
         <th class="col s2">
           Votos ({{votosRestantes}} restantes)
         </th>
-        <th class="right-align col s1">
-          -
+        <th class="col s2">
+          Ultima modificacion
         </th>
       </tr>
     </thead>
@@ -51,7 +51,7 @@
           {{tema.prioridad}}
 
         </td>
-        <td class="col s3">
+        <td class="col s2">
           <span class="titulo-de-tema">{{tema.titulo}}</span>
 
           <p>{{markdown-view value=tema.descripcion}}</p>
@@ -61,7 +61,7 @@
           {{tema.autor}}
          </td>
 
-        <td class="col s2">
+        <td class="col s1">
           {{tema.duracion}}
         </td>
         <td class="col s2">
@@ -70,6 +70,9 @@
             {{tema.cantidadVotosPropios }} votos
             <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
           {{/unless}}
+        </td>
+        <td class="col s2">
+         {{tema.ultimoModificador}}
         </td>
         <td class="right-align col s1">
           {{#unless estaCerrada}}
