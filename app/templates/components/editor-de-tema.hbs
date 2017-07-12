@@ -6,11 +6,10 @@
     <div class="row ">
 
       {{tenpines/input-text label='Titulo' value=tema.titulo col='s4' }}
-      <div style="height: 2px" >
-      <label >  Duracion</label>
-      </div>
 
-        <div class=" col s4"  style="line-height: 6"  >
+        <div class=" col s2 parcheDeContEditor"    >
+          <label class="col" >Duracion</label>
+          <div  class="col s12 parcheDeEditorBottom">
           {{#power-select
             options=nombreDeDuraciones
             selected=tema.duracion
@@ -22,11 +21,14 @@
           }}
             {{duracion}} {{minutos-de-duracion duracion duraciones }}
           {{/power-select}}
+          </div>
 
-      </div>
-      <div style="line-height: 6">
+        </div>
+        <div class="col s2 parcheDeContEditor">
+        <div class="parcheDeEditorBottom " >
         {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
-      </div>
+        </div>
+        </div>
       {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}
     </div>
 
