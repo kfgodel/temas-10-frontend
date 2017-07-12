@@ -100,6 +100,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
         this._traerDuraciones().then((x)=>{
           this.set('nuevoTema', tema);
         this.set('obligatoriedadPasada',this.get('nuevoTema.obligatoriedad'));
+        this.set('nuevoTema.idDeUltimoModificador',this._idDeUsuarioActual());
         this.set('esObligatorio',(this.get('nuevoTema.obligatoriedad')==='OBLIGATORIO'));
         this.set('mostrandoFormularioXTemaNuevo', false);
         this.set('mostrandoFormularioDeEdicion', true);})
@@ -108,15 +109,17 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     mostrarFormulario(){
       this._siNoEstaCerrada(function () {
+          this._traerDuraciones().then((x)=>{
         this.set('mostrandoFormularioDeEdicion',false);
         this.set('mostrandoFormularioXTemaNuevo', true);
         this.set('nuevoTema', Tema.create({
             idDeReunion: this._idDeReunion(),
             idDeAutor: this._idDeUsuarioActual(),
             usuarioActual: this.get('model.usuarioActual'),
+            idDeUltimoModificador:this._idDeUsuarioActual()
           })
         );
-        this._traerDuraciones();
+            })
 
       });
     },
