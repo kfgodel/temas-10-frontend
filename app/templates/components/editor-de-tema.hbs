@@ -6,25 +6,25 @@
     <div class="row ">
 
       {{tenpines/input-text label='Titulo' value=tema.titulo col='s4' }}
-      <div style="height: 2px" >
-      <label >  Duracion</label>
-      </div>
 
-        <div class=" col s4"  style="line-height: 6"  >
+        <div class="col s4">
+          <label>Duracion</label>
           {{#power-select
+            ariaLabel="Duración"
             options=nombreDeDuraciones
             selected=tema.duracion
             noMatchesMessage=""
             searchEnabled=false
-            placeholder="Seleccione los asistentes a la reunión "
+            placeholder=""
             onchange=(action (mut tema.duracion))
-          as |duracion|
+            as |duracion|
           }}
             {{duracion}} {{minutos-de-duracion duracion duraciones }}
           {{/power-select}}
 
       </div>
-      <div style="line-height: 6">
+
+      <div class="col s2" style="line-height: 6">
         {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
       </div>
       {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}

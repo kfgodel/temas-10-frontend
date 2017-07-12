@@ -18,6 +18,10 @@
           <p>{{markdown-view value=tema.descripcion}}</p>
         </td>
         <td class="right-align col s1">
+          <span {{action 'mostrarFormularioDeEdicion' tema}}
+            class="clickable">{{materialize/icon-helper 'mode_edit'}}</span>
+        </td>
+        <td class="right-align col s1">
           <span {{action 'pedirConfirmacionDeBorrado' tema}}
             class="clickable">{{materialize/icon-helper 'delete'}}</span>
         </td>
@@ -26,11 +30,14 @@
     </tbody>
   </table>
 
-  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormulario'}}><i
+  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormularioDeAlta'}}><i
     class="material-icons">add</i></a>
 
-  {{#if mostrandoFormulario}}
-    {{editor-de-tema tema=nuevoTema duraciones=duraciones cerrarEditor=(action 'cerrarEditor') alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+  {{#if mostrandoFormularioDeEdicion}}
+    {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeEdicion') alGuardar=(action 'actualizarTema') guardarHabilitado=guardarHabilitado esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+  {{/if}}
+  {{#if mostrandoFormularioDeAlta}}
+    {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeAlta') alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
   {{/if}}
 
 </div>

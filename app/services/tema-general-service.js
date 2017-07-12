@@ -15,6 +15,10 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
     return this._temaGeneralResource().remove(tema);
   },
 
+  updateTemaGeneral:function(tema) {
+    return this._temaGeneralResource().update(tema);
+  },
+
   // PRIVATE
   _temaGeneralResource: function () {
     var resourceCreator = this.resourceCreator();

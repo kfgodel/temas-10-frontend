@@ -13,7 +13,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     return this.get('model.reunion');
   }),
   nombreDeDuraciones: Ember.computed('duraciones',function(){
-    debugger;
     return this.get('duraciones').map(function(duracion){
       return duracion.nombre;
     });
@@ -128,7 +127,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
         this._updatearTemaYRecargar();
     },
     updatearTema(){
-      debugger;
       var tema = this.get('nuevoTema');
       tema.set('obligatoriedad',this._obligatoriedad(this.get('esObligatorio')));
       if(this.get('nuevoTema.obligatoriedad')==='OBLIGATORIO' && this.get('obligatoriedadPasada')==='NO_OBLIGATORIO'){
