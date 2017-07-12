@@ -4,7 +4,6 @@ export default Ember.Component.extend({
   tagName:"tr",
   classNameBindings: ["classStile"],
   classStile: Ember.computed('ultimoTema',function () {
-    debugger;
     if(this.get('tema.id') === this.get('ultimoTema.id')) {
       return "ultimo-tema-stile";
     }

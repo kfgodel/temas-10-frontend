@@ -7,9 +7,29 @@ import Tema from "../../concepts/tema";
 export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInjected, DuracionesServiceInjected, {
 
   esObligatorio: false,
+  mostrarObligatorios: false,
 
   reunion: Ember.computed('model.reunion', function () {
     return this.get('model.reunion');
+  }),
+  nombreDeDuraciones: Ember.computed('duraciones',function(){
+    debugger;
+    return this.get('duraciones').map(function(duracion){
+      return duracion.nombre;
+    });
+  }),
+  temasOrdenados: Ember.computed('reunion.temasPropuestos', function() {
+    let todosLosTemas = this.get('reunion.temasPropuestos');
+    let temasOrdenados = todosLosTemas.filter(function (tema) {
+      return tema.obligatoriedad === "OBLIGATORIO_GENERAL";
+    });
+    temasOrdenados = temasOrdenados.concat(todosLosTemas.filter(function (tema) {
+      return tema.obligatoriedad === "OBLIGATORIO";
+    }));
+    temasOrdenados = temasOrdenados.concat(todosLosTemas.filter(function (tema) {
+      return tema.obligatoriedad === "NO_OBLIGATORIO";
+    }));
+    return temasOrdenados;
   }),
 
   estaCerrada: Ember.computed('reunion.status', function () {
@@ -58,20 +78,38 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       });
     },
     seleccionarDuracion(duracion){
+      debugger;
       this.set('nuevoTema.duracion', duracion);
     },
-    cerrarEditor(){
-      this.set('mostrandoFormulario', false);
+
+    cerrarEditorDeTemaNuevo(){
+      this.set('mostrandoFormularioXTemaNuevo', false);
+    },
+    cerrarEditorDeTema(){
+      this.set('mostrandoFormularioDeEdicion', false);
+      this._recargarReunion();
     },
     restarVoto(tema){
       this._siNoEstaCerrada(function () {
         this._quitarVotoDeTema(tema);
       });
     },
+    mostrarFormularioDeEdicion(tema){
+
+      this._siNoEstaCerrada(function () {
+        this._traerDuraciones().then((x)=>{
+          this.set('nuevoTema', tema);
+        this.set('obligatoriedadPasada',this.get('nuevoTema.obligatoriedad'));
+        this.set('esObligatorio',(this.get('nuevoTema.obligatoriedad')==='OBLIGATORIO'));
+        this.set('mostrandoFormularioXTemaNuevo', false);
+        this.set('mostrandoFormularioDeEdicion', true);})
+
+      });
+    },
     mostrarFormulario(){
       this._siNoEstaCerrada(function () {
-
-        this.set('mostrandoFormulario', true);
+        this.set('mostrandoFormularioDeEdicion',false);
+        this.set('mostrandoFormularioXTemaNuevo', true);
         this.set('nuevoTema', Tema.create({
             idDeReunion: this._idDeReunion(),
             idDeAutor: this._idDeUsuarioActual(),
@@ -84,6 +122,21 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     agregarTema(){
       this._guardarTemaYRecargar();
+    },
+    updatearTemaConfirmado(){
+        this.set('nuevoTema.idsDeInteresados',[]);
+        this._updatearTemaYRecargar();
+    },
+    updatearTema(){
+      debugger;
+      var tema = this.get('nuevoTema');
+      tema.set('obligatoriedad',this._obligatoriedad(this.get('esObligatorio')));
+      if(this.get('nuevoTema.obligatoriedad')==='OBLIGATORIO' && this.get('obligatoriedadPasada')==='NO_OBLIGATORIO'){
+        this.set('modalDeCambioDeObligatoriedadAbierto',true);
+      }
+      else{
+      this._updatearTemaYRecargar();
+      };
     },
     pedirConfirmacionDeBorrado(temaABorrar){
       this.set('temaABorrar', temaABorrar);
@@ -112,7 +165,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   },
 
   _traerDuraciones(){
-    this.duracionesService().getAll().then((duraciones) => {
+    return this.duracionesService().getAll().then((duraciones) => {
       this.set('duraciones', duraciones);
     });
   },
@@ -130,12 +183,18 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     });
   },
 
-
+  _updatearTemaYRecargar:function(){
+    var tema = this.get('nuevoTema');
+    this.temaService().updateTema(tema).then(() => {
+        this.set('mostrandoFormularioDeEdicion', false);
+        this._recargarReunion();
+  });
+    },
   _guardarTemaYRecargar: function () {
     var tema = this.get('nuevoTema');
     tema.obligatoriedad = this._obligatoriedad(this.get('esObligatorio'));
     this.temaService().createTema(tema).then(() => {
-      this.set('mostrandoFormulario', false);
+      this.set('mostrandoFormularioXTemaNuevo', false);
       this._recargarReunion();
     });
   },

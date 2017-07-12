@@ -11,6 +11,10 @@
     {{/if}}
   </div>
 
+  <div class="col s12 right-align">
+    {{materialize/check-box label='Ver temas obligatorios' checked=mostrarObligatorios checkboxClasses="filled-in"}}
+  </div>
+
 </div>
 
 <div class="row">
@@ -41,6 +45,7 @@
 
     <tbody>
     {{#each reunion.temasPropuestos as |tema|}}
+      {{#if (or mostrarObligatorios (not tema.esObligatorio))}}
       <tr class="valign-wrapper" bgcolor={{tema.colorVotos}}>
         <td class="col s1">
           {{tema.prioridad}}
@@ -69,7 +74,7 @@
         <td class="right-align col s1">
           {{#unless estaCerrada}}
             {{#if tema.puedeSerBorrado}}
-              <span {{action 'pedirConfirmacionDeBorrado' tema}}
+              <span {{action 'mostrarFormularioDeEdicion' tema}}
                 class="clickable">{{materialize/icon-helper 'mode_edit'}}</span>
             {{/if}}
           {{/unless}}
@@ -85,6 +90,7 @@
 
       </tr>
 
+    {{/if}}
     {{/each}}
     </tbody>
   </table>
@@ -94,10 +100,10 @@
       class="material-icons">add</i></a>
 
     {{#if mostrandoFormularioDeEdicion}}
-      {{editor-de-tema tema=temaSeleccionado duraciones=duraciones cerrarEditor=(action 'cerrarEditor') alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
+      {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarEditorDeTema') alGuardar=(action 'updatearTema') guardarHabilitado=guardarHabilitado esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
     {{/if}}
-    {{#if mostrandoFormulario}}
-      {{editor-de-tema tema=nuevoTema duraciones=duraciones cerrarEditor=(action 'cerrarEditor') alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
+    {{#if mostrandoFormularioXTemaNuevo}}
+      {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarEditorDeTemaNuevo') alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
     {{/if}}
   {{/unless}}
 
@@ -109,6 +115,12 @@ open=modalDeBorradoAbierto
 titulo='Confirmar eliminacion de tema'
 descripcion=mensajeDeConfirmacionDeBorrado
 accionAceptar=(action 'borrarTemaElegido')
+}}
+{{tenpines/modal-de-confirmacion
+  open=modalDeCambioDeObligatoriedadAbierto
+  titulo='Cambiando a tema no obligatorio'
+  descripcion="Se perderán todos los votos del tema"
+  accionAceptar=(action 'updatearTemaConfirmado')
 }}
 
 
