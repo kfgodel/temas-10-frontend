@@ -70,7 +70,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       });
     },
     seleccionarDuracion(duracion){
-      debugger;
       this.set('nuevoTema.duracion', duracion);
     },
 
@@ -129,7 +128,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     updatearTema(){
       var tema = this.get('temaAEditar');
-      debugger;
       tema.set('obligatoriedad',this._obligatoriedad(this.get('esObligatorio')));
       if(this.get('temaAEditar.obligatoriedad')==='OBLIGATORIO' && this.get('obligatoriedadPasada')==='NO_OBLIGATORIO'){
         this.set('modalDeCambioDeObligatoriedadAbierto',true);
