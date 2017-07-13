@@ -9,39 +9,32 @@
 <div class="row">
   <table class="bordered highlight col s12">
     <thead>
-    <tr>
-      <th class="col s1 ">
-        #
-      </th>
-      <th class="col s3 ">
-        Tema
-      </th>
-      <th class="col s2 ">
-        Autor
-      </th>
-      <th class="col s1">
-        Duracion
-      </th>
-      <th class="col s2 ">
-        Ultima modificacion
-      </th>
-    </tr>
+      <tr>
+        <th class="col s4 ">
+          Tema
+        </th>
+        <th class="col s3 ">
+          Autor
+        </th>
+        <th class="col s1">
+          Duración
+        </th>
+        <th class="col s2 ">
+          Última modificación
+        </th>
+      </tr>
     </thead>
 
     <tbody>
     {{#each model.temasGenerales as |tema|}}
-        <tr class="valign-wrapper">
-          <td class="col s1 ">
-            {{tema.prioridad}}
-
-          </td>
-          <td class="col s3 ">
+        <tr class="">
+          <td class="col s4 ">
             <span class="titulo-de-tema">{{tema.titulo}}</span>
 
             <p>{{markdown-view value=tema.descripcion}}</p>
 
           </td>
-          <td class="col s2 ">
+          <td class="col s3 ">
             {{tema.autor}}
           </td>
 
@@ -53,12 +46,12 @@
             {{tema.ultimoModificador}}
           </td>
 
-          <td class="right-align col s1">
+          <td class=" col s1 right-align">
                 <span {{action 'mostrarFormularioDeEdicion' tema}}
                   class="clickable">{{materialize/icon-helper 'mode_edit'}}</span>
 
           </td>
-          <td class="right-align col s1">
+          <td class=" col s1 right-align  ">
 
                 <span {{action 'pedirConfirmacionDeBorrado' tema}}
                   class="clickable">{{materialize/icon-helper 'delete'}}</span>
