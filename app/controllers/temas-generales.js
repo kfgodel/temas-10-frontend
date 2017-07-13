@@ -33,6 +33,7 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
         this.set('nuevoTema', Tema.create({
             idDeAutor: this._idDeUsuarioActual(),
             usuarioActual: this.get('model.usuarioActual'),
+            idDeUltimoModificador:this._idDeUsuarioActual()
           })
         );
       });
@@ -46,7 +47,8 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
           usuarioActual: tema.usuarioActual,
           titulo: tema.titulo,
           duracion: tema.duracion,
-          descripcion: tema.descripcion
+          descripcion: tema.descripcion,
+          idDeUltimoModificador:this._idDeUsuarioActual()
         }));
         this.set('mostrandoFormularioDeAlta', false);
         this.set('mostrandoFormularioDeEdicion', true);
