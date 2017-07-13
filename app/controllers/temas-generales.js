@@ -5,14 +5,6 @@ import Tema from "../concepts/tema";
 
 export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesServiceInjected, {
 
-  guardarHabilitado: Ember.computed('nuevoTema.duracion', 'nuevoTema.titulo', function () {
-    if (!this.get('nuevoTema.duracion') || !this.get('nuevoTema.titulo')) {
-      return "disabled";
-    }
-    else {
-      return "";
-    }
-  }),
 
   usuarioActual: Ember.computed('model.usuarioActual', function () {
     return this.get('model.usuarioActual');
@@ -32,9 +24,7 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
         this.set('mostrandoFormularioDeEdicion', false);
         this.set('nuevoTema', Tema.create({
             idDeAutor: this._idDeUsuarioActual(),
-            usuarioActual: this.get('model.usuarioActual'),
-            idDeUltimoModificador:this._idDeUsuarioActual()
-          })
+           })
         );
       });
     },
@@ -44,11 +34,10 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
         this.set('nuevoTema', Tema.create({
           id: tema.id,
           idDeAutor: tema.idDeAutor,
-          usuarioActual: tema.usuarioActual,
           titulo: tema.titulo,
           duracion: tema.duracion,
           descripcion: tema.descripcion,
-          idDeUltimoModificador:this._idDeUsuarioActual()
+          ultimoModificador:tema.ultimoModificador
         }));
         this.set('mostrandoFormularioDeAlta', false);
         this.set('mostrandoFormularioDeEdicion', true);

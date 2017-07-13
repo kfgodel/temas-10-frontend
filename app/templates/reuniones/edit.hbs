@@ -47,12 +47,12 @@
     {{#each reunion.temasPropuestos as |tema|}}
       {{#if (or mostrarObligatorios (not tema.esObligatorio))}}
       <tr class="valign-wrapper" bgcolor={{tema.colorVotos}}>
-        <td class="col s1">
+        <td class="col s1 ">
           {{tema.prioridad}}
 
         </td>
         <td class="col s2">
-          <span class="titulo-de-tema">{{tema.titulo}}</span>
+          <span class="titulo-de-tema center">{{tema.titulo}}</span>
 
           <p>{{markdown-view value=tema.descripcion}}</p>
 
@@ -103,10 +103,10 @@
       class="material-icons">add</i></a>
 
     {{#if mostrandoFormularioDeEdicion}}
-      {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarEditorDeTema') alGuardar=(action 'updatearTema') guardarHabilitado=guardarHabilitado esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
+      {{editor-de-tema tema=temaAEditar nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarEditorDeTema') alGuardar=(action 'updatearTema')  esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
     {{/if}}
     {{#if mostrandoFormularioXTemaNuevo}}
-      {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarEditorDeTemaNuevo') alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
+      {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarEditorDeTemaNuevo') alGuardar=(action 'agregarTema')  esObligatorio=esObligatorio seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11'}}
     {{/if}}
   {{/unless}}
 
