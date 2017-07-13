@@ -6,20 +6,28 @@
     <div class="row ">
 
       {{tenpines/input-text label='Titulo' value=tema.titulo col='s4' }}
-      <div style="height: 2px" >
-      <label >  Duracion</label>
-      </div>
-        <div class="input-field col s4"  >
-        <select  onchange={{action seleccionarDuracion value="target.value" }} >
-            <option value="" disabled selected >Elija una duracion</option>
-          {{#each duraciones as |duracion|}}
-            <option value={{duracion.nombre}}>{{duracion.descripcion}} ({{duracion.cantidadDeMinutos}} minutos)</option>
-          {{/each}}
-        </select>
-      </div>
-      <div style="line-height: 6">
-        {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
-      </div>
+
+        <div class="col s4">
+          <label>Duracion</label>
+          {{#power-select
+            ariaLabel="Duración"
+            options=nombreDeDuraciones
+            selected=tema.duracion
+            noMatchesMessage=""
+            searchEnabled=false
+            placeholder=""
+            onchange=(action (mut tema.duracion))
+            as |duracion|
+          }}
+            {{duracion}} {{minutos-de-duracion duracion duraciones }}
+          {{/power-select}}
+        </div>
+
+        <div class="col s2 parcheDeContEditor">
+          <div class="parcheDeEditorBottom " >
+            {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
+          </div>
+        </div>
       {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}
     </div>
 

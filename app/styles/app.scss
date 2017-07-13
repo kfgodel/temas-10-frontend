@@ -1,4 +1,8 @@
+@import 'ember-power-select/themes/material';
+@import 'ember-power-select';
 @import 'tenpines-material-components';
+@import 'ember-power-select/themes/material';
+@import 'ember-power-select';
 
 .container {
   max-width: none;
@@ -11,6 +15,14 @@
   .container {
     width: 80%;
   }
+}
+.parcheDeContEditor{
+  position: relative;
+  height: 65px;
+}
+.parcheDeEditorBottom{
+  position: absolute;
+  bottom: 0px;
 }
 
 .titulo-de-tema {
