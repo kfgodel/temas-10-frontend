@@ -8,32 +8,78 @@
 
 <div class="row">
   <table class="bordered highlight col s12">
+    <thead>
+      <tr>
+        <th class="col s4 ">
+          Tema
+        </th>
+        <th class="col s3 ">
+          Autor
+        </th>
+        <th class="col s1">
+          Duración
+        </th>
+        <th class="col s2 ">
+          Última modificación
+        </th>
+      </tr>
+    </thead>
+
     <tbody>
     {{#each model.temasGenerales as |tema|}}
-      <tr class="valign-wrapper">
-        <td class="col s8">
-          {{tenpines/colored-label value=tema.autor bgColor='green'}}
-          <span class="titulo-de-tema">{{tema.titulo}}</span>
-          <span> ({{tema.duracion }})</span>
-          <p>{{markdown-view value=tema.descripcion}}</p>
-        </td>
-        <td class="right-align col s1">
-            {{#if tema.puedeSerBorrado}}
-              <span {{action 'pedirConfirmacionDeBorrado' tema}}
-                class="clickable">{{materialize/icon-helper 'delete'}}</span>
-            {{/if}}
-        </td>
-      </tr>
+        <tr class="">
+          <td class="col s4 ">
+            <span class="titulo-de-tema">{{tema.titulo}}</span>
+
+            <p>{{markdown-view value=tema.descripcion}}</p>
+
+          </td>
+          <td class="col s3 ">
+            {{tema.autor}}
+          </td>
+
+          <td class="col s1 ">
+            {{tema.duracion}}
+          </td>
+
+          <td class="col s2 ">
+            {{tema.ultimoModificador}}
+          </td>
+
+          <td class=" col s1 right-align">
+                <span {{action 'mostrarFormularioDeEdicion' tema}}
+                  class="clickable">{{materialize/icon-helper 'mode_edit'}}</span>
+
+          </td>
+          <td class=" col s1 right-align  ">
+
+                <span {{action 'pedirConfirmacionDeBorrado' tema}}
+                  class="clickable">{{materialize/icon-helper 'delete'}}</span>
+
+          </td>
+
+        </tr>
     {{/each}}
     </tbody>
   </table>
 
-  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormulario'}}><i
+  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormularioDeAlta'}}><i
     class="material-icons">add</i></a>
 
-  {{#if mostrandoFormulario}}
-    {{editor-de-tema tema=nuevoTema duraciones=duraciones cerrarEditor=(action 'cerrarEditor') alGuardar=(action 'agregarTema') guardarHabilitado=guardarHabilitado esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+  {{#if mostrandoFormularioDeEdicion}}
+    {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeEdicion') alGuardar=(action 'actualizarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+  {{/if}}
+  {{#if mostrandoFormularioDeAlta}}
+    {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeAlta') alGuardar=(action 'agregarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
   {{/if}}
 
 </div>
+
+{{tenpines/modal-de-confirmacion
+  open=modalDeBorradoAbierto
+  titulo='Confirmar eliminacion de tema general'
+  descripcion=mensajeDeConfirmacionDeBorrado
+  accionAceptar=(action 'borrarTemaElegido')
+}}
+
 

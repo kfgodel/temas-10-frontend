@@ -5,43 +5,78 @@ import Tema from "../concepts/tema";
 
 export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesServiceInjected, {
 
-  guardarHabilitado: Ember.computed('nuevoTema.duracion', 'nuevoTema.titulo', function () {
-    if (!this.get('nuevoTema.duracion') || !this.get('nuevoTema.titulo')) {
-      return "disabled";
-    }
-    else {
-      return "";
-    }
-  }),
 
   usuarioActual: Ember.computed('model.usuarioActual', function () {
     return this.get('model.usuarioActual');
   }),
 
+  nombreDeDuraciones: Ember.computed('duraciones',function(){
+    return this.get('duraciones').map(function(duracion){
+      return duracion.nombre;
+    });
+  }),
+
   actions: {
 
-    mostrarFormulario(){
-      this.set('mostrandoFormulario', true);
-      this.set('nuevoTema', Tema.create({
-          idDeAutor: this._idDeUsuarioActual(),
-          usuarioActual: this.get('model.usuarioActual'),
-        })
-      );
-      this._traerDuraciones();
+    mostrarFormularioDeAlta(){
+      this._traerDuraciones().then(() => {
+        this.set('mostrandoFormularioDeAlta', true);
+        this.set('mostrandoFormularioDeEdicion', false);
+        this.set('nuevoTema', Tema.create({
+            idDeAutor: this._idDeUsuarioActual(),
+           })
+        );
+      });
     },
 
-    cerrarEditor(){
-      this.set('mostrandoFormulario', false);
+    mostrarFormularioDeEdicion(tema){
+      this._traerDuraciones().then(() => {
+        this.set('nuevoTema', Tema.create({
+          id: tema.id,
+          idDeAutor: tema.idDeAutor,
+          titulo: tema.titulo,
+          duracion: tema.duracion,
+          descripcion: tema.descripcion,
+          ultimoModificador:tema.ultimoModificador
+        }));
+        this.set('mostrandoFormularioDeAlta', false);
+        this.set('mostrandoFormularioDeEdicion', true);
+      });
+    },
+
+    cerrarFormularioDeAlta(){
+      this.set('mostrandoFormularioDeAlta', false);
+    },
+
+    cerrarFormularioDeEdicion(){
+      this.set('mostrandoFormularioDeEdicion', false);
     },
 
     agregarTema(){
       this._guardarTemaYRecargar();
     },
 
+    actualizarTema(){
+      this._actualizarTemaYRecargar();
+    },
+
     seleccionarDuracion(duracion){
       this.set('nuevoTema.duracion', duracion);
     },
 
+    pedirConfirmacionDeBorrado(temaABorrar){
+      this.set('mostrandoFormularioDeAlta', false);
+      this.set('mostrandoFormularioDeEdicion', false);
+      this.set('temaABorrar', temaABorrar);
+      this.set('mensajeDeConfirmacionDeBorrado', `¿Estás seguro de borrar el tema general "${temaABorrar.titulo}"?`);
+      this.set('modalDeBorradoAbierto', true);
+    },
+
+    borrarTemaElegido(){
+      var temaBorrable = this.get('temaABorrar');
+      delete this.temaABorrar;
+      this._borrarTema(temaBorrable);
+    },
   },
 
   _idDeUsuarioActual(){
@@ -49,7 +84,7 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
   },
 
   _traerDuraciones(){
-    this.duracionesService().getAll().then((duraciones) => {
+    return this.duracionesService().getAll().then((duraciones) => {
       this.set('duraciones', duraciones);
     });
   },
@@ -57,7 +92,15 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
   _guardarTemaYRecargar: function () {
     var tema = this.get('nuevoTema');
     this.temasGeneralesService().createTemaGeneral(tema).then(() => {
-      this.set('mostrandoFormulario', false);
+      this.set('mostrandoFormularioDeAlta', false);
+      this._recargarTemasGenerales();
+    });
+  },
+
+  _actualizarTemaYRecargar(){
+    var tema = this.get('nuevoTema');
+    this.temasGeneralesService().updateTemaGeneral(tema).then(() => {
+      this.set('mostrandoFormularioDeEdicion', false);
       this._recargarTemasGenerales();
     });
   },
@@ -70,6 +113,12 @@ export default Ember.Controller.extend(TemaGeneralServiceInjected, DuracionesSer
 
   _actualizarTemasGenerales(temasGenerales){
     this.set('model.temasGenerales', temasGenerales);
+  },
+
+  _borrarTema(tema){
+    this.temasGeneralesService().deleteTemaGeneral(tema).then(() => {
+      this._recargarTemasGenerales();
+    });
   },
 
 });

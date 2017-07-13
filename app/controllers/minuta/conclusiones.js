@@ -14,6 +14,10 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
     return this.get('model.minuta');
   }),
 
+  fueTratado: Ember.computed('temaSeleccionado.conclusion', function() {
+    return !!this.get('temaSeleccionado.conclusion');
+  }),
+
   actions: {
     verEditorDeConclusion(tema){
         this._mostrarEditorDeConclusion(tema);
@@ -23,6 +27,7 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
       this._ocultarEditor();
     },
     guardarConclusion(){
+      this.set('temaSeleccionado.fueTratado', this.get('fueTratado'));
       this.temaDeMinutaService().updateTemaDeMinuta(this.get('temaSeleccionado'))
         .then(()=> {
           this._recargarLista();
