@@ -7,6 +7,7 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected,{
     return this._temaDeMinutaService().getSingle(temaDeMinuta);
   },
   updateTemaDeMinuta(temaDeMinuta){
+    debugger;
     return this._temaDeMinutaService().update(temaDeMinuta);
   },
   //private
