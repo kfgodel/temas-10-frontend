@@ -1,18 +1,19 @@
-<td class="col s1" >
+<td>
   {{tema.prioridad}}
 </td>
-<td class="col s5">
-  <span class="titulo-de-tema">{{tema.titulo}}</span>
-  <p class="crop">{{markdown-view value=tema.descripcion}}</p>
+<td>
+  <h5 class="titulo-de-tema">{{tema.titulo}}</h5>
 </td>
-<td class="col s2">
+<td>
   {{tema.autor}}
 </td>
-<td class="col s2">
-  {{tema.duracion}} ({{cantDeMinutosDeDuracionDeTema}} Minutos)
+<td>
+  {{tema.duracion}} <span class="indivisible">({{cantDeMinutosDeDuracionDeTema}} Minutos)</span>
 </td >
-{{#if tema.esObligatorio}}
-  <td class="col s2">OBLIGATORIO</td>
-{{else}}
-  <td class="col s2">{{tema.cantidadVotosTotales}}</td>
-{{/if}}
+<td>
+  {{#if tema.esObligatorio}}
+    OBLIGATORIO
+  {{else}}
+    {{tema.cantidadVotosTotales}}
+  {{/if}}
+</td>

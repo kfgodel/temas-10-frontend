@@ -33,7 +33,7 @@
            {{/if}}
           </div>
           <div class="row">
-            {{#tenpines/object-table titulos='Prioridad, Titulo, Autor,Duracion, Votos' col='s12' responsive=true}}
+            {{#tenpines/object-table titulos='#, Título, Autor,Duración, Votos' col='s12' responsive=true}}
               {{#each reunionSeleccionada.temasPropuestos as |tema|}}
                 {{tema-en-tabla tema=tema ultimoTema=ultimoTemaQueEntra duraciones=duraciones}}
               {{/each}}
