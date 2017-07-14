@@ -18,6 +18,7 @@ Router.map(function () {
   this.route('minuta', function(){
     this.route('asistentes', {path:":reunion_id/asistentes"});
     this.route('conclusiones', {path:":reunion_id/conclusiones"});
+    this.route('ver', {path:":reunion_id/ver"});
   });
 
   this.route('users', function () {
@@ -28,6 +29,7 @@ Router.map(function () {
 
   // Catches all the malformed urls (not matching previous routes)
   this.route('wrong-paths', {path: '/*badUrl'});
+  this.route('ver-minuta');
 });
 
 export default Router;
