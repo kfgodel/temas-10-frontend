@@ -23,17 +23,16 @@
     {{/each}}
   </div>
 
-  <h5>
+  <h4>
     Temas Tratados
-  </h5>
+  </h4>
   {{#tenpines/object-table col='s12' bordered=true highlight=true }}
-    <!--TODO Sólo contar los temas tratados-->
     {{#each temasTratados as |tema|}}
-      <tr {{!action 'verReunion' reunion}}>
+      <tr>
         <td>
-          <h6>{{tema.tema.titulo}}</h6>
+          <h5>{{tema.tema.titulo}}</h5>
           <div>{{tema.tema.descripcion}}</div>
-          <h6>Conclusión</h6>
+          <h6><b>Conclusión</b></h6>
           <div>{{tema.conclusion}}</div>
         </td>
       </tr>

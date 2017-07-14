@@ -19,7 +19,6 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
   }),
 
   temaAEditar:Ember.computed('temaSeleccionado', function(){
-    debugger;
     let tema = this.get('temaSeleccionado');
     return Ember.Object.extend().create({
       id: tema.id,
@@ -43,7 +42,6 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
     guardarConclusion(fueTratado){
       var tema=this.get('temaAEditar');
       tema.set('fueTratado', fueTratado);
-      debugger;
       this.temaDeMinutaService().updateTemaDeMinuta(tema)
         .then(()=> {
           this._recargarLista();

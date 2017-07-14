@@ -11,7 +11,6 @@ export default Ember.Controller.extend({
   }),
 
   temasTratados: Ember.computed('minuta.temas', function () {
-    debugger;
     return this.get('minuta.temas').filter(function (tema) {
       return tema.fueTratado;
     });
