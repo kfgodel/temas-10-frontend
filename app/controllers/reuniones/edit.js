@@ -100,7 +100,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
           this.set('temaAEditar.idsDeInteresados', tema.idsDeInteresados);
           this.set('temaAEditar.obligatoriedad', tema.obligatoriedad);
           this.set('obligatoriedadPasada',tema.obligatoriedad);
-        this.set('esObligatorio',(this.get('temaAEditar.obligatoriedad')==='OBLIGATORIO'));
+          this.set('esObligatorio',(this.get('temaAEditar.obligatoriedad')==='OBLIGATORIO'));
           this.set('mostrandoFormularioXTemaNuevo', false);
           this.set('mostrandoFormularioDeEdicion', true);
         })

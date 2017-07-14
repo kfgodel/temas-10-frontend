@@ -15,7 +15,8 @@ export default Ember.Controller.extend(ReunionServiceInjected,MinutaServiceInjec
   }),
 
   reunionCerrada:Ember.computed('reunionSeleccionada',function(){
-     if(this.get('reunionSeleccionada.status')==="CERRADA"){
+    var cerrada=(this.get('reunionSeleccionada.status')==="CERRADA") || (this.get('reunionSeleccionada.status')==="CON_MINUTA");
+     if(cerrada){
 
        this.set('duracionDeReunion',180);
      }
@@ -23,9 +24,12 @@ export default Ember.Controller.extend(ReunionServiceInjected,MinutaServiceInjec
        this.set('duracionDeReunion',0);
      }
 
-    return this.get('reunionSeleccionada.status')==="CERRADA";
+    return cerrada;
   }),
+  reunionMinuteada:Ember.computed('reunionSeleccionada','minuta',function(){
 
+    return !(this.get('reunionSeleccionada.status')==='CON_MINUTA');
+}),
   temasEstimados: Ember.computed('duracionDeReunion',function(){
 
     var temas= this.get('reunionSeleccionada.temasPropuestos');
@@ -74,6 +78,7 @@ export default Ember.Controller.extend(ReunionServiceInjected,MinutaServiceInjec
 
     verMinuta(){
       this._traerMinuta().then(()=>{
+        this._recargarLista();
         this._mostrarMinuta();
       });
     },

@@ -6,28 +6,27 @@
     <div class="row ">
 
       {{tenpines/input-text label='Titulo' value=tema.titulo col='s4' }}
+      <div class="col s4">
+        <label>Duracion</label>
+        {{#power-select
+          ariaLabel="Duración"
+          options=nombreDeDuraciones
+          selected=tema.duracion
+          noMatchesMessage=""
+          searchEnabled=false
+          placeholder=""
+          onchange=(action (mut tema.duracion))
+          as |duracion|
+        }}
+          {{duracion}} {{minutos-de-duracion duracion duraciones }}
+        {{/power-select}}
+      </div>
 
-        <div class="col s4">
-          <label>Duracion</label>
-          {{#power-select
-            ariaLabel="Duración"
-            options=nombreDeDuraciones
-            selected=tema.duracion
-            noMatchesMessage=""
-            searchEnabled=false
-            placeholder=""
-            onchange=(action (mut tema.duracion))
-            as |duracion|
-          }}
-            {{duracion}} {{minutos-de-duracion duracion duraciones }}
-          {{/power-select}}
+      <div class="col s2 parcheDeContEditor">
+        <div class="parcheDeEditorBottom " >
+          {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
         </div>
-
-        <div class="col s2 parcheDeContEditor">
-          <div class="parcheDeEditorBottom " >
-            {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
-          </div>
-        </div>
+      </div>
       {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}
     </div>
 
