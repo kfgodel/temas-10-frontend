@@ -162,6 +162,11 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
     reabrirVotacion(){
       this._reabrirReunion();
+    },
+
+    fueModificado(tema){
+      debugger;
+      return tema.autor.login !== tema.ultimoModificador.login;
     }
   },
 

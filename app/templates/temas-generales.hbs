@@ -67,10 +67,10 @@
     class="material-icons">add</i></a>
 
   {{#if mostrandoFormularioDeEdicion}}
-    {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeEdicion') alGuardar=(action 'actualizarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+    {{editor-de-tema titulo='Modificar Propuesta' tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeEdicion') alGuardar=(action 'actualizarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
   {{/if}}
   {{#if mostrandoFormularioDeAlta}}
-    {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeAlta') alGuardar=(action 'agregarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+    {{editor-de-tema titulo='Nueva Propuesta' tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeAlta') alGuardar=(action 'agregarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
   {{/if}}
 
 </div>
