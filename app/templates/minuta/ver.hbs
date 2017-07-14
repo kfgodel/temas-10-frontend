@@ -28,7 +28,7 @@
   </h5>
   {{#tenpines/object-table col='s12' bordered=true highlight=true }}
     <!--TODO Sólo contar los temas tratados-->
-    {{#each minuta.temas as |tema|}}
+    {{#each temasTratados as |tema|}}
       <tr {{!action 'verReunion' reunion}}>
         <td>
           <h6>{{tema.tema.titulo}}</h6>

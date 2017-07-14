@@ -10,4 +10,11 @@ export default Ember.Controller.extend({
     return this.get('model.reunionId');
   }),
 
+  temasTratados: Ember.computed('minuta.temas', function () {
+    debugger;
+    return this.get('minuta.temas').filter(function (tema) {
+      return tema.fueTratado;
+    });
+  }),
+
 });
