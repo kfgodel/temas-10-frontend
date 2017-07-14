@@ -21,24 +21,18 @@
   <table class="bordered highlight col s12">
     <thead>
       <tr>
-        <th class="col s1">
+        <th class="con-padding">
           #
         </th>
-        <th class="col s2">
+        <th class="con-padding">
           Tema
         </th>
-        <th class="col s2">
-          Autor
-        </th>
 
-        <th class="col s1">
-          Duracion
+        <th class="con-padding">
+          Duración
         </th>
-        <th class="col s2">
-          Votos ({{votosRestantes}} restantes)
-        </th>
-        <th class="col s2">
-          Ultima modificacion
+        <th class="con-padding">
+          Votos <span class="indivisible">({{votosRestantes}} restantes)</span>
         </th>
       </tr>
     </thead>
@@ -46,35 +40,30 @@
     <tbody>
     {{#each reunion.temasPropuestos as |tema|}}
       {{#if (or mostrarObligatorios (not tema.esObligatorio))}}
-      <tr class="valign-wrapper" bgcolor={{tema.colorVotos}}>
-        <td class="col s1 ">
+      <tr bgcolor={{tema.colorVotos}}>
+        <td class="con-padding">
           {{tema.prioridad}}
-
         </td>
-        <td class="col s2">
-          <span class="titulo-de-tema center">{{tema.titulo}}</span>
 
-          <p>{{markdown-view value=tema.descripcion}}</p>
-
+        <td class="con-padding">
+          {{tenpines/colored-label value=tema.autor bgColor='green'}}
+          <h5 class="titulo-de-tema">{{tema.titulo}}</h5>
+          <p class="crop">{{markdown-view value=tema.descripcion}}</p>
         </td>
-        <td class="col s2">
-          {{tema.autor}}
-         </td>
 
-        <td class="col s1">
+        <td class="con-padding">
           {{tema.duracion}}
         </td>
-        <td class="col s2">
-          {{#unless tema.esObligatorio}}
-            <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
-            {{tema.cantidadVotosPropios }} votos
-            <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
-          {{/unless}}
+        <td class="con-padding">
+          <span class="indivisible">
+            {{#unless tema.esObligatorio}}
+              <span {{action 'restarVoto' tema}} class="clickable">ᐁ</span>
+              {{tema.cantidadVotosPropios }} votos
+              <span {{action 'sumarVoto' tema}} class="clickable">ᐃ</span>
+            {{/unless}}
+          </span>
         </td>
-        <td class="col s2">
-         {{tema.ultimoModificador}}
-        </td>
-        <td class="right-align col s1">
+        <td class="right-align">
           {{#unless estaCerrada}}
             {{#if tema.puedeSerBorrado}}
               <span {{action 'mostrarFormularioDeEdicion' tema}}
@@ -82,7 +71,7 @@
             {{/if}}
           {{/unless}}
         </td>
-        <td class="right-align col s1">
+        <td class="right-align">
           {{#unless estaCerrada}}
             {{#if tema.puedeSerBorrado}}
               <span {{action 'pedirConfirmacionDeBorrado' tema}}
