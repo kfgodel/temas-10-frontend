@@ -11,7 +11,7 @@
   </h5>
 
   <h5>
-    Minuteador: {{minuta.minuteador}}
+    Último Minuteador: {{minuta.minuteador}}
   </h5>
 
   <h5>
@@ -19,7 +19,7 @@
   </h5>
   <div>
     {{#each minuta.asistentes as |asistente|}}
-      {{asistente.name}}
+      {{tenpines/colored-label value=asistente.name bgColor='green'}}
     {{/each}}
   </div>
 
@@ -31,9 +31,21 @@
       <tr>
         <td>
           <h5>{{tema.tema.titulo}}</h5>
-          <div>{{tema.tema.descripcion}}</div>
+          <div>{{markdown-view value=tema.tema.descripcion}}</div>
           <h6><b>Conclusión</b></h6>
-          <div>{{tema.conclusion}}</div>
+          <div>{{markdown-view value=tema.conclusion}}</div>
+          <ul class="collection">
+            {{#each tema.actionItems as |actionItem|}}
+            <li class="collection-item">
+              <span>{{markdown-view value=actionItem.descripcion}}</span>
+              <span>
+                {{#each actionItem.responsables as |responsable|}}
+                  {{tenpines/colored-label value=responsable.name bgColor='green'}}
+                {{/each}}
+              </span>
+            </li>
+            {{/each}}
+          </ul>
         </td>
       </tr>
     {{/each}}
