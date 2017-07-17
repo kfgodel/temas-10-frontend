@@ -47,11 +47,6 @@
 
           {{#if reunionCerrada}}
 
-            {{!#link-to 'minuta.asistentes' reunionSeleccionada.id}}
-              {{!tenpines/material-button label='edit. Minuta' }}
-            {{!/link-to}}
-
-            {{!tenpines/material-button label='minuta' click=(action 'verMinuta') }}
             {{#link-to 'minuta.ver' reunionSeleccionada.id}}
               {{tenpines/material-button label='Minuta' }}
             {{/link-to}}
