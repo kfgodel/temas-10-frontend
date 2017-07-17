@@ -11,12 +11,13 @@
   </h5>
 
   <h5>
-    Minuteador: {{minuta.minuteador}}
+    Último Minuteador: {{minuta.minuteador}}
   </h5>
 
   <h5>
     Asistentes
   </h5>
+  
   <div>
     {{#each minuta.asistentes as |asistente|}}
       {{asistente.name}}
@@ -34,6 +35,18 @@
           <div>{{tema.tema.descripcion}}</div>
           <h6><b>Conclusión</b></h6>
           <div>{{tema.conclusion}}</div>
+          <ul class="collection">
+            {{#each tema.actionItems as |actionItem|}}
+            <li class="collection-item">
+              <span>{{actionItem.descripcion}}</span><br>
+              <span>
+                {{#each actionItem.responsables as |responsable|}}
+                  {{responsable.name}}
+                {{/each}}
+              </span>
+            </li>
+            {{/each}}
+          </ul>
         </td>
       </tr>
     {{/each}}
