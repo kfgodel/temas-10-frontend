@@ -39,9 +39,7 @@ export default Ember.Component.extend({
     },
     borrarActionItem(unActionItem){
       var actionItems= this.get('temaDeMinuta.actionItems');
-      var index = actionItems.indexOf(unActionItem);
-
-      actionItems.splice(index,1);
+      actionItems.removeObject(unActionItem);
       this.rerender();
     }
     },
