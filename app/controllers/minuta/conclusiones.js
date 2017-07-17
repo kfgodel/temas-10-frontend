@@ -20,7 +20,6 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
   }),
 
   temaAEditar:Ember.computed('temaSeleccionado', function(){
-
     let tema = this.get('temaSeleccionado');
     let actionItems=[];
     this.get('temaSeleccionado.actionItems').forEach((actionItem)=> actionItems.push(actionItem));

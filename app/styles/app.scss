@@ -25,13 +25,24 @@
   bottom: 0px;
 }
 .crop {
-  overflow:auto;}​
+  overflow:auto;
+  overflow-wrap: break-word;
+}​
+
 .titulo-de-tema {
   font-size: x-large;
 }
 
 .clickable {
   cursor: pointer;
+}
+
+.indivisible {
+  white-space: nowrap;
+}
+
+.con-padding {
+  padding: 20px;
 }
 
 @import "ember-power-select";

@@ -10,16 +10,16 @@
   <table class="bordered highlight col s12">
     <thead>
       <tr>
-        <th class="col s4 ">
+        <th class="con-padding">
           Tema
         </th>
-        <th class="col s3 ">
+        <th class="con-padding">
           Autor
         </th>
-        <th class="col s1">
+        <th class="con-padding">
           Duración
         </th>
-        <th class="col s2 ">
+        <th class="con-padding">
           Última modificación
         </th>
       </tr>
@@ -28,30 +28,30 @@
     <tbody>
     {{#each model.temasGenerales as |tema|}}
         <tr class="">
-          <td class="col s4 ">
-            <span class="titulo-de-tema">{{tema.titulo}}</span>
+          <td class="con-padding">
+            <h5 class="titulo-de-tema">{{tema.titulo}}</h5>
 
             <p class="crop">{{markdown-view value=tema.descripcion}}</p>
 
           </td>
-          <td class="col s3 ">
+          <td class="con-padding">
             {{tema.autor}}
           </td>
 
-          <td class="col s1 ">
+          <td class="con-padding">
             {{tema.duracion}}
           </td>
 
-          <td class="col s2 ">
+          <td class="con-padding">
             {{tema.ultimoModificador}}
           </td>
 
-          <td class=" col s1 right-align">
+          <td class="right-align">
                 <span {{action 'mostrarFormularioDeEdicion' tema}}
                   class="clickable">{{materialize/icon-helper 'mode_edit'}}</span>
 
           </td>
-          <td class=" col s1 right-align  ">
+          <td class="right-align">
 
                 <span {{action 'pedirConfirmacionDeBorrado' tema}}
                   class="clickable">{{materialize/icon-helper 'delete'}}</span>
@@ -67,10 +67,10 @@
     class="material-icons">add</i></a>
 
   {{#if mostrandoFormularioDeEdicion}}
-    {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeEdicion') alGuardar=(action 'actualizarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+    {{editor-de-tema titulo='Modificar Propuesta' tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeEdicion') alGuardar=(action 'actualizarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
   {{/if}}
   {{#if mostrandoFormularioDeAlta}}
-    {{editor-de-tema tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeAlta') alGuardar=(action 'agregarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+    {{editor-de-tema titulo='Nueva Propuesta' tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeAlta') alGuardar=(action 'agregarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
   {{/if}}
 
 </div>

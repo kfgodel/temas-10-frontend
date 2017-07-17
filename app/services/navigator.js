@@ -50,6 +50,10 @@ export default Ember.Service.extend(TransitionerInjected, {
     this._navigateTo('temas-generales');
   },
 
+  navigateToVerMinuta(reunionId){
+    this._navigateTo('minuta.ver', reunionId)
+  },
+
   // PRIVATE
   _navigateTo(routeName, models, queryParams){
     this.transitioner().transitionTo(routeName, models, queryParams);
