@@ -1,0 +1,54 @@
+<div>
+
+  <div class="card-action right-align">
+    {{#link-to 'minuta.asistentes' reunionId}}
+      {{tenpines/material-button label='Editar'}}
+    {{/link-to}}
+  </div>
+
+  <h5>
+    Fecha: {{minuta.fecha}}
+  </h5>
+
+  <h5>
+    Último Minuteador: {{minuta.minuteador}}
+  </h5>
+
+  <h5>
+    Asistentes
+  </h5>
+  <div>
+    {{#each minuta.asistentes as |asistente|}}
+      {{tenpines/colored-label value=asistente.name bgColor='green'}}
+    {{/each}}
+  </div>
+
+  <h4>
+    Temas Tratados
+  </h4>
+  {{#tenpines/object-table col='s12' bordered=true highlight=true }}
+    {{#each temasTratados as |tema|}}
+      <tr>
+        <td>
+          <h5>{{tema.tema.titulo}}</h5>
+          <div>{{markdown-view value=tema.tema.descripcion}}</div>
+          <h6><b>Conclusión</b></h6>
+          <div>{{markdown-view value=tema.conclusion}}</div>
+          <ul class="collection">
+            {{#each tema.actionItems as |actionItem|}}
+            <li class="collection-item">
+              <span>{{markdown-view value=actionItem.descripcion}}</span>
+              <span>
+                {{#each actionItem.responsables as |responsable|}}
+                  {{tenpines/colored-label value=responsable.name bgColor='green'}}
+                {{/each}}
+              </span>
+            </li>
+            {{/each}}
+          </ul>
+        </td>
+      </tr>
+    {{/each}}
+  {{/tenpines/object-table}}
+
+</div>

@@ -1,0 +1,85 @@
+{{navigation-bar}}
+
+<div class="row">
+  <div class="col s12">
+    <h4>Temas Generales</h4>
+  </div>
+</div>
+
+<div class="row">
+  <table class="bordered highlight col s12">
+    <thead>
+      <tr>
+        <th class="con-padding">
+          Tema
+        </th>
+        <th class="con-padding">
+          Autor
+        </th>
+        <th class="con-padding">
+          Duración
+        </th>
+        <th class="con-padding">
+          Última modificación
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {{#each model.temasGenerales as |tema|}}
+        <tr class="">
+          <td class="con-padding">
+            <h5 class="titulo-de-tema">{{tema.titulo}}</h5>
+
+            <p class="crop">{{markdown-view value=tema.descripcion}}</p>
+
+          </td>
+          <td class="con-padding">
+            {{tema.autor}}
+          </td>
+
+          <td class="con-padding">
+            {{tema.duracion}}
+          </td>
+
+          <td class="con-padding">
+            {{tema.ultimoModificador}}
+          </td>
+
+          <td class="right-align">
+                <span {{action 'mostrarFormularioDeEdicion' tema}}
+                  class="clickable">{{materialize/icon-helper 'mode_edit'}}</span>
+
+          </td>
+          <td class="right-align">
+
+                <span {{action 'pedirConfirmacionDeBorrado' tema}}
+                  class="clickable">{{materialize/icon-helper 'delete'}}</span>
+
+          </td>
+
+        </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  <a class="btn-floating btn-large waves-effect waves-light red right" {{action 'mostrarFormularioDeAlta'}}><i
+    class="material-icons">add</i></a>
+
+  {{#if mostrandoFormularioDeEdicion}}
+    {{editor-de-tema titulo='Modificar Propuesta' tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeEdicion') alGuardar=(action 'actualizarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+  {{/if}}
+  {{#if mostrandoFormularioDeAlta}}
+    {{editor-de-tema titulo='Nueva Propuesta' tema=nuevoTema nombreDeDuraciones=nombreDeDuraciones duraciones=duraciones cerrarEditor=(action 'cerrarFormularioDeAlta') alGuardar=(action 'agregarTema')  esObligatorio=true seleccionarDuracion=(action 'seleccionarDuracion') classNames='col s11' checkboxDeshabilitado=true}}
+  {{/if}}
+
+</div>
+
+{{tenpines/modal-de-confirmacion
+  open=modalDeBorradoAbierto
+  titulo='Confirmar eliminacion de tema general'
+  descripcion=mensajeDeConfirmacionDeBorrado
+  accionAceptar=(action 'borrarTemaElegido')
+}}
+
+

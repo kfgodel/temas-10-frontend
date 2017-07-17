@@ -1,0 +1,19 @@
+<td>
+  {{tema.prioridad}}
+</td>
+<td>
+  <h5 class="titulo-de-tema">{{tema.titulo}}</h5>
+</td>
+<td>
+  {{tema.autor}}
+</td>
+<td>
+  {{tema.duracion}} <span class="indivisible">({{cantDeMinutosDeDuracionDeTema}} Minutos)</span>
+</td >
+<td>
+  {{#if tema.esObligatorio}}
+    OBLIGATORIO
+  {{else}}
+    {{tema.cantidadVotosTotales}}
+  {{/if}}
+</td>

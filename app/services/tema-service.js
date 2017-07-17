@@ -20,11 +20,28 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   removeTema: function (tema) {
     return this._temaResource().remove(tema);
   },
+  votarTema:function(temaId){
+    return this._temaAgregarVotoResource().getSingle(temaId);
+  },
+  quitarVotoTema:function(temaId){
+    return this._temaQuitarVotosResource().getSingle(temaId);
+  },
+
 
   // PRIVATE
   _temaResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('temas');
+    return resource;
+  },
+  _temaAgregarVotoResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('temas/votar');
+    return resource;
+  },
+  _temaQuitarVotosResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('temas/desvotar');
     return resource;
   },
 

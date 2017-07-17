@@ -32,6 +32,9 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   removeReunion(user) {
     return this._reunionResource().remove(user);
   },
+  getMinuta(reunion){
+    return this._minutaReunionResource().getSingle(reunion);
+  },
 
   // PRIVATE
   _reunionResource: function () {
@@ -47,6 +50,11 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
   _cerrarReunionResource: function () {
     var resourceCreator = this.resourceCreator();
     var resource = resourceCreator.createResource('reuniones/cerrar');
+    return resource;
+  },
+  _minutaReunionResource: function () {
+    var resourceCreator = this.resourceCreator();
+    var resource = resourceCreator.createResource('reuniones/minuta');
     return resource;
   },
   _reabrirReunionResource: function () {
