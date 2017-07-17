@@ -7,6 +7,7 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
   temaSeleccionado: Ember.computed('minuta', 'indiceSeleccionado', function () {
     var indiceSeleccionado = this.get('indiceSeleccionado');
     var temas = this.get('minuta.temas');
+
     return temas.objectAt(indiceSeleccionado);
   }),
 
@@ -20,12 +21,15 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
 
   temaAEditar:Ember.computed('temaSeleccionado', function(){
     let tema = this.get('temaSeleccionado');
+    let actionItems=[];
+    this.get('temaSeleccionado.actionItems').forEach((actionItem)=> actionItems.push(actionItem));
     return Ember.Object.extend().create({
       id: tema.id,
       idDeMinuta: tema.idDeMinuta,
       tema: tema.tema,
       conclusion: tema.conclusion,
-      fueTratado: tema.fueTratado
+      fueTratado: tema.fueTratado,
+      actionItems:actionItems
     });
   }),
 
@@ -41,7 +45,13 @@ export default Ember.Controller.extend(TemaDeMinutaServiceInjected,{
 
     guardarConclusion(fueTratado){
       var tema=this.get('temaAEditar');
+        tema.actionItems.forEach((actionItem)=>{
+          delete actionItem.usuarios;
+          delete actionItem.usuariosSeleccionables;
+        });
+
       tema.set('fueTratado', fueTratado);
+
       this.temaDeMinutaService().updateTemaDeMinuta(tema)
         .then(()=> {
           this._recargarLista();

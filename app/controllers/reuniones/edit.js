@@ -32,7 +32,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   }),
 
   estaCerrada: Ember.computed('reunion.status', function () {
-    return this.get('reunion.status') === 'CERRADA';
+    return ((this.get('reunion.status') === 'CERRADA') || (this.get('reunion.status') === 'CON_MINUTA'));
   }),
 
   usuarioActual: Ember.computed('model.usuarioActual', function () {
