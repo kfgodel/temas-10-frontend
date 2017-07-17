@@ -13,7 +13,7 @@
   <h5>
     Último Minuteador: {{minuta.minuteador}}
   </h5>
-
+  <div class="card-panel">
   <h5>
     Asistentes
   </h5>
@@ -22,33 +22,39 @@
       {{tenpines/colored-label value=asistente.name bgColor='green'}}
     {{/each}}
   </div>
-
+  </div>
+  <div class="card-panel">
   <h4>
     Temas Tratados
   </h4>
-  {{#tenpines/object-table col='s12' bordered=true highlight=true }}
+
+  {{#cp-panels as |panels|}}
     {{#each temasTratados as |tema|}}
-      <tr>
-        <td>
-          <h5>{{tema.tema.titulo}}</h5>
+      {{#panels.panel as |panel|}}
+        {{#panel.toggle}}
+          <div class="card-panel">
+          <div>{{tema.tema.titulo}}</div>
+          </div>
+        {{/panel.toggle}}
+        {{#panel.body}}
           <div>{{markdown-view value=tema.tema.descripcion}}</div>
           <h6><b>Conclusión</b></h6>
           <div>{{markdown-view value=tema.conclusion}}</div>
           <ul class="collection">
             {{#each tema.actionItems as |actionItem|}}
-            <li class="collection-item">
-              <span>{{markdown-view value=actionItem.descripcion}}</span>
-              <span>
-                {{#each actionItem.responsables as |responsable|}}
-                  {{tenpines/colored-label value=responsable.name bgColor='green'}}
-                {{/each}}
-              </span>
-            </li>
+              <li class="collection-item">
+                <span>{{markdown-view value=actionItem.descripcion}}</span>
+                <span>
+                  {{#each actionItem.responsables as |responsable|}}
+                    {{tenpines/colored-label value=responsable.name bgColor='green'}}
+                  {{/each}}
+                </span>
+              </li>
             {{/each}}
           </ul>
-        </td>
-      </tr>
+        {{/panel.body}}
+      {{/panels.panel}}
     {{/each}}
-  {{/tenpines/object-table}}
-
+  {{/cp-panels}}
+  </div>
 </div>
