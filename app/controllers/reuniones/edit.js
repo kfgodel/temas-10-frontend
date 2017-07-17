@@ -32,7 +32,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   }),
 
   estaCerrada: Ember.computed('reunion.status', function () {
-    return ((this.get('reunion.status') === 'CERRADA') || (this.get('reunion.status') === 'CON_MINUTA'));
+    return ((this.get('reunion.status') === 'CERRADA') );
   }),
 
   usuarioActual: Ember.computed('model.usuarioActual', function () {
@@ -60,7 +60,9 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   terminoDeVotar: Ember.computed('votosRestantes', function () {
     return this.get('votosRestantes') === 0;
   }),
-
+  puedeCerrar: Ember.computed('terminoDeVotar','reunion.estado',function(){
+    return this.get('terminoDeVotar') && !this.get('reunion.estado')==='CON_MINUTA';
+}),
   actions: {
     sumarVoto(tema){
       this._siNoEstaCerrada(function () {
