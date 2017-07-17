@@ -7,7 +7,7 @@
       <td>{{temaDeMinuta.tema.autor}}</td>
       <td>{{temaDeMinuta.tema.duracion}}</td>
       <td>{{temaDeMinuta.tema.obligatoriedad}}</td>
-     {{tema-de-minuta-conclusion-checked temaDeMinuta=temaDeMinuta}}
+     {{tema-de-minuta-conclusion-checked usuarios=usuarios temaDeMinuta=temaDeMinuta}}
     </tr>
   {{/each}}
 {{/tenpines/object-table}}
@@ -17,6 +17,7 @@
     alGuardar=(action 'guardarConclusion')
     alCerrar=(action 'cerrarEditor')
     temaDeMinuta=temaAEditar
+    usuarios=model.usuarios
   }}
 {{/if}}
 

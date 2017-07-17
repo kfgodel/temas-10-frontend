@@ -9,10 +9,39 @@
       {{materialize/check-box label='Fue tratado'  checked=fueTratado checkboxClasses="filled-in"}}
       {{tenpines/text-area label='Conclusión' value=temaDeMinuta.conclusion}}
 
-      <div>
-        <div class="card-action right-align">
-          <a class="waves-effect waves-light btn" onclick={{action alGuardar fueTratado}} >Guardar</a>
-        </div>
+
+    </div>
+    <div class="card-content">
+
+      <a class="btn-floating  waves-effect waves-light red right" {{action "agregarActionItem"}} ><i
+        class="material-icons">add</i></a>
+     <span class="card-title">
+          <h4 class="header center-align" >Action items </h4>
+     </span>
+      {{#each temaDeMinuta.actionItems as |unAction-item|}}
+        <div class="card-panel">
+          <a class="btn-floating waves-effect waves-light red right"  {{action 'borrarActionItem' unAction-item }}><i class="material-icons ">close</i></a>
+
+          <div >
+            {{tenpines/input-text label="descripcion" value=unAction-item.descripcion}}
+          </div>
+          <div>
+            {{#power-select-multiple
+              options=unAction-item.usuariosSeleccionables
+              selected=unAction-item.responsables
+              placeholder="Seleccione los asistentes a la reunión"
+              noMatchesMessage="No more pinos"
+              onchange=(action (mut unAction-item.responsables))
+            as |usuario|
+            }}
+              {{usuario.login}}
+            {{/power-select-multiple}}
+          </div>
+        </div> {{/each}}
+    </div>
+    <div>
+      <div class="card-action right-align">
+        <a class="waves-effect waves-light btn" onclick={{action alGuardar fueTratado}} >Guardar</a>
       </div>
     </div>
   </div>
