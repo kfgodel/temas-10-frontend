@@ -32,7 +32,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   }),
 
   estaCerrada: Ember.computed('reunion.status', function () {
-    return ((this.get('reunion.status') === 'CERRADA') );
+    return ((this.get('reunion.status') === 'CERRADA') || (this.get('reunion.status') === 'CON_MINUTA')  );
   }),
 
   usuarioActual: Ember.computed('model.usuarioActual', function () {
@@ -60,8 +60,8 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
   terminoDeVotar: Ember.computed('votosRestantes', function () {
     return this.get('votosRestantes') === 0;
   }),
-  puedeCerrar: Ember.computed('terminoDeVotar','reunion.estado',function(){
-    return this.get('terminoDeVotar') && !this.get('reunion.estado')==='CON_MINUTA';
+  puedeCerrar: Ember.computed('terminoDeVotar','reunion.status',function(){
+    return this.get('terminoDeVotar') && !(this.get('reunion.status')==='CON_MINUTA');
 }),
   actions: {
     sumarVoto(tema){
@@ -105,7 +105,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
           this.set('esObligatorio',(this.get('temaAEditar.obligatoriedad')==='OBLIGATORIO'));
           this.set('mostrandoFormularioXTemaNuevo', false);
           this.set('mostrandoFormularioDeEdicion', true);
-        })
+        });
       });
     },
     mostrarFormulario(){
@@ -117,7 +117,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
             idDeReunion: this._idDeReunion(),
             idDeAutor: this._idDeUsuarioActual(),
            }));
-        })
+        });
       });
 
     },
@@ -137,7 +137,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       }
       else{
         this._updatearTemaYRecargar();
-      };
+      }
     },
     pedirConfirmacionDeBorrado(temaABorrar){
       this.set('mostrandoFormularioDeEdicion',false);
@@ -167,7 +167,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
 
     fueModificado(tema){
-      debugger;
       return tema.autor.login !== tema.ultimoModificador.login;
     }
   },

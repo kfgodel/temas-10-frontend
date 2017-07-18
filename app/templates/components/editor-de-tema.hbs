@@ -5,11 +5,10 @@
 
     <div class="row ">
 
-      {{tenpines/input-text label='Titulo' value=tema.titulo col='s4' }}
+      {{tenpines/input-text label='Título' value=tema.titulo col='s4' }}
       <div class="col s4">
-        <label>Duracion</label>
+        <label>Duración</label>
         {{#power-select
-          ariaLabel="Duración"
           options=nombreDeDuraciones
           selected=tema.duracion
           noMatchesMessage=""
@@ -27,7 +26,7 @@
           {{materialize/check-box label='Obligatorio' checked=esObligatorio checkboxClasses="filled-in" disabled=checkboxDeshabilitado}}
         </div>
       </div>
-      {{tenpines/text-area label='Descripcion' value=tema.descripcion col='s12' }}
+      {{tenpines/text-area label='Descripción' value=tema.descripcion col='s12' }}
     </div>
 
   </div>
