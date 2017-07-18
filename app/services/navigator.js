@@ -51,7 +51,7 @@ export default Ember.Service.extend(TransitionerInjected, {
   },
 
   navigateToVerMinuta(reunionId){
-    this._navigateTo('minuta.ver', reunionId)
+    this._navigateTo('minuta.ver', reunionId);
   },
 
   // PRIVATE

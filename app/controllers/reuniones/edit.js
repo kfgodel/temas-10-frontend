@@ -105,7 +105,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
           this.set('esObligatorio',(this.get('temaAEditar.obligatoriedad')==='OBLIGATORIO'));
           this.set('mostrandoFormularioXTemaNuevo', false);
           this.set('mostrandoFormularioDeEdicion', true);
-        })
+        });
       });
     },
     mostrarFormulario(){
@@ -117,7 +117,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
             idDeReunion: this._idDeReunion(),
             idDeAutor: this._idDeUsuarioActual(),
            }));
-        })
+        });
       });
 
     },
@@ -137,7 +137,7 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
       }
       else{
         this._updatearTemaYRecargar();
-      };
+      }
     },
     pedirConfirmacionDeBorrado(temaABorrar){
       this.set('mostrandoFormularioDeEdicion',false);
@@ -167,7 +167,6 @@ export default Ember.Controller.extend(ReunionServiceInjected, TemaServiceInject
     },
 
     fueModificado(tema){
-      debugger;
       return tema.autor.login !== tema.ultimoModificador.login;
     }
   },
