@@ -45,4 +45,26 @@
   padding: 20px;
 }
 
+tab1 {
+  margin-left: 4em;
+}
+
+tab2 {
+  margin-left: 8em;
+}
+
+tab3 {
+  margin-left: 12em;
+}
+
+pre {-moz-tab-size: 16;
+  font-family: arial;
+  margin: 0 0;} /* Code for Firefox */
+pre {-o-tab-size: 16;
+  font-family: arial;
+  margin: 0 0;} /* Code for Opera 10.6-12.1 */
+pre {tab-size: 16;
+  font-family: arial;
+  margin: 0 0;}
+
 @import "ember-power-select";

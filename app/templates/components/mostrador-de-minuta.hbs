@@ -1,47 +1,32 @@
 <!--<div class="col s8">-->
-  <!--<div class="card" >-->
+  <div class="card" >
     <!--<a class="btn-floating waves-effect waves-light red right"  {{!action cerrarMinuta}}><i class="material-icons ">close</i></a>-->
 
-
-    Formato del template:
-    <br>
-    <br>
-    Fecha: {{minuta.fecha}}
-    <br>
-    <br>
-    Minuteador:
-    <br>
-    <br>
+    Formato del template: <br>
+    Fecha: {{minuta.fecha}} <br>
+    Minuteador: <br>
     Vinieron:   <br>
     {{#each minuta.asistentes as |user|}}
-      {{user.name}} <br>
+      <pre>    {{user.name}} </pre>
     {{/each}}
-    <br>
-    <br>
     Temas propuestos:  <br>
     {{#each minuta.temas as |temaDeMinuta|}}
-      {{temaDeMinuta.tema.titulo}} <br>
+      <pre>    {{temaDeMinuta.tema.titulo}} </pre>
     {{/each}}
-    <br>
-    <br>
-    Action items de la reunion anterior:
-    <br>
-    <br>
+    Action items de la reunion anterior: <br>
     Detalle de los temas hablados:
     {{#each minuta.temas as |temaDeMinuta|}}
-      <br>
-      <br>
-      Nombre: {{temaDeMinuta.tema.titulo}}
-      <br>
-      <br>
-      Conclusion: <br>
-      {{temaDeMinuta.conclusion}}
-      <br>
-      <br>
-      Actions Items:
-      <br>
-      <br>
-      Responsable: Tarea a la que se compromete
+      <pre>    Nombre: {{temaDeMinuta.tema.titulo}} </pre>
+      <pre>        Conclusion: </pre>
+      <pre>            {{temaDeMinuta.conclusion}} </pre>
+      <pre>        Actions Items: </pre>
+      {{#each temaDeMinuta.actionItems as |actionItem|}}
+        <pre>            {{actionItem.descripcion}} </pre>
+        <pre>            Responsables: </pre>
+        {{#each actionItem.responsables as |responsable|}}
+          <pre>                {{responsable.name}} </pre>
+        {{/each}}
+      {{/each}}
     {{/each}}
-  <!--</div>-->
+  </div>
 <!--</div>-->
