@@ -1,9 +1,13 @@
 <!--<div class="col s8">-->
-  <div class="card" >
-    <!--<a class="btn-floating waves-effect waves-light red right"  {{!action cerrarMinuta}}><i class="material-icons ">close</i></a>-->
+{{#copy-button
+  clipboardText=texto
+  classNames='waves-effect waves-light btn'
+}}
+  Copy
+{{/copy-button}}
 
-    Formato del template: <br>
-    Fecha: {{minuta.fecha}} <br>
+  <div class="card" >
+    Fecha: {{minuta.fecha}}<br>
     Minuteador: <br>
     Vinieron:   <br>
     {{#each minuta.asistentes as |user|}}
@@ -17,7 +21,7 @@
     Detalle de los temas hablados:
     {{#each minuta.temas as |temaDeMinuta|}}
       <pre>    Nombre: {{temaDeMinuta.tema.titulo}} </pre>
-      <pre>        Conclusion: </pre>
+      <pre>        Conclusión: </pre>
       <pre>            {{temaDeMinuta.conclusion}} </pre>
       <pre>        Actions Items: </pre>
       {{#each temaDeMinuta.actionItems as |actionItem|}}

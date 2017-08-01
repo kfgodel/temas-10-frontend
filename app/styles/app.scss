@@ -59,12 +59,17 @@ tab3 {
 
 pre {-moz-tab-size: 16;
   font-family: arial;
-  margin: 0 0;} /* Code for Firefox */
+  margin: 0 0;
+} /* Code for Firefox */
+
 pre {-o-tab-size: 16;
   font-family: arial;
-  margin: 0 0;} /* Code for Opera 10.6-12.1 */
+  margin: 0 0;
+} /* Code for Opera 10.6-12.1 */
+
 pre {tab-size: 16;
   font-family: arial;
-  margin: 0 0;}
+  margin: 0 0;
+}
 
 @import "ember-power-select";
