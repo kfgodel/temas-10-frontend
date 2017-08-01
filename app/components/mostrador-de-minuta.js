@@ -37,10 +37,10 @@ export default Ember.Component.extend({
         });
       });
 
-      temasTratados += temaTratado;
+      temasTratados += temaTratado + enter;
     });
 
-    return fecha + minuteador + asistentes + temasPropuestos + temasTratados;
+    return fecha + enter + minuteador + enter + asistentes + enter + temasPropuestos + enter + temasTratados;
   })
 
 });
