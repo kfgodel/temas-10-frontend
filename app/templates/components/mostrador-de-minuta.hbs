@@ -1,36 +1,14 @@
-<!--<div class="col s8">-->
 {{#copy-button
-  clipboardText=texto
+  clipboardText=textoMinuta
   classNames='waves-effect waves-light btn'
 }}
-  Copy
+  Copiar
 {{/copy-button}}
 
-  <div class="card" >
-    Fecha: {{minuta.fecha}}<br>
-    Minuteador: <br>
-    Vinieron:   <br>
-    {{#each minuta.asistentes as |user|}}
-      <pre>    {{user.name}} </pre>
-    {{/each}}
-    Temas propuestos:  <br>
-    {{#each minuta.temas as |temaDeMinuta|}}
-      <pre>    {{temaDeMinuta.tema.titulo}} </pre>
-    {{/each}}
-    Action items de la reunion anterior: <br>
-    Detalle de los temas hablados:
-    {{#each minuta.temas as |temaDeMinuta|}}
-      <pre>    Nombre: {{temaDeMinuta.tema.titulo}} </pre>
-      <pre>        Conclusión: </pre>
-      <pre>            {{temaDeMinuta.conclusion}} </pre>
-      <pre>        Actions Items: </pre>
-      {{#each temaDeMinuta.actionItems as |actionItem|}}
-        <pre>            {{actionItem.descripcion}} </pre>
-        <pre>            Responsables: </pre>
-        {{#each actionItem.responsables as |responsable|}}
-          <pre>                {{responsable.name}} </pre>
-        {{/each}}
-      {{/each}}
-    {{/each}}
+<div class="card" >
+  <div class="card-content">
+    <span>
+      <p class="text-viewer">{{textoMinuta}}</p>
+    </span>
   </div>
-<!--</div>-->
+</div>

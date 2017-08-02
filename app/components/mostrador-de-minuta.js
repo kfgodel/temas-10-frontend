@@ -2,11 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-  texto: Ember.computed('minuta', function (){
+  textoMinuta: Ember.computed('minuta', function (){
     let tab = "    ";
     let enter = "\n";
     let minuta = this.get('minuta');
-    let txt = "";
+
     let fecha = "Fecha: " + minuta.fecha + enter;
     let minuteador = "Minuteador: " + minuta.minuteador + enter;
 
@@ -24,8 +24,9 @@ export default Ember.Component.extend({
     let temaTratado = "";
     minuta.temas.forEach(function(tema){
       temaTratado = tab + tema.tema.titulo + enter;
-      temaTratado += tab + tab + "Conclusion:" + enter;
-      temaTratado += tab + tab + tab + tema.conclusion + enter;
+      temaTratado += tab + tab + "Conclusión:" + enter;
+      let conclusionIdentada = tema.conclusion.replace(/\n/g, "\n" + tab + tab + tab);
+      temaTratado += tab + tab + tab + conclusionIdentada + enter;
       temaTratado += tab + tab + "Action Items:" + enter;
 
       tema.actionItems.forEach(function(actionItem){
