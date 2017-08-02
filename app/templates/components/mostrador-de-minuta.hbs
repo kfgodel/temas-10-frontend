@@ -1,10 +1,13 @@
-{{#copy-button
-  clipboardText=textoMinuta
-  classNames='waves-effect waves-light btn'
-}}
-  Copiar
-{{/copy-button}}
-{{tenpines/material-button label='Descargar txt' click=(action 'descargarTxt')}}
+<div class="card-action right-align">
+  {{#copy-button
+    clipboardText=textoMinuta
+    classNames='waves-effect waves-light btn'
+  }}
+    <i class="material-icons right">content_copy</i>
+    Copiar
+  {{/copy-button}}
+  {{tenpines/material-button label='Descargar txt' click=(action 'descargarTxt') icon="cloud_download" iconPositionClass="right"}}
+</div>
 
 <div class="card" >
   <div class="card-content">
