@@ -42,6 +42,15 @@ export default Ember.Component.extend({
     });
 
     return fecha + enter + minuteador + enter + asistentes + enter + temasPropuestos + enter + temasTratados;
-  })
+  }),
+
+  actions: {
+    descargarTxt() {
+      let minuta = this.get('minuta');
+      let nombreArchivo = "Minuta " + minuta.fecha + ".txt";
+      let blob = new Blob([this.get("textoMinuta")], {type: "text/plain;charset=utf-8"});
+      saveAs(blob, nombreArchivo);
+    }
+  }
 
 });
