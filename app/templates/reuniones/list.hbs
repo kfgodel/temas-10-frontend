@@ -52,7 +52,9 @@
             {{/link-to}}
 
           {{/if}}
-            {{tenpines/material-button label='Borrar' click=(action 'borrarReunion' reunionSeleccionada) flat=true}}
+
+          {{tenpines/material-button label='Borrar' click=(action 'borrarReunion' reunionSeleccionada) flat=true}}
+
           {{#if reunionMinuteada}}
             {{tenpines/material-button label='Editar' click=(action 'editarReunion' reunionSeleccionada) }}
           {{/if}}
