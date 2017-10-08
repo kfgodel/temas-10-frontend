@@ -12,7 +12,7 @@
 
   <groupId>ar.com.kfgodel</groupId>
   <artifactId>temas-10p-frontend</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Temas-10p Frontend</name>
