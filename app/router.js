@@ -7,7 +7,6 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function () {
-
   this.route('login');
   this.route('engaging-session');
 
@@ -16,13 +15,22 @@ Router.map(function () {
     this.route('edit', {path: "reuniones/:reunion_id"});
     this.route('list');
   });
+  this.route('minuta', function(){
+    this.route('asistentes', {path:":reunion_id/asistentes"});
+    this.route('conclusiones', {path:":reunion_id/conclusiones"});
+    this.route('ver', {path:":reunion_id/ver"});
+    this.route('ver-txt', {path:":reunion_id/ver-txt"});
+  });
 
   this.route('users', function () {
     this.route('edit', {path: "edit/:user_id"});
   });
 
+  this.route('temas-generales');
+
   // Catches all the malformed urls (not matching previous routes)
   this.route('wrong-paths', {path: '/*badUrl'});
+  this.route('ver-minuta');
 });
 
 export default Router;

@@ -20,6 +20,7 @@ export default Ember.Route.extend(AuthenticatedRoute, ReunionServiceInjected, Us
         })
     }).then((model)=> {
       this._usarInstanciasDeTemas(model.reunion, model.usuarioActual);
+
       return model;
     });
   },
@@ -32,6 +33,6 @@ export default Ember.Route.extend(AuthenticatedRoute, ReunionServiceInjected, Us
       var temaConComportamiento = Tema.create(temaDeLaReunion);
       temasDeLaReunion[i] = temaConComportamiento;
     }
-  }
+  },
 
 });

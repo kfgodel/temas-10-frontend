@@ -31,13 +31,27 @@ export default Ember.Service.extend(TransitionerInjected, {
   navigateToReunionesEdit(user){
     this._navigateTo('reuniones.edit', user);
   },
+  navigateToAsistentesMinuta(reunion){
+    this._navigateTo('minuta.asistentes', reunion);
+  },
 
+  navigateToConclusiones(reunionId){
+    this._navigateTo('minuta.conclusiones', reunionId);
+  },
 
   navigateToUsers(){
     this._navigateTo('users');
   },
   navigateToUsersEdit(user){
     this._navigateTo('users.edit', user);
+  },
+
+  navigateToTemasGenerales(){
+    this._navigateTo('temas-generales');
+  },
+
+  navigateToVerMinuta(reunionId){
+    this._navigateTo('minuta.ver', reunionId);
   },
 
   // PRIVATE
